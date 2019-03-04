@@ -10,6 +10,6 @@ public class TimeTrackerMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v("Author", "Author: Tuukka Juusela - Email: <tuukka.juusela@tuni.fi>");
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_time_tracker_main);
     }
 }
