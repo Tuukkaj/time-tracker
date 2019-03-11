@@ -33,7 +33,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
 import tuni.tuukka.sheets.ReadSheet;
 
-public class AccountHelper extends AppCompatActivity{
+public class AccountHelper extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
@@ -177,5 +177,15 @@ public class AccountHelper extends AppCompatActivity{
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(
                 requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        //Do nothing
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        // Do nothing
     }
 }
