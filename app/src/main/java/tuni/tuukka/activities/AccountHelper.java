@@ -26,9 +26,12 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
+import java.util.List;
+
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
+import tuni.tuukka.sheets.ReadSheet;
 
 public class AccountHelper extends AppCompatActivity{
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -54,7 +57,8 @@ public class AccountHelper extends AppCompatActivity{
                 break;
 
             case R.id.getSheets:
-
+                new ReadSheet(credential).execute();
+                Log.d("tuksu", "buttonClick: ");
                 break;
         }
     }
