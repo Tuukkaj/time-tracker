@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tuni.tuukka" >
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +20,5 @@
             </intent-filter>
         </activity>
     </application>
-    <user-permission android:name="android.permission.INTERNET"/>
-    <user-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <user-permission android:name="android.permission.GET_ACCOUNTS"/>
+
 </manifest>
