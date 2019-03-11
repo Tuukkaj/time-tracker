@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -43,8 +45,6 @@ public class AccountHelper extends AppCompatActivity{
     }
 
     public void login() {
-
-
         if(!isGoogleServicesAvailable()) {
             Log.d("tuksu", "AVAIVABLE: " + isGoogleServicesAvailable());
         } else if(credential.getSelectedAccountName() == null) {
@@ -121,6 +121,13 @@ public class AccountHelper extends AppCompatActivity{
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(
                 requestCode, permissions, grantResults, this);
+    }
+
+    private boolean isDeviceOnline() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+
+        return (info != null && info.isConnected());
     }
 
     private boolean isGoogleServicesAvailable() {
