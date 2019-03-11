@@ -11,5 +11,6 @@ public class TimeTrackerMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.v("Author", "Author: Tuukka Juusela - Email: <tuukka.juusela@tuni.fi>");
         setContentView(R.layout.activity_time_tracker_main);
+        GoogleAcccountHelper.login(this);
     }
 }
