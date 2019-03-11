@@ -44,6 +44,7 @@ public class AccountHelper extends AppCompatActivity{
     }
     public void login() {
         if(!isGoogleServicesAvailable()) {
+            acquirePlayServices();
             Log.d("tuksu", "AVAIVABLE: " + isGoogleServicesAvailable());
         } else if(credential.getSelectedAccountName() == null) {
             Log.d("tuksu", "Selected account name null" + credential.getSelectedAccountName());
@@ -73,6 +74,16 @@ public class AccountHelper extends AppCompatActivity{
         } else {
             EasyPermissions.requestPermissions(this, "This app needs to access your Google account (via Contacts)",
                     REQUEST_PERMISSION_GET_ACCOUNTS, Manifest.permission.GET_ACCOUNTS);
+        }
+    }
+
+    private void acquirePlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+
+        final int connectionStatusCode = apiAvailability.isGooglePlayServicesAvailable(this);
+
+        if(apiAvailability.isUserResolvableError(connectionStatusCode)) {
+            Toast.makeText(this, "You can do this!", Toast.LENGTH_SHORT).show();
         }
     }
 
