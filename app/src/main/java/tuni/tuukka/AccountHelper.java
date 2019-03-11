@@ -15,7 +15,7 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class GoogleAcccountHelper extends AppCompatActivity{
+public class AccountHelper extends AppCompatActivity{
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     private static final String PREF_ACCOUNT_NAME = "accountName";
