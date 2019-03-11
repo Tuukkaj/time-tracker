@@ -16,6 +16,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -43,14 +45,12 @@ public class AccountHelper extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_helper);
         credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), SheetsScopes.all()).setBackOff(new ExponentialBackOff());
-
-        login();
     }
 
     public void buttonClick(View v) {
         switch (v.getId()) {
             case R.id.getAccount:
-
+                login();
                 break;
 
             case R.id.getSheets:
@@ -71,8 +71,8 @@ public class AccountHelper extends AppCompatActivity{
             Toast.makeText(this, "Everything works fine! Time to make connection to your Sheets", Toast.LENGTH_SHORT).show();
         }
 
-        Log.d("tuksu", "CREDENTIAL: " + credential.getSelectedAccount());
-
+        ((TextView) findViewById(R.id.accountName)).setText(credential.getSelectedAccountName());
+        ((Button) findViewById(R.id.getSheets)).setVisibility(View.VISIBLE);
     }
 
     @AfterPermissionGranted(REQUEST_PERMISSION_GET_ACCOUNTS)
