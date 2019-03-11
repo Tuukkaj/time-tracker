@@ -3,6 +3,7 @@ package tuni.tuukka;
 import android.Manifest;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -83,8 +84,14 @@ public class AccountHelper extends AppCompatActivity{
         final int connectionStatusCode = apiAvailability.isGooglePlayServicesAvailable(this);
 
         if(apiAvailability.isUserResolvableError(connectionStatusCode)) {
-            Toast.makeText(this, "You can do this!", Toast.LENGTH_SHORT).show();
+            showPlayServiceErrorDialog(connectionStatusCode);
         }
+    }
+
+    private void showPlayServiceErrorDialog(final int connectionStatusCode) {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        Dialog dialog = apiAvailability.getErrorDialog(this, connectionStatusCode, REQUEST_GOOGLE_PLAY_SERVICES);
+        dialog.show();
     }
 
     //Tests
