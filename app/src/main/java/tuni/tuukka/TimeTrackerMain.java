@@ -1,5 +1,7 @@
 package tuni.tuukka;
 
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,6 @@ public class TimeTrackerMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Log.v("Author", "Author: Tuukka Juusela - Email: <tuukka.juusela@tuni.fi>");
         setContentView(R.layout.activity_time_tracker_main);
-        GoogleAcccountHelper.login(this);
+        startActivity(new Intent(this, GoogleAcccountHelper.class));
     }
 }
