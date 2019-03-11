@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,19 +36,20 @@ public class AccountHelper extends AppCompatActivity{
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        credential = GoogleAccountCredential.usingOAuth2(
+                getApplicationContext(), SheetsScopes.all()).setBackOff(new ExponentialBackOff());
 
         login();
     }
 
     public void login() {
-        credential = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(), SheetsScopes.all()).setBackOff(new ExponentialBackOff());
+
 
         if(!isGoogleServicesAvailable()) {
             Log.d("tuksu", "AVAIVABLE: " + isGoogleServicesAvailable());
         } else if(credential.getSelectedAccountName() == null) {
-            Log.d("tuksu", "Selected account name null");
-            chooseAccount(credential);
+            Log.d("tuksu", "Selected account name null" + credential.getSelectedAccountName());
+            chooseAccount();
         }
 
         Log.d("tuksu", "CREDENTIAL: " + credential.getSelectedAccount());
@@ -55,12 +57,13 @@ public class AccountHelper extends AppCompatActivity{
     }
 
     @AfterPermissionGranted(REQUEST_PERMISSION_GET_ACCOUNTS)
-    private void chooseAccount(GoogleAccountCredential credential ) {
+    private void chooseAccount() {
         if(EasyPermissions.hasPermissions(this, Manifest.permission.GET_ACCOUNTS)) {
             String accountName = getPreferences(Context.MODE_PRIVATE).getString(PREF_ACCOUNT_NAME, null);
 
             if(accountName != null) {
                 credential.setSelectedAccountName(accountName);
+                Log.d("tuksu", "GET ACCOUNT NAME " + credential.getSelectedAccountName());
                 login();
             } else {
                 startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
@@ -87,9 +90,9 @@ public class AccountHelper extends AppCompatActivity{
 
             case REQUEST_ACCOUNT_PICKER:
                 Log.d("tuksu", "OnActivityResult - REQUEST_ACCOUNT_PICKER");
-                if(requestCode == RESULT_OK && data != null && data.getExtras() != null) {
+                if(resultCode == RESULT_OK && data != null && data.getExtras() != null) {
                     String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
-
+                    Log.d("tuksu", "OnActivityResult - REQUEST_ACCOUNT_PICKER p2 " + accountName);
                     if(accountName != null) {
                         SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = settings.edit();
@@ -97,7 +100,7 @@ public class AccountHelper extends AppCompatActivity{
                         editor.putString(PREF_ACCOUNT_NAME, accountName);
                         editor.apply();
                         credential.setSelectedAccountName(accountName);
-
+                        Log.d("tuksu", "OnActivityResult - REQUEST_ACCOUNT_PICKER p2 " + credential.getSelectedAccountName());
                         login();
                     }
                 }
@@ -109,6 +112,15 @@ public class AccountHelper extends AppCompatActivity{
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
     }
 
     private boolean isGoogleServicesAvailable() {
