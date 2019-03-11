@@ -3,6 +3,8 @@ package tuni.tuukka;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -19,6 +21,13 @@ public class AccountHelper extends AppCompatActivity{
     static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     private static final String PREF_ACCOUNT_NAME = "accountName";
+
+    @Override
+    public void onCreate (Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        login();
+    }
 
     public void login() {
         GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
