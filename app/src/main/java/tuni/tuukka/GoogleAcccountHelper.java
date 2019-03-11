@@ -8,10 +8,10 @@ import com.google.android.gms.common.GoogleApiAvailability;
 
 public class GoogleAcccountHelper {
     public static void login(Context context) {
-        Log.d("tuksu", "AVAIVABLE: " +isGoogleServicesAvaivable(context));
+        Log.d("tuksu", "AVAIVABLE: " + isGoogleServicesAvailable(context));
     }
 
-    private static boolean isGoogleServicesAvaivable(Context context) {
+    private static boolean isGoogleServicesAvailable(Context context) {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
 
         final int connectionStatusCode = apiAvailability.isGooglePlayServicesAvailable(context);
