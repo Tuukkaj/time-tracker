@@ -1,4 +1,4 @@
-package tuni.tuukka;
+package tuni.tuukka.activities;
 
 import android.Manifest;
 import android.accounts.AccountManager;

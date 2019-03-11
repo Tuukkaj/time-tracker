@@ -1,9 +1,12 @@
-package tuni.tuukka;
+package tuni.tuukka.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
+import tuni.tuukka.R;
+import tuni.tuukka.activities.AccountHelper;
 
 public class TimeTrackerMain extends AppCompatActivity {
 
