@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -25,6 +26,7 @@ import com.google.api.services.sheets.v4.SheetsScopes;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
+import tuni.tuukka.R;
 
 public class AccountHelper extends AppCompatActivity{
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -39,9 +41,22 @@ public class AccountHelper extends AppCompatActivity{
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account_helper);
         credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), SheetsScopes.all()).setBackOff(new ExponentialBackOff());
 
         login();
+    }
+
+    public void buttonClick(View v) {
+        switch (v.getId()) {
+            case R.id.getAccount:
+
+                break;
+
+            case R.id.getSheets:
+
+                break;
+        }
     }
     public void login() {
         if(!isGoogleServicesAvailable()) {
