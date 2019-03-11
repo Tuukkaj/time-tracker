@@ -38,18 +38,20 @@ public class AccountHelper extends AppCompatActivity{
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        credential = GoogleAccountCredential.usingOAuth2(
-                getApplicationContext(), SheetsScopes.all()).setBackOff(new ExponentialBackOff());
+        credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), SheetsScopes.all()).setBackOff(new ExponentialBackOff());
 
         login();
     }
-
     public void login() {
         if(!isGoogleServicesAvailable()) {
             Log.d("tuksu", "AVAIVABLE: " + isGoogleServicesAvailable());
         } else if(credential.getSelectedAccountName() == null) {
             Log.d("tuksu", "Selected account name null" + credential.getSelectedAccountName());
             chooseAccount();
+        } else if(!isDeviceOnline()) {
+            Toast.makeText(this, "Connect to internet", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Everything works fine! Time to make connection to your Sheets", Toast.LENGTH_SHORT).show();
         }
 
         Log.d("tuksu", "CREDENTIAL: " + credential.getSelectedAccount());
@@ -74,6 +76,23 @@ public class AccountHelper extends AppCompatActivity{
         }
     }
 
+    //Tests
+
+    private boolean isDeviceOnline() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        return (info != null && info.isConnected());
+    }
+
+    private boolean isGoogleServicesAvailable() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+
+        final int connectionStatusCode = apiAvailability.isGooglePlayServicesAvailable(this);
+
+        return connectionStatusCode == ConnectionResult.SUCCESS;
+    }
+
+    // Overridden methods
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -121,20 +140,5 @@ public class AccountHelper extends AppCompatActivity{
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(
                 requestCode, permissions, grantResults, this);
-    }
-
-    private boolean isDeviceOnline() {
-        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = manager.getActiveNetworkInfo();
-
-        return (info != null && info.isConnected());
-    }
-
-    private boolean isGoogleServicesAvailable() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-
-        final int connectionStatusCode = apiAvailability.isGooglePlayServicesAvailable(this);
-
-        return connectionStatusCode == ConnectionResult.SUCCESS;
     }
 }
