@@ -1,12 +1,17 @@
 package tuni.tuukka;
 
 import android.Manifest;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -18,9 +23,14 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class AccountHelper extends AppCompatActivity{
-    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
     static final int REQUEST_ACCOUNT_PICKER = 1000;
+    static final int REQUEST_AUTHORIZATION = 1001;
+    static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
+    static final int REQUEST_PERMISSION_GET_ACCOUNTS = 1003;
+
     private static final String PREF_ACCOUNT_NAME = "accountName";
+
+    GoogleAccountCredential credential;
 
     @Override
     public void onCreate (Bundle savedInstanceState) {
@@ -30,7 +40,7 @@ public class AccountHelper extends AppCompatActivity{
     }
 
     public void login() {
-        GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
+        credential = GoogleAccountCredential.usingOAuth2(
                 getApplicationContext(), SheetsScopes.all()).setBackOff(new ExponentialBackOff());
 
         if(!isGoogleServicesAvailable()) {
@@ -61,6 +71,45 @@ public class AccountHelper extends AppCompatActivity{
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQUEST_GOOGLE_PLAY_SERVICES:
+                Log.d("tuksu", "OnActivityResult - REQUEST_GOOGLE_PLAY_SERVICES");
+                if(requestCode != RESULT_OK) {
+                    Toast.makeText(this, "Please install Google Play services from App store. Then relaunch app.", Toast.LENGTH_SHORT).show();
+                } else {
+                    login();
+                }
+                break;
+
+            case REQUEST_ACCOUNT_PICKER:
+                Log.d("tuksu", "OnActivityResult - REQUEST_ACCOUNT_PICKER");
+                if(requestCode == RESULT_OK && data != null && data.getExtras() != null) {
+                    String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+
+                    if(accountName != null) {
+                        SharedPreferences settings = getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = settings.edit();
+
+                        editor.putString(PREF_ACCOUNT_NAME, accountName);
+                        editor.apply();
+                        credential.setSelectedAccountName(accountName);
+
+                        login();
+                    }
+                }
+                break;
+
+            case REQUEST_AUTHORIZATION:
+                if(resultCode == RESULT_OK) {
+                    login();
+                }
+                break;
+        }
+    }
 
     private boolean isGoogleServicesAvailable() {
         GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
