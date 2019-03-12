@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 
 import tuni.tuukka.R;
-import tuni.tuukka.activities.AccountHelper;
 
 public class TimeTrackerMain extends AppCompatActivity {
 
