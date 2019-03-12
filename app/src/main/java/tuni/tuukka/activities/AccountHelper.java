@@ -20,12 +20,16 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthException;
+import com.google.android.gms.auth.GoogleAuthUtil;
+import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
+import java.io.IOException;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -73,6 +77,18 @@ public class AccountHelper extends AppCompatActivity implements EasyPermissions.
             Toast.makeText(this, "Connect to internet", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Everything works fine! Time to make connection to your Sheets", Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            String token = GoogleAuthUtil.getToken(this, credential.getSelectedAccount(), SheetsScopes.SPREADSHEETS);
+            Log.d("tuksu", "login: ACCESS TOKEN WOHOO" + token);
+        } catch (IOException e) {
+            Log.d("tuksu", "login: IOEXCEPTION" + e.getMessage() + e.getCause());
+        } catch (UserRecoverableAuthException e) {
+            Log.d("tuksu", "login: IOEXCEPTION" + e.getMessage() + e.getCause());
+            startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
+        } catch (GoogleAuthException e) {
+            Log.d("tuksu", "GoogleAuthException " + e.getMessage() + e.getCause());
         }
 
         ((TextView) findViewById(R.id.accountName)).setText(credential.getSelectedAccountName());
