@@ -2,7 +2,6 @@ package tuni.tuukka.activities;
 
 import android.Manifest;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +9,8 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -20,22 +18,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.GoogleAuthException;
-import com.google.android.gms.auth.GoogleAuthUtil;
-import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
-import java.io.IOException;
 import java.util.List;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
-import tuni.tuukka.sheets.ReadSheet;
+import tuni.tuukka.sheets.TokenAcquired;
 
 public class AccountHelper extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
     static final int REQUEST_ACCOUNT_PICKER = 1000;
@@ -61,8 +55,15 @@ public class AccountHelper extends AppCompatActivity implements EasyPermissions.
                 break;
 
             case R.id.getSheets:
-                new ReadSheet(credential).execute();
                 Log.d("tuksu", "buttonClick: ");
+                AccountManager am = AccountManager.get(this);
+                Bundle options = new Bundle();
+                am.getAuthToken(credential.getSelectedAccount(), "oauth2:" + SheetsScopes.SPREADSHEETS,
+                        options, this, new TokenAcquired(),
+                        new Handler(message -> {
+                            Log.d("tuksu", "ErrorHandler: " + message );
+                            return true;
+                        }));
                 break;
         }
     }
@@ -78,19 +79,6 @@ public class AccountHelper extends AppCompatActivity implements EasyPermissions.
         } else {
             Toast.makeText(this, "Everything works fine! Time to make connection to your Sheets", Toast.LENGTH_SHORT).show();
         }
-
-        try {
-            String token = GoogleAuthUtil.getToken(this, credential.getSelectedAccount(), SheetsScopes.SPREADSHEETS);
-            Log.d("tuksu", "login: ACCESS TOKEN WOHOO" + token);
-        } catch (IOException e) {
-            Log.d("tuksu", "login: IOEXCEPTION" + e.getMessage() + e.getCause());
-        } catch (UserRecoverableAuthException e) {
-            Log.d("tuksu", "login: IOEXCEPTION" + e.getMessage() + e.getCause());
-            startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
-        } catch (GoogleAuthException e) {
-            Log.d("tuksu", "GoogleAuthException " + e.getMessage() + e.getCause());
-        }
-
         ((TextView) findViewById(R.id.accountName)).setText(credential.getSelectedAccountName());
         ((Button) findViewById(R.id.getSheets)).setVisibility(View.VISIBLE);
     }
