@@ -1,19 +1,9 @@
 package tuni.tuukka.sheets;
 
 import android.os.AsyncTask;
-
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.sheets.v4.Sheets;
-import com.google.api.services.sheets.v4.model.UpdateValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.util.Arrays;
 import java.util.List;
 
 public class SheetReader extends AsyncTask<Void, Void, Void> {
@@ -41,9 +31,7 @@ public class SheetReader extends AsyncTask<Void, Void, Void> {
         if (values == null || values.isEmpty()) {
             System.out.println("No data found.");
         } else {
-            System.out.println("Name, Major");
             for (List row : values) {
-                // Print columns A and E, which correspond to indices 0 and 4.
                 System.out.print(row);
             }
         }
