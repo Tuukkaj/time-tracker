@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.List;
 
 public class TokenAcquired implements AccountManagerCallback<Bundle> {
     @Override
@@ -21,6 +22,8 @@ public class TokenAcquired implements AccountManagerCallback<Bundle> {
             Bundle bundle = accountManagerFuture.getResult();
             String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
             Token.setToken(token);
+            new SheetReader().execute();
+
             Log.d("tuksu", "run: GOT KEY" + token);
         } catch (AuthenticatorException e) {
             e.printStackTrace();
