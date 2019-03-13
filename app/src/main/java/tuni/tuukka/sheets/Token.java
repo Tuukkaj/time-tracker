@@ -1,19 +1,16 @@
 package tuni.tuukka.sheets;
 
+import java.util.Optional;
+
 public class Token {
-    private static String token;
+    private static Optional<String> token;
     private static boolean tokenSet = false;
 
-    String getToken() {
+    Optional<String> getToken() {
         return token;
     }
 
     void setToken(String token) {
-        this.token = token;
-        tokenSet = true;
-    }
-
-    public boolean isTokenSet() {
-        return tokenSet;
+        this.token = Optional.of(token);
     }
 }
