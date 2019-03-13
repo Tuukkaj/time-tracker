@@ -6,11 +6,11 @@ public class Token {
     private static Optional<String> token;
     private static boolean tokenSet = false;
 
-    Optional<String> getToken() {
+    static Optional<String> getToken() {
         return token;
     }
 
-    void setToken(String token) {
-        this.token = Optional.of(token);
+    static void setToken(String newToken) {
+        token = Optional.of(newToken);
     }
 }
