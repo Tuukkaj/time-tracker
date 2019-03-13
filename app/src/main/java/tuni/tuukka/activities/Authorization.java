@@ -31,7 +31,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
 import tuni.tuukka.sheets.TokenAcquired;
 
-public class AccountHelper extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public class Authorization extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
     static final int REQUEST_ACCOUNT_PICKER = 1000;
     static final int REQUEST_AUTHORIZATION = 1001;
     static final int REQUEST_GOOGLE_PLAY_SERVICES = 1002;
