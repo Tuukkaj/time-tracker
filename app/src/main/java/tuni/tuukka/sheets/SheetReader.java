@@ -26,13 +26,17 @@ public class SheetReader extends AsyncTask<Void, Void, Void> {
     }
 
 
-    public List<List<Object>> readFromSheet(String sheetID, String token){
+    public List<List<Object>> readFromSheet(String sheetID, String range){
         try{
-            Sheets service = getSheetsService(token);
-            ValueRange response = service.spreadsheets().values()
-                    .get(sheetID, "Sheet1")
-                    .execute();
-            return response.getValues();
+            if(Token.getToken().isPresent()) {
+                Sheets service = SheetsService.createSheetService(Token.getToken().get());
+                ValueRange response = service.spreadsheets().values()
+                        .get(sheetID, range)
+                        .execute();
+                return response.getValues();
+            } else {
+                return null;
+            }
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -41,7 +45,7 @@ public class SheetReader extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        List<List<Object>> values = readFromSheet("11CrV_44G1pAWHT4SgZ3q7p7xeY-_3L16i4XugniOsqM", Token.getToken().get());
+        List<List<Object>> values = readFromSheet("11CrV_44G1pAWHT4SgZ3q7p7xeY-_3L16i4XugniOsqM", "Sheet1");
 
         if (values == null || values.isEmpty()) {
             System.out.println("No data found.");
