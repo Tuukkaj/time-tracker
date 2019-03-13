@@ -17,15 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SheetReader extends AsyncTask<Void, Void, Void> {
-    private final String APPLICATION_NAME = "time-tracker";
-    private final String SHEET_ID = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms";
-
-    public Sheets getSheetsService(String token) throws IOException, GeneralSecurityException {
-        Credential credential = new GoogleCredential().setAccessToken(token);
-        return new Sheets.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential).setApplicationName(APPLICATION_NAME).build();
-    }
-
-
     public List<List<Object>> readFromSheet(String sheetID, String range){
         try{
             if(Token.getToken().isPresent()) {
