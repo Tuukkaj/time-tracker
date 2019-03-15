@@ -47,9 +47,6 @@ public class SheetReader extends AsyncTask<SheetRequestsInfo, Void, Void> {
             System.out.println("No data found.");
         } else {
             System.out.println(values);
-            for (List row : values) {
-                System.out.print(row);
-            }
         }
         return null;
     }
