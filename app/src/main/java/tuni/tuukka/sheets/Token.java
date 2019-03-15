@@ -14,7 +14,7 @@ public class Token extends Application {
     private static Optional<String> token;
     private static boolean tokenSet = false;
 
-    static Optional<String> getToken() {
+    public static Optional<String> getToken() {
         return token;
     }
 
