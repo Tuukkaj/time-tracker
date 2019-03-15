@@ -1,14 +1,21 @@
 package tuni.tuukka.sheets;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 public class SheetReader extends AsyncTask<SheetRequestsInfo, Void, Void> {
+    AuthenticationFailed call;
+
+    public SheetReader(AuthenticationFailed call) {
+        this.call = call;
+    }
     public List<List<Object>> readFromSheet(String sheetID, String range){
         try{
             if(Token.getToken().isPresent()) {
@@ -20,7 +27,12 @@ public class SheetReader extends AsyncTask<SheetRequestsInfo, Void, Void> {
             } else {
                 return null;
             }
-        } catch (Exception e){
+        } catch (GoogleJsonResponseException e){
+            System.out.println("EXCPETION GoogleJsonResponseException");
+            call.call();
+        }  catch (IOException e) {
+            e.printStackTrace();
+        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
         return null;
