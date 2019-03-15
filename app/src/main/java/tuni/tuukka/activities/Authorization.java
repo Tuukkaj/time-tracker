@@ -20,15 +20,23 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.HttpTransport;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
 import java.util.List;
+import java.util.Optional;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
+import tuni.tuukka.sheets.AccountAuthorization;
+import tuni.tuukka.sheets.SheetReader;
+import tuni.tuukka.sheets.SheetRequestsInfo;
+import tuni.tuukka.sheets.Token;
 import tuni.tuukka.sheets.TokenAcquired;
 
 public class Authorization extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
@@ -55,15 +63,17 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 break;
 
             case R.id.getSheets:
-                Log.d("tuksu", "buttonClick: ");
-                AccountManager am = AccountManager.get(this);
-                Bundle options = new Bundle();
-                am.getAuthToken(credential.getSelectedAccount(), "oauth2:" + SheetsScopes.SPREADSHEETS,
-                        options, this, new TokenAcquired(),
-                        new Handler(message -> {
-                            Log.d("tuksu", "ErrorHandler: " + message );
-                            return true;
-                        }));
+                Optional<String> token = Token.loadToken(this);
+
+                if (token.isPresent()) {
+                    new SheetReader(() -> AccountAuthorization.authorize(this, credential))
+                            .execute(new SheetRequestsInfo(
+                                    "11CrV_44G1pAWHT4SgZ3q7p7xeY-_3L16i4XugniOsqM",
+                                    "Sheet1"));
+
+                } else {
+                    AccountAuthorization.authorize(this,credential);
+                }
                 break;
         }
     }
