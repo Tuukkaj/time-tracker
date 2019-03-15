@@ -30,10 +30,10 @@ public class Token extends Application {
         setToken(token);
     }
 
-    static String loadToken(Context context) {
+    public static Optional<String> loadToken(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
         String token = preferences.getString(TOKEN_NAME, null);
         setToken(token);
-        return token;
+        return Optional.ofNullable(token);
     }
 }
