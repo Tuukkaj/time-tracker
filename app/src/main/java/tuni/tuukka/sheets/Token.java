@@ -19,7 +19,7 @@ public class Token extends Application {
     }
 
     static void setToken(String newToken) {
-        token = Optional.of(newToken);
+        token = Optional.ofNullable(newToken);
     }
 
     static void saveToken(String token, Context context) {
@@ -27,10 +27,13 @@ public class Token extends Application {
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(TOKEN_NAME, token);
         editor.apply();
+        setToken(token);
     }
 
     static String loadToken(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
-        return preferences.getString(TOKEN_NAME, null);
+        String token = preferences.getString(TOKEN_NAME, null);
+        setToken(token);
+        return token;
     }
 }
