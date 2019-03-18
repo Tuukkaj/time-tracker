@@ -21,15 +21,18 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
+import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
 import tuni.tuukka.google.AccountAuthorization;
+import tuni.tuukka.google.DriveFolder;
 import tuni.tuukka.google.SheetReader;
 import tuni.tuukka.google.SheetRequestsInfo;
 import tuni.tuukka.google.Token;
@@ -48,7 +51,11 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_helper);
-        credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), SheetsScopes.all()).setBackOff(new ExponentialBackOff());
+        Set<String> scopes = DriveScopes.all();
+        //scopes.add(SheetsScopes.DRIVE);
+       //scopes.add(SheetsScopes.SPREADSHEETS);
+        System.out.println(scopes);
+        credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), scopes).setBackOff(new ExponentialBackOff());
     }
 
     public void buttonClick(View v) {
@@ -58,7 +65,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 break;
 
             case R.id.getSheets:
-                Optional<String> token = Token.loadToken(this);
 
                 if (token.isPresent()) {
                     new SheetReader(() -> AccountAuthorization.authorize(this, credential))
