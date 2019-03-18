@@ -10,7 +10,7 @@ import com.google.api.services.sheets.v4.Sheets;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
-public class GoogleService {
+public class DriveService {
     private static final String APP_NAME = "time-tracker";
 
     protected static Drive createDriveService(String token) throws IOException, GeneralSecurityException {
