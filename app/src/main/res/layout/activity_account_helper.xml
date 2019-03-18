@@ -27,4 +27,12 @@
         android:onClick="buttonClick"
         android:text="@string/accouthelper_btn_getSheet"/>
 
+    <Button android:id="@+id/getFiles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:onClick="buttonClick"
+        android:text="get files"/>
+
 </LinearLayout>
