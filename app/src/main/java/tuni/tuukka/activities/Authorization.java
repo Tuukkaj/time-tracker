@@ -59,6 +59,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     }
 
     public void buttonClick(View v) {
+        Optional<String> token = Token.loadToken(this);
         switch (v.getId()) {
             case R.id.getAccount:
                 login();
@@ -75,6 +76,19 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
+                break;
+
+            case R.id.getFiles:
+                if (token.isPresent()) {
+                    new SheetReader(() -> AccountAuthorization.authorize(this, credential))
+                            .execute(new SheetRequestsInfo(
+                                    "11CrV_44G1pAWHT4SgZ3q7p7xeY-_3L16i4XugniOsqM",
+                                    "Sheet1"));
+
+                } else {
+                    AccountAuthorization.authorize(this,credential);
+                }
+                new DriveFolder().execute();
                 break;
         }
     }
