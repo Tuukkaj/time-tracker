@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,10 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
-import com.google.api.client.http.HttpTransport;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.sheets.v4.SheetsScopes;
 
@@ -33,11 +29,10 @@ import java.util.Optional;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
-import tuni.tuukka.sheets.AccountAuthorization;
-import tuni.tuukka.sheets.SheetReader;
-import tuni.tuukka.sheets.SheetRequestsInfo;
-import tuni.tuukka.sheets.Token;
-import tuni.tuukka.sheets.TokenAcquired;
+import tuni.tuukka.google.AccountAuthorization;
+import tuni.tuukka.google.SheetReader;
+import tuni.tuukka.google.SheetRequestsInfo;
+import tuni.tuukka.google.Token;
 
 public class Authorization extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
     static final int REQUEST_ACCOUNT_PICKER = 1000;

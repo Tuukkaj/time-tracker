@@ -1,7 +1,5 @@
-package tuni.tuukka.sheets;
+package tuni.tuukka.google;
 
-import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;

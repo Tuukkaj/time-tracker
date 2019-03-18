@@ -1,4 +1,4 @@
-package tuni.tuukka.sheets;
+package tuni.tuukka.google;
 
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;

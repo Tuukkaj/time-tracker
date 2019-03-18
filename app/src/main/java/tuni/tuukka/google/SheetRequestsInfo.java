@@ -1,4 +1,4 @@
-package tuni.tuukka.sheets;
+package tuni.tuukka.google;
 
 public class SheetRequestsInfo {
     String sheetID;
