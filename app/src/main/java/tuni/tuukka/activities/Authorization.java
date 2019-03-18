@@ -80,15 +80,10 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    new SheetReader(() -> AccountAuthorization.authorize(this, credential))
-                            .execute(new SheetRequestsInfo(
-                                    "11CrV_44G1pAWHT4SgZ3q7p7xeY-_3L16i4XugniOsqM",
-                                    "Sheet1"));
-
+                    new DriveFolder().execute("get-folders");
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
-                new DriveFolder().execute();
                 break;
         }
     }
