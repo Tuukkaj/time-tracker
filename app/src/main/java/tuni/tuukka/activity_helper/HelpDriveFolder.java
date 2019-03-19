@@ -27,7 +27,10 @@ public class HelpDriveFolder {
 
             @Override
             public void onNoFolderFound() {
-                System.out.println("NO FOLDER FOUND, SOMETHING SHOULD BE DONE HERE");
+                System.out.println("NO FOLDER, CREATING NEW");
+                DriveFolder.createNewFolder("time-tracker",
+                        () -> activity.runOnUiThread(() -> Toast.makeText(activity,
+                                "Creating folder failed", Toast.LENGTH_SHORT).show()));
             }
         };
     }
