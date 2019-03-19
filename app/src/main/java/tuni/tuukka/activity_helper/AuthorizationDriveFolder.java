@@ -15,8 +15,7 @@ public class AuthorizationDriveFolder {
     public static DriveFolder.FolderCheckReady interfaceGetFiles(Activity activity, GoogleAccountCredential credential) {
         return new DriveFolder.FolderCheckReady() {
             @Override
-            public void doAfter(boolean result, String folderId) {
-                System.out.println(result);
+            public void doAfter(String folderId) {
                 System.out.println(folderId);
             }
 
@@ -28,7 +27,7 @@ public class AuthorizationDriveFolder {
 
             @Override
             public void onNoFolderFound() {
-
+                System.out.println("NO FOLDER FOUND, SOMETHING SHOULD BE DONE HERE");
             }
         };
     }
