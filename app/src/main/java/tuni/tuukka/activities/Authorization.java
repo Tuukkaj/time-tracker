@@ -82,7 +82,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.getFiles:
                 if (token.isPresent()) {
                     Activity activity = this;
-
                     DriveFolder.FolderCheckReady checkReady = new DriveFolder.FolderCheckReady() {
                         @Override
                         public void doAfter(boolean result) {
@@ -91,7 +90,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
                         @Override
                         public void onFail() {
-                            Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show();
+                            activity.runOnUiThread(() ->Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show());
                             AccountAuthorization.authorize(activity, credential);
                         }
                     };
