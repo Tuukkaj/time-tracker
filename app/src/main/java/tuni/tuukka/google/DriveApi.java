@@ -95,7 +95,7 @@ public class DriveApi {
     }
 
     public interface ListFilesInterface {
-        public List<File> useFileList(List<File> file);
+        void useFileList(List<File> file);
     }
 
     public interface CheckFoldersInterface {
