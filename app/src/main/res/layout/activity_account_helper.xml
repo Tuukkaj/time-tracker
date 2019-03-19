@@ -34,5 +34,12 @@
         android:visibility="invisible"
         android:onClick="buttonClick"
         android:text="get files"/>
+    <Button android:id="@+id/getFolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:onClick="buttonClick"
+        android:text="getFolder"/>
 
 </LinearLayout>
