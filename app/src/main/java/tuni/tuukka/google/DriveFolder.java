@@ -52,7 +52,7 @@ public class DriveFolder {
         }.execute();
     }
 
-    public static void createNewFolder(String name) {
+    public static void createNewFolder(String name, CreateNewFolderInterface folderInterface) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -65,8 +65,10 @@ public class DriveFolder {
                     System.out.println(createdFolder.getId());
                 } catch (IOException e) {
                     e.printStackTrace();
+                    folderInterface.onError();
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
+                    folderInterface.onError();
                 }
                 return null;
             }
@@ -77,5 +79,9 @@ public class DriveFolder {
         void doAfter(String folderId);
         void onFail();
         void onNoFolderFound();
+    }
+
+    public interface CreateNewFolderInterface {
+        void onError();
     }
 }
