@@ -11,13 +11,13 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 public class DriveFolder {
-    public static void checkFolders(FolderCheckReady checkReady) {
+    public static void checkFolders(FolderCheckReady checkReady, String folderName) {
         AsyncTask task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
-                    List<File> files = drive.files().list().setQ("name = 'Arkisto'").execute().getFiles();
+                    List<File> files = drive.files().list().setQ("name = '"+folderName+"'").execute().getFiles();
                     System.out.println(files);
                     checkReady.doAfter(true);
                 } catch (IOException e) {
