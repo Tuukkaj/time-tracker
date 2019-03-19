@@ -2,7 +2,6 @@ package tuni.tuukka.activities;
 
 import android.Manifest;
 import android.accounts.AccountManager;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +22,6 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.sheets.v4.SheetsScopes;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +30,7 @@ import java.util.Set;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
+import tuni.tuukka.activity_helper.HelpDriveFolder;
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DriveFolder;
 import tuni.tuukka.google.SheetReader;
@@ -81,21 +80,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    Activity activity = this;
-                    DriveFolder.FolderCheckReady checkReady = new DriveFolder.FolderCheckReady() {
-                        @Override
-                        public void doAfter(boolean result) {
-                            System.out.println(result);
-                        }
-
-                        @Override
-                        public void onFail() {
-                            activity.runOnUiThread(() ->Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show());
-                            AccountAuthorization.authorize(activity, credential);
-                        }
-                    };
-
-                    DriveFolder.checkFolders(checkReady);
+                    DriveFolder.checkFolders(HelpDriveFolder.interfaceGetFiles(this,credential), "time-tracker");
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
