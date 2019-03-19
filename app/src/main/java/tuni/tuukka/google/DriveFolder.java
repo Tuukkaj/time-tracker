@@ -75,6 +75,29 @@ public class DriveFolder {
         }.execute();
     }
 
+    public static void listFiles(ListFilesInterface time) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    Drive drive = DriveService.createDriveService(Token.getToken().get());
+                    List<File> files = drive.files().list().setQ("name contains 'time-tracker' and mimeType = 'application/vnd.google-apps.spreadsheet'").execute().getFiles();
+
+                }catch (IOException e) {
+                    e.printStackTrace();
+                } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
+                }
+
+                return null;
+            }
+        }.execute();
+    }
+
+    public interface ListFilesInterface {
+        public List<File> useFileList(List<File> file);
+    }
+
     public interface CheckFoldersInterface {
         void doAfter(String folderId);
         void onFail();
