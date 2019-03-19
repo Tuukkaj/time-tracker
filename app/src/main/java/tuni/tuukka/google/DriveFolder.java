@@ -2,9 +2,15 @@ package tuni.tuukka.google;
 
 import android.os.AsyncTask;
 
+import com.google.api.client.json.JsonObjectParser;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
@@ -18,8 +24,20 @@ public class DriveFolder {
                 try {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
                     List<File> files = drive.files().list().setQ("name = '"+folderName+"'").execute().getFiles();
-                    System.out.println(files);
-                    checkReady.doAfter(true);
+                    try {
+                        JSONArray array = new JSONArray(files.toString());
+                        JSONObject object = array.getJSONObject(0);
+                        String name = object.getString("name");
+                        String folderId = object.getString("id");
+                        System.out.println("Name: " + name + " Id" + folderId);
+                        if(name.equalsIgnoreCase(folderName)) {
+                            checkReady.doAfter(folderId);
+                        } else {
+                            checkReady.onNoFolderFound();
+                        }
+                    } catch (JSONException e) {
+                        checkReady.onNoFolderFound();
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                     checkReady.onFail();
