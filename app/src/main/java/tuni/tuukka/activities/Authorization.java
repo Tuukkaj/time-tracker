@@ -2,6 +2,7 @@ package tuni.tuukka.activities;
 
 import android.Manifest;
 import android.accounts.AccountManager;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -80,7 +81,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    Context context = this;
+                    Activity activity = this;
 
                     DriveFolder.FolderCheckReady checkReady = new DriveFolder.FolderCheckReady() {
                         @Override
@@ -90,7 +91,8 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
                         @Override
                         public void onFail() {
-                            Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show();
+                            AccountAuthorization.authorize(activity, credential);
                         }
                     };
 
