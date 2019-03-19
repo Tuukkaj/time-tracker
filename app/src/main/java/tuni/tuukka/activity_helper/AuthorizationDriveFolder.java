@@ -8,6 +8,9 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DriveFolder;
 
+/**
+ * Holds interface implementations for Authorization Activity
+ */
 public class AuthorizationDriveFolder {
     public static DriveFolder.FolderCheckReady interfaceGetFiles(Activity activity, GoogleAccountCredential credential) {
         return new DriveFolder.FolderCheckReady() {
