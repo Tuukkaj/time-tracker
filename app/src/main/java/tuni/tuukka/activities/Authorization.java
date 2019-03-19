@@ -66,7 +66,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 break;
 
             case R.id.getSheets:
-
                 if (token.isPresent()) {
                     new SheetReader(() -> AccountAuthorization.authorize(this, credential))
                             .execute(new SheetRequestsInfo(
@@ -80,11 +79,21 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    DriveApi.checkFolders(DriveApiHelper.interfaceGetFiles(this,credential), "time-tracker");
+                    DriveApi.listFiles(file -> System.out.println(file));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
                 break;
+
+            case R.id.getFolder: {
+                if(token.isPresent()) {
+                    DriveApi.checkFolders(DriveApiHelper.interfaceGetFiles(this,credential), "time-tracker");
+                } else{
+                    AccountAuthorization.authorize(this,credential);
+                }
+
+                break;
+            }
         }
     }
     public void login() {
