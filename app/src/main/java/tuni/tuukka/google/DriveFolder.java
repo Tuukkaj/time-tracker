@@ -19,12 +19,13 @@ public class DriveFolder {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
                     List<File> files = drive.files().list().setQ("name = 'Arkisto'").execute().getFiles();
                     System.out.println(files);
-                    //PLACEHOLDER
                     checkReady.doAfter(true);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    checkReady.onFail();
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
+                    checkReady.onFail();
                 } catch (Exception e) {
                     e.printStackTrace();
                     checkReady.onFail();
