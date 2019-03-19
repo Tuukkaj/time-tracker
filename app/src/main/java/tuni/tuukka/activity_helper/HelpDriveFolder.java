@@ -16,6 +16,7 @@ public class HelpDriveFolder {
         return new DriveFolder.CheckFoldersInterface() {
             @Override
             public void doAfter(String folderId) {
+                System.out.println("FOLDER FOUND, CAN PROCEED");
                 System.out.println(folderId);
             }
 
