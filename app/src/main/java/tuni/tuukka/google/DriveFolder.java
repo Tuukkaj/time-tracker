@@ -2,8 +2,6 @@ package tuni.tuukka.google;
 
 import android.os.AsyncTask;
 
-import com.google.api.client.json.JsonObjectParser;
-import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
@@ -17,7 +15,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 public class DriveFolder {
-    public static void checkFolders(FolderCheckReady checkReady, String folderName) {
+    public static void checkFolders(CheckFoldersInterface checkReady, String folderName) {
         AsyncTask task = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -53,7 +51,7 @@ public class DriveFolder {
         }.execute();
     }
 
-    public interface FolderCheckReady {
+    public interface CheckFoldersInterface {
         void doAfter(String folderId);
         void onFail();
         void onNoFolderFound();

@@ -12,8 +12,8 @@ import tuni.tuukka.google.DriveFolder;
  * Holds interface implementations for Authorization Activity
  */
 public class HelpDriveFolder {
-    public static DriveFolder.FolderCheckReady interfaceGetFiles(Activity activity, GoogleAccountCredential credential) {
-        return new DriveFolder.FolderCheckReady() {
+    public static DriveFolder.CheckFoldersInterface interfaceGetFiles(Activity activity, GoogleAccountCredential credential) {
+        return new DriveFolder.CheckFoldersInterface() {
             @Override
             public void doAfter(String folderId) {
                 System.out.println(folderId);
