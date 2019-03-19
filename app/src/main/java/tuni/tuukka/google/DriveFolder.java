@@ -36,7 +36,8 @@ public class DriveFolder {
     }
 
     public interface FolderCheckReady {
-        void doAfter(boolean result, String folderId);
+        void doAfter(String folderId);
         void onFail();
+        void onNoFolderFound();
     }
 }
