@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DriveApi {
     public static void checkFolders(CheckFoldersInterface checkReady, String folderName) {
-        AsyncTask task = new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
