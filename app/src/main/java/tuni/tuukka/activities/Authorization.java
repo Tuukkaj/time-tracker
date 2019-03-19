@@ -30,7 +30,7 @@ import java.util.Set;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
-import tuni.tuukka.activity_helper.HelpDriveFolder;
+import tuni.tuukka.activity_helper.DriveApiHelper;
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DriveApi;
 import tuni.tuukka.google.SheetReader;
@@ -80,7 +80,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    DriveApi.checkFolders(HelpDriveFolder.interfaceGetFiles(this,credential), "time-tracker");
+                    DriveApi.checkFolders(DriveApiHelper.interfaceGetFiles(this,credential), "time-tracker");
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
