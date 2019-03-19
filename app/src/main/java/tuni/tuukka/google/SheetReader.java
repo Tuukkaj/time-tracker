@@ -50,4 +50,8 @@ public class SheetReader extends AsyncTask<SheetRequestsInfo, Void, Void> {
         }
         return null;
     }
+
+    public interface AuthenticationFailed {
+        public void call();
+    }
 }
