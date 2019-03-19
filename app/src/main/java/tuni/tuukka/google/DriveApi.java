@@ -82,7 +82,7 @@ public class DriveApi {
                 try {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
                     List<File> files = drive.files().list().setQ("name contains 'time-tracker' and mimeType = 'application/vnd.google-apps.spreadsheet'").execute().getFiles();
-
+                    time.useFileList(files);
                 }catch (IOException e) {
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
