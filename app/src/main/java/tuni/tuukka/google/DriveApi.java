@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
-public class DriveFolder {
+public class DriveApi {
     public static void checkFolders(CheckFoldersInterface checkReady, String folderName) {
         AsyncTask task = new AsyncTask<Void, Void, Void>() {
             @Override
