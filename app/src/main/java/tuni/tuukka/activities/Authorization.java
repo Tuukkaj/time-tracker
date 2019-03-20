@@ -23,6 +23,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -68,10 +69,10 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getSheets:
                 if (token.isPresent()) {
-                    SheetApi.readRange(new SheetRequestsInfo(
+                    SheetApi.readRanges(new SheetRequestsInfo(
                             "1d3j44WT3eDjZMXST77fOSf70bEKaQFACwEirrRrg6FQ",
-                            "worktime"),
-                            SheetApiHelper.interfaceReadRange(this,credential));
+                            Arrays.asList("worktime!A:D", "categories!A:A")),
+                            SheetApiHelper.interfaceReadRanges(this,credential));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
