@@ -33,7 +33,7 @@ import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DriveApi;
-import tuni.tuukka.google.SheetReader;
+import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
 import tuni.tuukka.google.Token;
 
@@ -67,7 +67,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getSheets:
                 if (token.isPresent()) {
-                    new SheetReader(() -> AccountAuthorization.authorize(this, credential))
+                    new SheetApi(() -> AccountAuthorization.authorize(this, credential))
                             .execute(new SheetRequestsInfo(
                                     "11CrV_44G1pAWHT4SgZ3q7p7xeY-_3L16i4XugniOsqM",
                                     "Sheet1"));

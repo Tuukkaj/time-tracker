@@ -10,10 +10,10 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.List;
 
-public class SheetReader extends AsyncTask<SheetRequestsInfo, Void, Void> {
+public class SheetApi extends AsyncTask<SheetRequestsInfo, Void, Void> {
     AuthenticationFailed call;
 
-    public SheetReader(AuthenticationFailed call) {
+    public SheetApi(AuthenticationFailed call) {
         this.call = call;
     }
     public List<List<Object>> readFromSheet(String sheetID, String range){
