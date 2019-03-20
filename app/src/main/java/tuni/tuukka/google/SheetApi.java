@@ -79,7 +79,7 @@ public class SheetApi {
         void onSuccess(List<ValueRange> values);
     }
     public interface ReadRangeInterface {
-        public void onFail();
-        public void onSuccess(List<List<Object>> values);
+        void onFail();
+        void onSuccess(List<List<Object>> values);
     }
 }
