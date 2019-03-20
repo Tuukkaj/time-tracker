@@ -11,7 +11,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 public class SheetApi {
-    public static void readSheet(SheetRequestsInfo info, ReadSheetInterface sheetInterface) {
+    public static void readRange(SheetRequestsInfo info, ReadSheetInterface sheetInterface) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -21,6 +21,7 @@ public class SheetApi {
                         ValueRange response = service.spreadsheets().values()
                                 .get(info.sheetID, info.range)
                                 .execute();
+                        sheetInterface.onSuccess(response.getValues());
                         System.out.println(response.getValues());
                     } else {
                         return null;
