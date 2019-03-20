@@ -10,7 +10,7 @@ import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.SheetApi;
 
 public class SheetApiHelper {
-    public SheetApi.ReadSheetInterface interfaceReadSheet(Activity activity, GoogleAccountCredential credential) {
+    public static SheetApi.ReadSheetInterface interfaceReadSheet(Activity activity, GoogleAccountCredential credential) {
         return new SheetApi.ReadSheetInterface() {
             @Override
             public void onFail() {
