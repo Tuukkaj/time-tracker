@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.model.BatchClearValuesResponse;
+import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.io.IOException;
@@ -42,6 +44,41 @@ public class SheetApi {
         }.execute();
     }
 
+    public static void readRanges(SheetRequestsInfo info, ReadRangesInterface readInterface) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try{
+                    if(Token.getToken().isPresent()) {
+                        Sheets service = SheetsService.createSheetService(Token.getToken().get());
+                        BatchGetValuesResponse response = service.spreadsheets().values()
+                                .batchGet(info.sheetID)
+                                .setRanges(info.ranges)
+                                .execute();
+                        readInterface.onSuccess(response.getValueRanges());
+                    } else {
+                        return null;
+                    }
+                } catch (GoogleJsonResponseException e){
+                    e.printStackTrace();
+                    System.out.println("EXCPETION GoogleJsonResponseException");
+                    readInterface.onFail();
+                }  catch (IOException e) {
+                    readInterface.onFail();
+                    e.printStackTrace();
+                } catch (GeneralSecurityException e) {
+                    readInterface.onFail();
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    public interface ReadRangesInterface {
+        void onFail();
+        void onSuccess(List<ValueRange> values);
+    }
     public interface ReadSheetInterface {
         public void onFail();
         public void onSuccess(List<List<Object>> values);
