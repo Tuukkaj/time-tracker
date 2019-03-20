@@ -10,8 +10,8 @@ import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.SheetApi;
 
 public class SheetApiHelper {
-    public static SheetApi.ReadSheetInterface interfaceReadSheet(Activity activity, GoogleAccountCredential credential) {
-        return new SheetApi.ReadSheetInterface() {
+    public static SheetApi.ReadRangeInterface interfaceReadRange(Activity activity, GoogleAccountCredential credential) {
+        return new SheetApi.ReadRangeInterface() {
             @Override
             public void onFail() {
                 AccountAuthorization.authorize(activity, credential);

@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.sheets.v4.Sheets;
-import com.google.api.services.sheets.v4.model.BatchClearValuesResponse;
 import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
@@ -13,7 +12,7 @@ import java.security.GeneralSecurityException;
 import java.util.List;
 
 public class SheetApi {
-    public static void readRange(SheetRequestsInfo info, ReadSheetInterface sheetInterface) {
+    public static void readRange(SheetRequestsInfo info, ReadRangeInterface sheetInterface) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -79,7 +78,7 @@ public class SheetApi {
         void onFail();
         void onSuccess(List<ValueRange> values);
     }
-    public interface ReadSheetInterface {
+    public interface ReadRangeInterface {
         public void onFail();
         public void onSuccess(List<List<Object>> values);
     }
