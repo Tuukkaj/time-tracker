@@ -39,12 +39,15 @@ public class DriveApi {
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
+                    System.out.println("1");
                     checkReady.onFail();
                 } catch (GeneralSecurityException e) {
                     e.printStackTrace();
+                    System.out.println("2");
                     checkReady.onFail();
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("3");
                     checkReady.onFail();
                 }
                 return null;
@@ -64,9 +67,11 @@ public class DriveApi {
                     File createdFolder = drive.files().create(folder).setFields("id").execute();
                     System.out.println(createdFolder.getId());
                 } catch (IOException e) {
+                    System.out.println("1");
                     e.printStackTrace();
                     folderInterface.onError();
                 } catch (GeneralSecurityException e) {
+                    System.out.println("2");
                     e.printStackTrace();
                     folderInterface.onError();
                 }
