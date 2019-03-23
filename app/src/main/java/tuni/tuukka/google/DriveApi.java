@@ -58,7 +58,7 @@ public class DriveApi {
         }.execute();
     }
 
-    public static void createNewFolder(String name, CreateNewFolderInterface folderInterface) {
+    public static void createNewFolder(OnFail onFail) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -68,11 +68,11 @@ public class DriveApi {
                 } catch (IOException e) {
                     System.out.println("1");
                     e.printStackTrace();
-                    folderInterface.onError();
+                    onFail.onFail();
                 } catch (GeneralSecurityException e) {
                     System.out.println("2");
                     e.printStackTrace();
-                    folderInterface.onError();
+                    onFail.onFail();
                 }
                 return null;
             }
