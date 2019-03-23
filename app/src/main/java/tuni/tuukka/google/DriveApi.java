@@ -114,7 +114,6 @@ public class DriveApi {
                     } else {
                         File newFolder = createFolder(drive);
                         createSheet(drive,name,newFolder.getId());
-                        //doAfter.onNoFolderFound();
                     }
 
                 } catch (IOException e) {
@@ -166,7 +165,7 @@ public class DriveApi {
     public interface CreateNewSheetInterface {
         void onFail();
         void onFileAlreadyCreated();
-        void onSuccess();
+        void onSuccess(File file);
     }
 
     public interface ListFilesInterface {
