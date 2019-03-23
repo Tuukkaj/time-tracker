@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SheetApi {
-    public static void readRange(SheetRequestsInfo info, ReadRangeInterface sheetInterface) {
+    public static void readRange(SheetRequestsInfo info, DoAfter<List<List<Object>>> sheetInterface) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -136,10 +136,5 @@ public class SheetApi {
     public interface DoAfter<T> {
         void onFail();
         void onSuccess(T value);
-    }
-
-    public interface ReadRangeInterface {
-        void onFail();
-        void onSuccess(List<List<Object>> values);
     }
 }
