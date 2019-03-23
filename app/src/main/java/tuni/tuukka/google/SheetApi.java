@@ -81,7 +81,7 @@ public class SheetApi {
         }.execute();
     }
 
-    public static void appendSheet(TimeData data) {
+    public static void appendSheet(DataTime data) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
