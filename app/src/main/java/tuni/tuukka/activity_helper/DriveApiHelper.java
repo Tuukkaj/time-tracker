@@ -16,9 +16,9 @@ public class DriveApiHelper {
     public static DriveApi.CheckFoldersInterface interfaceGetFiles(Activity activity, GoogleAccountCredential credential) {
         return new DriveApi.CheckFoldersInterface() {
             @Override
-            public void doAfter(String folderId) {
+            public void onSuccess(String value) {
                 System.out.println("FOLDER FOUND, CAN PROCEED");
-                System.out.println(folderId);
+                System.out.println(value);
             }
 
             @Override
