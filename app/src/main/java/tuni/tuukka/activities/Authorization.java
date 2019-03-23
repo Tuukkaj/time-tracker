@@ -41,6 +41,9 @@ import tuni.tuukka.google.SheetRequestsInfo;
 import tuni.tuukka.google.Token;
 
 /**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @since       1.8
+ *
  * Handles everything related to authorization of Google Account.
  */
 public class Authorization extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
