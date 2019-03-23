@@ -30,7 +30,7 @@ public class DriveApiHelper {
             @Override
             public void onNoFolderFound() {
                 System.out.println("NO FOLDER, CREATING NEW");
-                DriveApi.createNewFolder("time-tracker",
+                DriveApi.createNewFolder(
                         () -> activity.runOnUiThread(() -> Toast.makeText(activity,
                                 "Creating folder failed", Toast.LENGTH_SHORT).show()));
             }

@@ -24,6 +24,8 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -82,10 +84,10 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                             Arrays.asList("worktime!A:D", "categories!A:A")),
                             SheetApiHelper.interfaceReadRanges(this,credential));*/
 
-                    SheetApi.clearRow(new SheetRequestsInfo(
+                    /*SheetApi.clearRow(new SheetRequestsInfo(
                             "1d3j44WT3eDjZMXST77fOSf70bEKaQFACwEirrRrg6FQ",
                             "worktime!1:1"),
-                            SheetApiHelper.doAfterClear(this,credential));
+                            SheetApiHelper.doAfterClear(this,credential));*/
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -93,7 +95,20 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    DriveApi.listFiles(file -> System.out.println(file));
+                    SheetApi.readRange(
+                            new SheetRequestsInfo("1opRoR4XLYN-fI6rBrPb7Q1LQaiIbh1Ze6UI89LRISl4", "time"),
+                            SheetApiHelper.interfaceReadRange(this,credential));
+
+                    /*
+                    ArrayList<String> ranges = new ArrayList<String>();
+                    ranges.add("time");
+                    ranges.add("category");
+                    SheetApi.readRanges(
+                            new SheetRequestsInfo("1opRoR4XLYN-fI6rBrPb7Q1LQaiIbh1Ze6UI89LRISl4", ranges)
+                    ,SheetApiHelper.interfaceReadRanges(this,credential));
+                    */
+
+                   // DriveApi.listFiles(file -> System.out.println(file));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -101,7 +116,8 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFolder: {
                 if(token.isPresent()) {
-                    DriveApi.createNewSheet("secondTest", DriveApiHelper.interfaceCreateSheet(this, credential));
+                    DriveApi.listFiles(value -> value.forEach(file -> System.out.println(file)));
+                    //DriveApi.createNewSheet("secondTest", DriveApiHelper.interfaceCreateSheet(this, credential));
                     //DriveApi.checkFolders(DriveApiHelper.interfaceGetFiles(this,credential), "time-tracker");
                     //DriveApi.listFiles(file -> System.out.println(file));
                 } else{
