@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.services.drive.model.File;
 
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DriveApi;
@@ -32,6 +33,28 @@ public class DriveApiHelper {
                 DriveApi.createNewFolder("time-tracker",
                         () -> activity.runOnUiThread(() -> Toast.makeText(activity,
                                 "Creating folder failed", Toast.LENGTH_SHORT).show()));
+            }
+        };
+    }
+
+    public static DriveApi.CreateNewSheetInterface interfaceCreateSheet(Activity activity, GoogleAccountCredential credential) {
+        return new DriveApi.CreateNewSheetInterface() {
+            @Override
+            public void onFail() {
+                activity.runOnUiThread(() -> Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show());
+                AccountAuthorization.authorize(activity, credential);
+            }
+
+            @Override
+            public void onFileAlreadyCreated() {
+                //Do something with ui here
+                System.out.println("FILE ALREADY CREATED");
+            }
+
+            @Override
+            public void onSuccess(File file) {
+                //Do something with ui here
+                System.out.println("FILE CREATED" + file);
             }
         };
     }
