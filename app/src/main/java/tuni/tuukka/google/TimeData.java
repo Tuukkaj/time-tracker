@@ -1,6 +1,6 @@
 package tuni.tuukka.google;
 
-public class AppendData {
+public class TimeData {
     public long start;
     public long end;
     public String category;
@@ -8,8 +8,8 @@ public class AppendData {
     public String range;
     public SheetRequestsInfo info;
 
-    public AppendData(){}
-    public AppendData(long start, long end, String category, String comment, SheetRequestsInfo info) {
+    public TimeData(){}
+    public TimeData(long start, long end, String category, String comment, SheetRequestsInfo info) {
         this.start = start;
         this.end = end;
         this.category = category;

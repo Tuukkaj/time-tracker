@@ -19,13 +19,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApi;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -36,8 +33,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
-import tuni.tuukka.activity_helper.SheetApiHelper;
 import tuni.tuukka.google.AccountAuthorization;
+import tuni.tuukka.google.TimeData;
 import tuni.tuukka.google.DriveApi;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
@@ -69,14 +66,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 break;
 
             case R.id.getSheets:
-                if (token.isPresent()) {/*
-                    AppendData data = new AppendData(
-                            new Long("1553153796000"),
-                            System.currentTimeMillis(),
-                            "Time",
-                            "Figuring out how timestamp works",
-                            new SheetRequestsInfo("1d3j44WT3eDjZMXST77fOSf70bEKaQFACwEirrRrg6FQ","worktime"));
-                    SheetApi.appendSheet(data);*/
+                if (token.isPresent()) {
 
                     /*
                     SheetApi.readRanges(new SheetRequestsInfo(
@@ -95,9 +85,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    SheetApi.readRange(
-                            new SheetRequestsInfo("1opRoR4XLYN-fI6rBrPb7Q1LQaiIbh1Ze6UI89LRISl4", "time"),
-                            SheetApiHelper.interfaceReadRange(this,credential));
+                    SheetApi.appendSheet(new TimeData(1,2,"moi", "hoi", new SheetRequestsInfo("1OUgPgh272sTLKeDw1WB54-NSQl_3QbSdIbC5AFQ3v9g", "Sheet1!F:F")));
 
                     /*
                     ArrayList<String> ranges = new ArrayList<String>();
@@ -116,8 +104,8 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFolder: {
                 if(token.isPresent()) {
-                    DriveApi.listFiles(value -> value.forEach(file -> System.out.println(file)));
-                    //DriveApi.createNewSheet("secondTest", DriveApiHelper.interfaceCreateSheet(this, credential));
+                   // DriveApi.listFiles(value -> value.forEach(file -> System.out.println(file)));
+                    DriveApi.createNewSheet("toimi2 ", DriveApiHelper.interfaceCreateSheet(this, credential));
                     //DriveApi.checkFolders(DriveApiHelper.interfaceGetFiles(this,credential), "time-tracker");
                     //DriveApi.listFiles(file -> System.out.println(file));
                 } else{
