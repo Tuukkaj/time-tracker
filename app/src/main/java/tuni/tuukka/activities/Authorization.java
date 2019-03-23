@@ -108,14 +108,21 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         if(!isGoogleServicesAvailable()) {
             acquirePlayServices();
             Log.d("tuksu", "AVAIVABLE: " + isGoogleServicesAvailable());
+            return;
         } else if(credential.getSelectedAccountName() == null) {
             Log.d("tuksu", "Selected account name null" + credential.getSelectedAccountName());
             chooseAccount();
+            return;
+
         } else if(!isDeviceOnline()) {
             Toast.makeText(this, "Connect to internet", Toast.LENGTH_SHORT).show();
+            return;
+
         } else {
             Toast.makeText(this, "Everything works fine! Time to make connection to your Sheets", Toast.LENGTH_SHORT).show();
         }
+
+        AccountAuthorization.authorize(this, credential);
         ((TextView) findViewById(R.id.accountName)).setText(credential.getSelectedAccountName());
         ((Button) findViewById(R.id.getSheets)).setVisibility(View.VISIBLE);
         ((Button) findViewById(R.id.getFiles)).setVisibility(View.VISIBLE);
