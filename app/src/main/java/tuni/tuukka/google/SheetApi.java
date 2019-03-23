@@ -15,7 +15,21 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190323
+ * @since       1.8
+ *
+ * Holds static methods and interfaces for calling Sheets Api. All calls to Google are made in
+ * AsyncTask. Interfaces are used to act accordingly to results from Google.
+ */
 public class SheetApi {
+    /**
+     * Reads range from Sheet. Gives results to parameter DoAfter if successful, if not
+     * calls DoAfters onFail() method.
+     * @param info Spreadsheets id and range to read.
+     * @param sheetInterface DoAfter interface to act accordingly for results from Google.
+     */
     public static void readRange(SheetRequestsInfo info, DoAfter<List<List<Object>>> sheetInterface) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -47,6 +61,12 @@ public class SheetApi {
         }.execute();
     }
 
+    /**
+     * Reads ranges from Sheet. Gives results to parameter DoAfter if successful, if not
+     * calls DoAfters onFail() method.
+     * @param info Spreadsheets id and range to read.
+     * @param doAfter DoAfter interface to act accordingly for results from Google.
+     */
     public static void readRanges(SheetRequestsInfo info, DoAfter<List<ValueRange>> doAfter) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -78,6 +98,10 @@ public class SheetApi {
         }.execute();
     }
 
+    /**
+     * Appends given data to spreadsheet. Gets spreadsheet to append id and range from parameter.
+     * @param data Data to put into spreadsheet.
+     */
     public static void appendSheet(Data data) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -117,6 +141,11 @@ public class SheetApi {
         }.execute();
     }
 
+    /**
+     * Clears row from given range.
+     * @param info Contains id of spreadsheet and range to clear.
+     * @param doAfter DoAfter interface to act accordingly for results from Google.
+     */
     public static void clearRow(SheetRequestsInfo info, DoAfter<ClearValuesResponse> doAfter) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -141,6 +170,11 @@ public class SheetApi {
             }
         }.execute();
     }
+
+    /**
+     * Interface to DoAfter results have came from Google.
+     * @param <T> Parameter to give to onSuccess()
+     */
     public interface DoAfter<T> {
         void onFail();
         void onSuccess(T value);
