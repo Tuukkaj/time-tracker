@@ -18,6 +18,7 @@ public class DriveApiHelper {
             @Override
             public void onSuccess(String value) {
                 System.out.println("FOLDER FOUND, CAN PROCEED");
+                // Do something with value
                 System.out.println(value);
             }
 
