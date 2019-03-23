@@ -5,7 +5,6 @@ public class TimeData {
     public long end;
     public String category;
     public String comment;
-    public String range;
     public SheetRequestsInfo info;
 
     public TimeData(){}
