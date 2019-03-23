@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SheetApi {
+    public static final String TIME_RANGE = "Sheet1!A:A";
+    public static final String CATEGORY_RANGE = "Sheet1!G:G";
+
     public static void readRange(SheetRequestsInfo info, DoAfter<List<List<Object>>> sheetInterface) {
         new AsyncTask<Void, Void, Void>() {
             @Override
