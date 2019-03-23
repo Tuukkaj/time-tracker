@@ -163,6 +163,12 @@ public class DriveApi {
         }.execute();
     }
 
+    public interface CreateNewSheetInterface {
+        void onFail();
+        void onFileAlreadyCreated();
+        void onSuccess();
+    }
+
     public interface ListFilesInterface {
         void useFileList(List<File> file);
     }
