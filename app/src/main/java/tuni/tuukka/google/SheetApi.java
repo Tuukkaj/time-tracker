@@ -47,7 +47,7 @@ public class SheetApi {
         }.execute();
     }
 
-    public static void readRanges(SheetRequestsInfo info, ReadRangesInterface readInterface) {
+    public static void readRanges(SheetRequestsInfo info, DoAfter<List<ValueRange>> doAfter) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -58,19 +58,19 @@ public class SheetApi {
                                 .batchGet(info.sheetID)
                                 .setRanges(info.ranges)
                                 .execute();
-                        readInterface.onSuccess(response.getValueRanges());
+                        doAfter.onSuccess(response.getValueRanges());
                     } else {
                         return null;
                     }
                 } catch (GoogleJsonResponseException e){
                     e.printStackTrace();
                     System.out.println("EXCPETION GoogleJsonResponseException");
-                    readInterface.onFail();
+                    doAfter.onFail();
                 }  catch (IOException e) {
-                    readInterface.onFail();
+                    doAfter.onFail();
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
-                    readInterface.onFail();
+                    doAfter.onFail();
                     e.printStackTrace();
                 }
                 return null;
@@ -138,10 +138,6 @@ public class SheetApi {
         void onSuccess(T value);
     }
 
-    public interface ReadRangesInterface {
-        void onFail();
-        void onSuccess(List<ValueRange> values);
-    }
     public interface ReadRangeInterface {
         void onFail();
         void onSuccess(List<List<Object>> values);
