@@ -15,9 +15,26 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190323
+ * @since       1.8
+ *
+ * Holds static methods and interfaces for calling Drive Api. All calls to Google are made in
+ * AsyncTask. Interfaces are used to act accordingly to results from Google.
+ */
 public class DriveApi {
+    /**
+     * Name of app in Google Drive
+     */
     private final static String APP_NAME = "time-tracker";
 
+    /**
+     * Checks if folder named APP_NAME is present in users files. If successful
+     * parameter CheckFoldersInterface.onSuccess() is called with gotten file id.
+     * If something goes wrong, parameter CheckFoldersInterface.onFail() is called.
+     * @param checkReady Interface to react to results from Google.
+     */
     public static void checkFolders(CheckFoldersInterface checkReady) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -58,6 +75,10 @@ public class DriveApi {
         }.execute();
     }
 
+    /**
+     * Creates new folder with name from APP_NAME
+     * @param onFail interface to react to failure.
+     */
     public static void createNewFolder(OnFail onFail) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -79,6 +100,15 @@ public class DriveApi {
         }.execute();
     }
 
+    /**
+     * Creates new sheet to users APP_NAME folder. If folder named APP_NAME is not present in
+     * users drive, one is created. After that new sheet is created. Checks if user has duplicate
+     * spreadsheets with same name. If there is, creation of sheet is halted.
+     *
+     * @param name Name of the to be created sheet
+     * @param sheetInterface Interface to react to success, failure and if file with same name
+     *                       is already created.
+     */
     public static void createNewSheet(String name, CreateNewSheetInterface sheetInterface) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -131,6 +161,14 @@ public class DriveApi {
         }.execute();
     }
 
+    /**
+     * Creates new sheet to given parent file with given name.
+     * @param drive Drive service to use to connect into users Drive.
+     * @param name Name of the sheet to create.
+     * @param parentId Parent folders id.
+     * @return File just created.
+     * @throws IOException If something goes wrong in creation, this is thrown.
+     */
     private static File createSheet(Drive drive, String name, String parentId) throws IOException{
         File toBeCreated = new File();
         toBeCreated.setParents(Collections.singletonList(parentId));
@@ -139,6 +177,12 @@ public class DriveApi {
         return drive.files().create(toBeCreated).execute();
     }
 
+    /**
+     * Creates new folder to users drive with APP_NAME as it's name.
+     * @param drive Drive service to use to connect into users Drive.
+     * @return created File.
+     * @throws IOException If something goes wrong in creation, this is thrown.
+     */
     private static File createFolder(Drive drive) throws IOException{
         File folder = new File();
         folder.setName(APP_NAME);
@@ -146,14 +190,18 @@ public class DriveApi {
         return drive.files().create(folder).setFields("id").execute();
     }
 
-    public static void listFiles(ListFilesInterface time) {
+    /**
+     * Creates List<File> users spreadsheet files in Drive.
+     * @param listFiles Interface to list results from Google.
+     */
+    public static void listFiles(ListFilesInterface listFiles) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
                     List<File> files = drive.files().list().setQ("name contains 'time-tracker' and mimeType = 'application/vnd.google-apps.spreadsheet'").execute().getFiles();
-                    time.useFileList(files);
+                    listFiles.useFileList(files);
                 }catch (IOException e) {
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
@@ -165,15 +213,34 @@ public class DriveApi {
         }.execute();
     }
 
+    /**
+     * Interface used when creating new sheet.
+     */
     public interface CreateNewSheetInterface extends DoAfter<File> {
+        /**
+         * Called if file is already created.
+         */
         void onFileAlreadyCreated();
     }
 
+    /**
+     * Interface for listing users files.
+     */
     public interface ListFilesInterface {
+        /**
+         * Called when list of users spreadsheets are acquired from Drive.
+         * @param file Spreadsheets from users Drive.
+         */
         void useFileList(List<File> file);
     }
 
+    /**
+     * Interface for checking users folders.
+     */
     public interface CheckFoldersInterface extends DoAfter<String> {
+        /**
+         * Called if no folder is found.
+         */
         void onNoFolderFound();
     }
 }
