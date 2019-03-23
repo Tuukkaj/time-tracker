@@ -33,8 +33,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
+import tuni.tuukka.activity_helper.SheetApiHelper;
 import tuni.tuukka.google.AccountAuthorization;
-import tuni.tuukka.google.AppendData;
 import tuni.tuukka.google.DriveApi;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
@@ -55,8 +55,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_helper);
         Set<String> scopes = DriveScopes.all();
-        //scopes.add(SheetsScopes.DRIVE);
-       //scopes.add(SheetsScopes.SPREADSHEETS);
         credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), scopes).setBackOff(new ExponentialBackOff());
     }
 
@@ -68,18 +66,25 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 break;
 
             case R.id.getSheets:
-                if (token.isPresent()) {
+                if (token.isPresent()) {/*
                     AppendData data = new AppendData(
                             new Long("1553153796000"),
                             System.currentTimeMillis(),
                             "Time",
                             "Figuring out how timestamp works",
                             new SheetRequestsInfo("1d3j44WT3eDjZMXST77fOSf70bEKaQFACwEirrRrg6FQ","worktime"));
-                    SheetApi.appendSheet(data);
-                    /*SheetApi.readRanges(new SheetRequestsInfo(
+                    SheetApi.appendSheet(data);*/
+
+                    /*
+                    SheetApi.readRanges(new SheetRequestsInfo(
                             "1d3j44WT3eDjZMXST77fOSf70bEKaQFACwEirrRrg6FQ",
                             Arrays.asList("worktime!A:D", "categories!A:A")),
                             SheetApiHelper.interfaceReadRanges(this,credential));*/
+
+                    SheetApi.clearRow(new SheetRequestsInfo(
+                            "1d3j44WT3eDjZMXST77fOSf70bEKaQFACwEirrRrg6FQ",
+                            "worktime!1:1"),
+                            SheetApiHelper.doAfterClear(this,credential));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
