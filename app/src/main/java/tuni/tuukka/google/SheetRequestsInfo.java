@@ -3,6 +3,8 @@ package tuni.tuukka.google;
 import java.util.List;
 
 public class SheetRequestsInfo {
+    public static final String TIME_RANGE = "Sheet1!A:A";
+    public static final String CATEGORY_RANGE = "Sheet1!G:G";
     String sheetID;
     String range;
     List<String> ranges;
