@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApi;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
@@ -100,7 +101,9 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFolder: {
                 if(token.isPresent()) {
-                    DriveApi.checkFolders(DriveApiHelper.interfaceGetFiles(this,credential), "time-tracker");
+                    DriveApi.createNewSheet("secondTest", DriveApiHelper.interfaceCreateSheet(this, credential));
+                    //DriveApi.checkFolders(DriveApiHelper.interfaceGetFiles(this,credential), "time-tracker");
+                    //DriveApi.listFiles(file -> System.out.println(file));
                 } else{
                     AccountAuthorization.authorize(this,credential);
                 }
