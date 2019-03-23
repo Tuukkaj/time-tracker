@@ -81,16 +81,24 @@ public class SheetApi {
         }.execute();
     }
 
-    public static void appendSheet(DataTime data) {
+    public static void appendSheet(Data data) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 ValueRange values = new ValueRange();
                 List<Object> objects = new ArrayList<>();
-                objects.add(data.start);
-                objects.add(data.end);
-                objects.add(data.category);
-                objects.add(data.comment);
+
+                if(data instanceof DataTime) {
+                    DataTime time = (DataTime) data;
+                    objects.add(time.start);
+                    objects.add(time.end);
+                    objects.add(time.category);
+                    objects.add(time.comment);
+                } else if (data instanceof DataCategory) {
+                    DataCategory category = (DataCategory) data;
+                    objects.add(category.category);
+                }
+
                 List<List<Object>> list = new ArrayList<>();
                 list.add(objects);
                 values.setValues(list);
