@@ -79,7 +79,7 @@ public class DriveApi {
         }.execute();
     }
 
-    public static void createNewSheet(String name) {
+    public static void createNewSheet(String name, CreateNewSheetInterface sheetInterface) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -109,18 +109,21 @@ public class DriveApi {
                     }
                     if(duplicateFiles) {
                         System.out.println("DUPLICATE FILES FOUND");
+                        sheetInterface.onFileAlreadyCreated();
                     } else if(folder != null) {
-                        createSheet(drive, name, folder.getId());
+                        File file = createSheet(drive, name, folder.getId());
+                        sheetInterface.onSuccess(file);
                     } else {
                         File newFolder = createFolder(drive);
-                        createSheet(drive,name,newFolder.getId());
+                        File file = createSheet(drive,name,newFolder.getId());
+                        sheetInterface.onSuccess(file);
                     }
 
                 } catch (IOException e) {
-                   // doAfter.onFail();
+                    sheetInterface.onFail();
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
-                   // doAfter.onFail();
+                    sheetInterface.onFail();
                     e.printStackTrace();
                 }
                 return null;
