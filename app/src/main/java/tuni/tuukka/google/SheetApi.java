@@ -6,6 +6,8 @@ import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
+import com.google.api.services.sheets.v4.model.ClearValuesRequest;
+import com.google.api.services.sheets.v4.model.ClearValuesResponse;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.io.IOException;
@@ -105,6 +107,35 @@ public class SheetApi {
                 return null;
             }
         }.execute();
+    }
+
+    public static void clearRow(SheetRequestsInfo info, DoAfter<ClearValuesResponse> doAfter) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    ClearValuesRequest requestBody = new ClearValuesRequest();
+
+                    Sheets sheets = SheetsService.createSheetService(Token.getToken().get());
+                    ClearValuesResponse response = sheets.spreadsheets()
+                            .values().clear(info.sheetID, info.range,requestBody).execute();
+
+                    System.out.println(response);
+                    doAfter.onSuccess(response);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    doAfter.onFail();
+                } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
+                    doAfter.onFail();
+                }
+                return null;
+            }
+        }.execute();
+    }
+    public interface DoAfter<T> {
+        void onFail();
+        void onSuccess(T value);
     }
 
     public interface ReadRangesInterface {
