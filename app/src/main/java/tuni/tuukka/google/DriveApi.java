@@ -165,23 +165,15 @@ public class DriveApi {
         }.execute();
     }
 
-    public interface CreateNewSheetInterface {
-        void onFail();
+    public interface CreateNewSheetInterface extends DoAfter<File> {
         void onFileAlreadyCreated();
-        void onSuccess(File file);
     }
 
     public interface ListFilesInterface {
         void useFileList(List<File> file);
     }
 
-    public interface CheckFoldersInterface {
-        void doAfter(String folderId);
-        void onFail();
+    public interface CheckFoldersInterface extends DoAfter<String> {
         void onNoFolderFound();
-    }
-
-    public interface CreateNewFolderInterface {
-        void onError();
     }
 }
