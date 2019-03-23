@@ -26,8 +26,8 @@ public class SheetApiHelper {
         };
     }
 
-    public static SheetApi.ReadRangesInterface interfaceReadRanges(Activity activity, GoogleAccountCredential credential) {
-        return new SheetApi.ReadRangesInterface() {
+    public static SheetApi.DoAfter<List<ValueRange>> interfaceReadRanges(Activity activity, GoogleAccountCredential credential) {
+        return new SheetApi.DoAfter<List<ValueRange>>() {
             @Override
             public void onFail() {
                 AccountAuthorization.authorize(activity,credential);
