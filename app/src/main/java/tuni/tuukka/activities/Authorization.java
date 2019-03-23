@@ -33,8 +33,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
+import tuni.tuukka.activity_helper.SheetApiHelper;
 import tuni.tuukka.google.AccountAuthorization;
-import tuni.tuukka.google.TimeData;
 import tuni.tuukka.google.DriveApi;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
@@ -67,17 +67,9 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getSheets:
                 if (token.isPresent()) {
-
-                    /*
-                    SheetApi.readRanges(new SheetRequestsInfo(
-                            "1d3j44WT3eDjZMXST77fOSf70bEKaQFACwEirrRrg6FQ",
-                            Arrays.asList("worktime!A:D", "categories!A:A")),
-                            SheetApiHelper.interfaceReadRanges(this,credential));*/
-
-                    /*SheetApi.clearRow(new SheetRequestsInfo(
-                            "1d3j44WT3eDjZMXST77fOSf70bEKaQFACwEirrRrg6FQ",
-                            "worktime!1:1"),
-                            SheetApiHelper.doAfterClear(this,credential));*/
+                    SheetApi.readRange(
+                            new SheetRequestsInfo("1OUgPgh272sTLKeDw1WB54-NSQl_3QbSdIbC5AFQ3v9", SheetRequestsInfo.TIME_RANGE),
+                            SheetApiHelper.interfaceReadRange(this, credential));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -85,18 +77,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    SheetApi.appendSheet(new TimeData(1,2,"moi", "hoi", new SheetRequestsInfo("1OUgPgh272sTLKeDw1WB54-NSQl_3QbSdIbC5AFQ3v9g", "Sheet1!F:F")));
-
-                    /*
-                    ArrayList<String> ranges = new ArrayList<String>();
-                    ranges.add("time");
-                    ranges.add("category");
-                    SheetApi.readRanges(
-                            new SheetRequestsInfo("1opRoR4XLYN-fI6rBrPb7Q1LQaiIbh1Ze6UI89LRISl4", ranges)
-                    ,SheetApiHelper.interfaceReadRanges(this,credential));
-                    */
-
-                   // DriveApi.listFiles(file -> System.out.println(file));
+                    DriveApi.listFiles(files -> files.forEach(file -> System.out.println(file)));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -104,10 +85,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFolder: {
                 if(token.isPresent()) {
-                   // DriveApi.listFiles(value -> value.forEach(file -> System.out.println(file)));
-                    DriveApi.createNewSheet("toimi2 ", DriveApiHelper.interfaceCreateSheet(this, credential));
-                    //DriveApi.checkFolders(DriveApiHelper.interfaceGetFiles(this,credential), "time-tracker");
-                    //DriveApi.listFiles(file -> System.out.println(file));
+                    DriveApi.createNewSheet("SheetNameHere", DriveApiHelper.interfaceCreateSheet(this, credential));
                 } else{
                     AccountAuthorization.authorize(this,credential);
                 }
