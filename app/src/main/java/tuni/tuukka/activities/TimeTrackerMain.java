@@ -7,8 +7,20 @@ import android.util.Log;
 
 import tuni.tuukka.R;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @since       1.8
+ *
+ * Prints authors name and changes activity to Authorization.class.
+ * Placeholder functionality. Will be changed in later releases.
+ */
 public class TimeTrackerMain extends AppCompatActivity {
 
+    /**
+     * Prints authors name and starts activity Authorization.class.
+     *
+     * @param savedInstanceState Saved instance. Not in use.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
