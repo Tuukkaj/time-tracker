@@ -18,22 +18,22 @@ import java.util.List;
 public class DriveApi {
     private final static String APP_NAME = "time-tracker";
 
-    public static void checkFolders(CheckFoldersInterface checkReady, String folderName) {
+    public static void checkFolders(CheckFoldersInterface checkReady) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
-                    List<File> files = drive.files().list().setQ("name = '"+folderName+"'").execute().getFiles();
+                    List<File> files = drive.files().list().setQ("name = '"+APP_NAME+"'").execute().getFiles();
 
                     try {
                         JSONArray array = new JSONArray(files.toString());
                         JSONObject object = array.getJSONObject(0);
                         String name = object.getString("name");
                         String folderId = object.getString("id");
-                        if(name.equalsIgnoreCase(folderName)) {
+                        if(name.equalsIgnoreCase(APP_NAME)) {
                             System.out.println("Name: " + name + " Id" + folderId);
-                            checkReady.doAfter(folderId);
+                            checkReady.onSuccess(folderId);
                         } else {
                             checkReady.onNoFolderFound();
                         }
