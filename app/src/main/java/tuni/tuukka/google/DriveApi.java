@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.util.Collections;
 import java.util.List;
 
 public class DriveApi {
@@ -74,6 +75,44 @@ public class DriveApi {
                     System.out.println("2");
                     e.printStackTrace();
                     folderInterface.onError();
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    public static void createNewSheet(String name, CheckFoldersInterface doAfter) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    Drive drive = DriveService.createDriveService(Token.getToken().get());
+                    List<File> files = drive.files().list().setQ("name = 'time-tracker' and mimeType = 'application/vnd.google-apps.folder'").execute().getFiles();
+                    File folder = null;
+                    for (File file: files) {
+                        if(file.getName().equalsIgnoreCase("time-tracker")) {
+                            folder = file;
+                            break;
+                        }
+                    }
+
+                    if(folder != null) {
+                        File toBeCreated = new File();
+                        toBeCreated.setParents(Collections.singletonList(folder.getId()));
+                        toBeCreated.setMimeType("application/vnd.google-apps.spreadsheet");
+                        toBeCreated.setName("time-tracker-"+name);
+                        File createdFile = drive.files().create(toBeCreated).execute();
+                        System.out.println(createdFile.getName());
+                    } else {
+                        doAfter.onNoFolderFound();
+                    }
+
+                } catch (IOException e) {
+                    doAfter.onFail();
+                    e.printStackTrace();
+                } catch (GeneralSecurityException e) {
+                    doAfter.onFail();
+                    e.printStackTrace();
                 }
                 return null;
             }
