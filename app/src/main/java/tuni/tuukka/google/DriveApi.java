@@ -79,37 +79,49 @@ public class DriveApi {
         }.execute();
     }
 
-    public static void createNewSheet(String name, CheckFoldersInterface doAfter) {
+    public static void createNewSheet(String name) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
-                    List<File> files = drive.files().list().setQ("name = 'time-tracker' and mimeType = 'application/vnd.google-apps.folder'").execute().getFiles();
+                    List<File> files = drive.files().list().setQ(
+                            "name contains '"+APP_NAME+"' and mimeType = 'application/vnd.google-apps.folder' or mimeType = 'application/vnd.google-apps.spreadsheet'"
+                    ).execute().getFiles();
+
                     File folder = null;
+                    boolean duplicateFiles = false;
+
                     for (File file: files) {
-                        if(file.getName().equalsIgnoreCase("time-tracker")) {
+                        if(file.getName().equalsIgnoreCase(APP_NAME) &&
+                        file.getMimeType().equalsIgnoreCase("application/vnd.google-apps.folder")) {
                             folder = file;
                             break;
                         }
                     }
 
-                    if(folder != null) {
-                        File toBeCreated = new File();
-                        toBeCreated.setParents(Collections.singletonList(folder.getId()));
-                        toBeCreated.setMimeType("application/vnd.google-apps.spreadsheet");
-                        toBeCreated.setName("time-tracker-"+name);
-                        File createdFile = drive.files().create(toBeCreated).execute();
-                        System.out.println(createdFile.getName());
+                    for(File file: files) {
+                        if(file.getName().equals(APP_NAME+"-"+name)
+                                && file.getMimeType()
+                                .equalsIgnoreCase("application/vnd.google-apps.spreadsheet")) {
+                            duplicateFiles = true;
+                        }
+                    }
+                    if(duplicateFiles) {
+                        System.out.println("DUPLICATE FILES FOUND");
+                    } else if(folder != null) {
+                        createSheet(drive, name, folder.getId());
                     } else {
-                        doAfter.onNoFolderFound();
+                        File newFolder = createFolder(drive);
+                        createSheet(drive,name,newFolder.getId());
+                        //doAfter.onNoFolderFound();
                     }
 
                 } catch (IOException e) {
-                    doAfter.onFail();
+                   // doAfter.onFail();
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
-                    doAfter.onFail();
+                   // doAfter.onFail();
                     e.printStackTrace();
                 }
                 return null;
