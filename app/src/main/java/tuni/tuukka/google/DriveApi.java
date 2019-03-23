@@ -16,6 +16,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class DriveApi {
+    private final static String APP_NAME = "time-tracker";
+
     public static void checkFolders(CheckFoldersInterface checkReady, String folderName) {
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -62,11 +64,7 @@ public class DriveApi {
             protected Void doInBackground(Void... voids) {
                 try {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
-                    File folder = new File();
-                    folder.setName(name);
-                    folder.setMimeType("application/vnd.google-apps.folder");
-                    File createdFolder = drive.files().create(folder).setFields("id").execute();
-                    System.out.println(createdFolder.getId());
+                    createFolder(drive);
                 } catch (IOException e) {
                     System.out.println("1");
                     e.printStackTrace();
@@ -117,6 +115,21 @@ public class DriveApi {
                 return null;
             }
         }.execute();
+    }
+
+    private static File createSheet(Drive drive, String name, String parentId) throws IOException{
+        File toBeCreated = new File();
+        toBeCreated.setParents(Collections.singletonList(parentId));
+        toBeCreated.setMimeType("application/vnd.google-apps.spreadsheet");
+        toBeCreated.setName("time-tracker-"+name);
+        return drive.files().create(toBeCreated).execute();
+    }
+
+    private static File createFolder(Drive drive) throws IOException{
+        File folder = new File();
+        folder.setName(APP_NAME);
+        folder.setMimeType("application/vnd.google-apps.folder");
+        return drive.files().create(folder).setFields("id").execute();
     }
 
     public static void listFiles(ListFilesInterface time) {
