@@ -10,9 +10,22 @@ import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DriveApi;
 
 /**
- * Holds interface implementations for Authorization Activity
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190323
+ * @since
+ *
+ * Holds interface implementations for Authorization Activity to avoid interface implementions in
+ * activitys.
  */
 public class DriveApiHelper {
+
+    /**
+     * Creates interface to use in DriveApi.CheckFolders(). If fails, authorizes users account.
+     * !Incomplete, will be modified in later releases.
+     * @param activity Activity where DriveApi.checkFolders() is called.
+     * @param credential Users credentials.
+     * @return Usable interface in Authorization activity.
+     */
     public static DriveApi.CheckFoldersInterface interfaceGetFiles(Activity activity, GoogleAccountCredential credential) {
         return new DriveApi.CheckFoldersInterface() {
             @Override
@@ -38,6 +51,13 @@ public class DriveApiHelper {
         };
     }
 
+    /**
+     * Creates interface to use in DriveApi.CheckFolders(). If fails, authorizes users account.
+     * !Incomplete, will be modified in later releases.
+     * @param activity Activity where DriveApi.checkFolders() is called.
+     * @param credential Users credentials.
+     * @return Usable interface in Authorization activity.
+     */
     public static DriveApi.CreateNewSheetInterface interfaceCreateSheet(Activity activity, GoogleAccountCredential credential) {
         return new DriveApi.CreateNewSheetInterface() {
             @Override
