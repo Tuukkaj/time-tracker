@@ -4,15 +4,21 @@ import android.os.AsyncTask;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.services.sheets.v4.Sheets;
+import com.google.api.services.sheets.v4.model.AddSheetRequest;
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 import com.google.api.services.sheets.v4.model.BatchGetValuesResponse;
+import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
+import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetResponse;
 import com.google.api.services.sheets.v4.model.ClearValuesRequest;
 import com.google.api.services.sheets.v4.model.ClearValuesResponse;
+import com.google.api.services.sheets.v4.model.Request;
+import com.google.api.services.sheets.v4.model.SheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -166,6 +172,38 @@ public class SheetApi {
                     e.printStackTrace();
                     doAfter.onFail();
                 }
+                return null;
+            }
+        }.execute();
+    }
+
+    /**
+     * Adds new sheet tab with name
+     */
+    public static void appendTab(String sheetId, String nameOfTab, tuni.tuukka.google.DoAfter doAfter) {
+        new AsyncTask<Void,Void,Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                AddSheetRequest add = new AddSheetRequest();
+                add.setProperties(new SheetProperties().setTitle(nameOfTab));
+                Request request = new Request().setAddSheet(add);
+                BatchUpdateSpreadsheetRequest batchUpdate = new BatchUpdateSpreadsheetRequest();
+                batchUpdate.setRequests(Collections.singletonList(request));
+
+                try {
+                    Sheets sheets = SheetsService.createSheetService(Token.getToken().get());
+                    BatchUpdateSpreadsheetResponse response =
+                            sheets.spreadsheets().batchUpdate(sheetId, batchUpdate).execute();
+                    System.out.println(response);
+                    doAfter.onSuccess(response.getSpreadsheetId());
+                } catch (IOException e) {
+                    doAfter.onFail();
+                    e.printStackTrace();
+                } catch (GeneralSecurityException e) {
+                    doAfter.onFail();
+                    e.printStackTrace();
+                }
+
                 return null;
             }
         }.execute();
