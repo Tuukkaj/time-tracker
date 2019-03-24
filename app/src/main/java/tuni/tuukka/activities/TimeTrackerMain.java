@@ -9,6 +9,7 @@ import tuni.tuukka.R;
 
 /**
  * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190323
  * @since       1.8
  *
  * Prints authors name and changes activity to Authorization.class.

@@ -12,7 +12,7 @@ import tuni.tuukka.google.DriveApi;
 /**
  * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
  * @version     20190323
- * @since
+ * @since       1.8
  *
  * Holds interface implementations for Authorization Activity to avoid interface implementions in
  * activitys.

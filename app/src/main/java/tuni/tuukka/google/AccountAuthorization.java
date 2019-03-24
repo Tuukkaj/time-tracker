@@ -10,6 +10,7 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.services.drive.DriveScopes;
 /**
  * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190323
  * @since       1.8
  *
  * Asks users permissions for using scope DriveScopes.DRIVE in Google APIs.
