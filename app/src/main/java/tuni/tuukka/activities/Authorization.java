@@ -105,6 +105,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getSheets:
                 if (token.isPresent()) {
+                    // Reads public sheet and prints results to console
                     SheetApi.readRanges(
                             new SheetRequestsInfo("1Fy4CuCOZI6MXF_UcvQsT2Tsxhx1SyGjk_nG1dRe34bY", SheetRequestsInfo.getRanges()),
                             SheetApiHelper.interfaceReadRanges(this, credential));
@@ -115,6 +116,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
+                    // Lists all users spreadsheet files if they contain "time-tracker"
                     DriveApi.listFiles(list -> list.forEach(System.out::println));
                 } else {
                     AccountAuthorization.authorize(this,credential);
@@ -123,6 +125,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFolder: {
                 if(token.isPresent()) {
+                    // Creates folder and sheet to users Drive
                     DriveApi.createNewSheet("InsertSheetNameHere", DriveApiHelper.interfaceCreateSheet(this, credential));
                 } else{
                     AccountAuthorization.authorize(this,credential);
