@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">time-tracker</string>
     <string name="accouthelper_btn_getSheet">Get sheets</string>
     <string name="accouthelper_btn_getAccount">Get account</string>
 </resources>
