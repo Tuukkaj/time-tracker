@@ -73,9 +73,9 @@ public class DriveApiHelper {
             }
 
             @Override
-            public void onSuccess(File file) {
+            public void onSuccess(String fileId) {
                 //Do something with ui here
-                System.out.println("FILE CREATED" + file);
+                System.out.println("FILE CREATED" + fileId);
             }
         };
     }
