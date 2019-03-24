@@ -142,11 +142,11 @@ public class DriveApi {
                         sheetInterface.onFileAlreadyCreated();
                     } else if(folder != null) {
                         File file = createSheet(drive, name, folder.getId());
-                        sheetInterface.onSuccess(file);
+                        SheetApi.appendTab(file.getId(), "Sheet2", sheetInterface);
                     } else {
                         File newFolder = createFolder(drive);
                         File file = createSheet(drive,name,newFolder.getId());
-                        sheetInterface.onSuccess(file);
+                        SheetApi.appendTab(file.getId(), "Sheet2", sheetInterface);
                     }
 
                 } catch (IOException e) {
@@ -216,7 +216,7 @@ public class DriveApi {
     /**
      * Interface used when creating new sheet.
      */
-    public interface CreateNewSheetInterface extends DoAfter<File> {
+    public interface CreateNewSheetInterface extends DoAfter<String> {
         /**
          * Called if file is already created.
          */
