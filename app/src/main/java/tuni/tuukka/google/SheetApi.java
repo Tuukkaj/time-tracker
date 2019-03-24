@@ -18,7 +18,7 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 
 /**
@@ -180,18 +180,25 @@ public class SheetApi {
     /**
      * Add new tab to a sheet with given name.
      * @param sheetId
-     * @param nameOfTab
+     * @param firstTabName
+     * @param secondTabName
      * @param doAfter
      */
-    public static void appendTab(String sheetId, String nameOfTab, DoAfter doAfter) {
+    public static void appendTab(String sheetId, String firstTabName, String secondTabName, DoAfter doAfter) {
         new AsyncTask<Void,Void,Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                AddSheetRequest add = new AddSheetRequest();
-                add.setProperties(new SheetProperties().setTitle(nameOfTab));
-                Request request = new Request().setAddSheet(add);
+                AddSheetRequest addFirst = new AddSheetRequest();
+                addFirst.setProperties(new SheetProperties().setTitle(firstTabName));
+                Request firstRequest = new Request().setAddSheet(addFirst);
+                AddSheetRequest addSecond = new AddSheetRequest();
+                addSecond.setProperties(new SheetProperties().setTitle(secondTabName));
+                Request secondRequest = new Request().setAddSheet(addSecond);
                 BatchUpdateSpreadsheetRequest batchUpdate = new BatchUpdateSpreadsheetRequest();
-                batchUpdate.setRequests(Collections.singletonList(request));
+                List<Request> requests = new ArrayList<>();
+                requests.add(firstRequest);
+                requests.add(secondRequest);
+                batchUpdate.setRequests(requests);
 
                 try {
                     Sheets sheets = SheetsService.createSheetService(Token.getToken().get());
