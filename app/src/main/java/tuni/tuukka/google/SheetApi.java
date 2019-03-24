@@ -179,10 +179,10 @@ public class SheetApi {
 
     /**
      * Add new tab to a sheet with given name.
-     * @param sheetId
-     * @param firstTabName
-     * @param secondTabName
-     * @param doAfter
+     * @param sheetId SheetId to append tabs
+     * @param firstTabName First tab name
+     * @param secondTabName Second tab name
+     * @param doAfter Interface for results from Google
      */
     public static void appendTab(String sheetId, String firstTabName, String secondTabName, DoAfter doAfter) {
         new AsyncTask<Void,Void,Void>() {
