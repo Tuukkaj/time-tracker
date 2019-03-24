@@ -35,6 +35,7 @@ import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
 import tuni.tuukka.activity_helper.SheetApiHelper;
 import tuni.tuukka.google.AccountAuthorization;
+import tuni.tuukka.google.DataCategory;
 import tuni.tuukka.google.DriveApi;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
@@ -104,9 +105,9 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getSheets:
                 if (token.isPresent()) {
-                    SheetApi.readRange(
-                            new SheetRequestsInfo("1OUgPgh272sTLKeDw1WB54-NSQl_3QbSdIbC5AFQ3v9", SheetRequestsInfo.TIME_RANGE),
-                            SheetApiHelper.interfaceReadRange(this, credential));
+                    SheetApi.readRanges(
+                            new SheetRequestsInfo("1Fy4CuCOZI6MXF_UcvQsT2Tsxhx1SyGjk_nG1dRe34bY", SheetRequestsInfo.getRanges()),
+                            SheetApiHelper.interfaceReadRanges(this, credential));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -114,7 +115,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFiles:
                 if (token.isPresent()) {
-                    DriveApi.listFiles(files -> files.forEach(file -> System.out.println(file)));
+                    DriveApi.listFiles(list -> list.forEach(System.out::println));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -122,7 +123,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.getFolder: {
                 if(token.isPresent()) {
-                    DriveApi.createNewSheet("SheetNameHere", DriveApiHelper.interfaceCreateSheet(this, credential));
+                    DriveApi.createNewSheet("InsertSheetNameHere", DriveApiHelper.interfaceCreateSheet(this, credential));
                 } else{
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -158,7 +159,11 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             Toast.makeText(this, "Everything works fine! Time to make connection to your Sheets", Toast.LENGTH_SHORT).show();
         }
 
-        AccountAuthorization.authorize(this, credential);
+
+        if (!Token.loadToken(this).isPresent()) {
+            AccountAuthorization.authorize(this, credential);
+        }
+
         ((TextView) findViewById(R.id.accountName)).setText(credential.getSelectedAccountName());
         ((Button) findViewById(R.id.getSheets)).setVisibility(View.VISIBLE);
         ((Button) findViewById(R.id.getFiles)).setVisibility(View.VISIBLE);
