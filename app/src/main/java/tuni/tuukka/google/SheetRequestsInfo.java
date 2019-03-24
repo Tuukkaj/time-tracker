@@ -4,16 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SheetRequestsInfo {
-    public static final String TIME_RANGE = "Sheet1!A:D";
-    public static final String CATEGORY_RANGE = "Sheet2!A:A";
+    public static final String WORK_TAB = "work";
+    public static final String CATEGORIES_TAB = "categories";
+    public static final String WORK_RANGE = WORK_TAB + "!A:D";
+    public static final String CATEGORIES_RANGE = CATEGORIES_TAB+"!A:A";
+
     String sheetID;
     String range;
     List<String> ranges;
 
     public static List<String> getRanges() {
         List<String> list = new ArrayList<>();
-        list.add(TIME_RANGE);
-        list.add(CATEGORY_RANGE);
+        list.add(WORK_RANGE);
+        list.add(CATEGORIES_RANGE);
         return list;
     }
 
