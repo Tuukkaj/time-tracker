@@ -11,6 +11,10 @@ import android.os.Bundle;
 import java.io.IOException;
 
 /**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190324
+ * @since       1.8
+ *
  * Used to set token when user loads AccountManager gets token from Google.
  */
 public class TokenAcquired implements AccountManagerCallback<Bundle> {
