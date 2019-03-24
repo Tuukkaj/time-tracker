@@ -142,11 +142,13 @@ public class DriveApi {
                         sheetInterface.onFileAlreadyCreated();
                     } else if(folder != null) {
                         File file = createSheet(drive, name, folder.getId());
-                        SheetApi.appendTab(file.getId(), "work","categories", sheetInterface);
+                        SheetApi.appendTab(file.getId(), SheetRequestsInfo.WORK_TAB,
+                                SheetRequestsInfo.CATEGORIES_TAB, sheetInterface);
                     } else {
                         File newFolder = createFolder(drive);
                         File file = createSheet(drive,name,newFolder.getId());
-                        SheetApi.appendTab(file.getId(), "work","categories", sheetInterface);
+                        SheetApi.appendTab(file.getId(), SheetRequestsInfo.WORK_TAB,
+                                SheetRequestsInfo.CATEGORIES_TAB, sheetInterface);
                     }
 
                 } catch (IOException e) {
