@@ -11,7 +11,23 @@ import java.util.List;
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.SheetApi;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190323
+ * @since       1.8
+ *
+ * Holds interface implementations for Authorization Activity to avoid interface implementions in
+ * activity.
+ */
 public class SheetApiHelper {
+
+    /**
+     * Creates interface for Authorization activity. Authorizes account if onFail() is called.
+     * !Incomplete, will be modified in later releases.
+     * @param activity Activity where interface is created from
+     * @param credential Users credentials that are to be authorized
+     * @return Usable interface for Authorization activity.
+     */
     public static SheetApi.DoAfter<List<List<Object>>> interfaceReadRange(Activity activity, GoogleAccountCredential credential) {
         return new SheetApi.DoAfter<List<List<Object>>>() {
             @Override
@@ -26,6 +42,14 @@ public class SheetApiHelper {
         };
     }
 
+    /**
+     * Creates interface for Authorization activity. Authorizes account if onFail() is called.
+     * !Incomplete, will be modified in later releases.
+     *
+     * @param activity Activity where interface is created from
+     * @param credential Users credentials that are to be authorized
+     * @return Usable interface for Authorization activity.
+     */
     public static SheetApi.DoAfter<List<ValueRange>> interfaceReadRanges(Activity activity, GoogleAccountCredential credential) {
         return new SheetApi.DoAfter<List<ValueRange>>() {
             @Override
@@ -40,6 +64,14 @@ public class SheetApiHelper {
         };
     }
 
+    /**
+     * Creates interface for Authorization activity. Authorizes account if onFail() is called.
+     * !Incomplete, will be modified in later releases.
+     *
+     * @param activity Activity where interface is created from
+     * @param credential Users credentials that are to be authorized
+     * @return Usable interface for Authorization activity.
+     */
     public static SheetApi.DoAfter<ClearValuesResponse> doAfterClear(Activity activity, GoogleAccountCredential credential) {
         return new SheetApi.DoAfter<ClearValuesResponse>() {
             @Override
