@@ -9,7 +9,7 @@ import com.google.api.services.sheets.v4.model.ValueRange;
 import java.util.List;
 
 import tuni.tuukka.google.AccountAuthorization;
-import tuni.tuukka.google.SheetApi;
+import tuni.tuukka.google.DoAfter;
 
 /**
  * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
@@ -28,8 +28,8 @@ public class SheetApiHelper {
      * @param credential Users credentials that are to be authorized
      * @return Usable interface for Authorization activity.
      */
-    public static SheetApi.DoAfter<List<List<Object>>> interfaceReadRange(Activity activity, GoogleAccountCredential credential) {
-        return new SheetApi.DoAfter<List<List<Object>>>() {
+    public static DoAfter<List<List<Object>>> interfaceReadRange(Activity activity, GoogleAccountCredential credential) {
+        return new DoAfter<List<List<Object>>>() {
             @Override
             public void onFail() {
                 AccountAuthorization.authorize(activity, credential);
@@ -50,8 +50,8 @@ public class SheetApiHelper {
      * @param credential Users credentials that are to be authorized
      * @return Usable interface for Authorization activity.
      */
-    public static SheetApi.DoAfter<List<ValueRange>> interfaceReadRanges(Activity activity, GoogleAccountCredential credential) {
-        return new SheetApi.DoAfter<List<ValueRange>>() {
+    public static DoAfter<List<ValueRange>> interfaceReadRanges(Activity activity, GoogleAccountCredential credential) {
+        return new DoAfter<List<ValueRange>>() {
             @Override
             public void onFail() {
                 AccountAuthorization.authorize(activity,credential);
@@ -72,8 +72,8 @@ public class SheetApiHelper {
      * @param credential Users credentials that are to be authorized
      * @return Usable interface for Authorization activity.
      */
-    public static SheetApi.DoAfter<ClearValuesResponse> doAfterClear(Activity activity, GoogleAccountCredential credential) {
-        return new SheetApi.DoAfter<ClearValuesResponse>() {
+    public static DoAfter<ClearValuesResponse> doAfterClear(Activity activity, GoogleAccountCredential credential) {
+        return new DoAfter<ClearValuesResponse>() {
             @Override
             public void onFail() {
                 AccountAuthorization.authorize(activity,credential);
