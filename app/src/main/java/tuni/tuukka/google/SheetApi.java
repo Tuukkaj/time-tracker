@@ -178,9 +178,12 @@ public class SheetApi {
     }
 
     /**
-     * Adds new sheet tab with name
+     * Add new tab to a sheet with given name.
+     * @param sheetId
+     * @param nameOfTab
+     * @param doAfter
      */
-    public static void appendTab(String sheetId, String nameOfTab, tuni.tuukka.google.DoAfter doAfter) {
+    public static void appendTab(String sheetId, String nameOfTab, DoAfter doAfter) {
         new AsyncTask<Void,Void,Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -207,14 +210,5 @@ public class SheetApi {
                 return null;
             }
         }.execute();
-    }
-
-    /**
-     * Interface to DoAfter results have came from Google.
-     * @param <T> Parameter to give to onSuccess()
-     */
-    public interface DoAfter<T> {
-        void onFail();
-        void onSuccess(T value);
     }
 }
