@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.Authorization"></activity>
+        <activity android:name=".activities.SheetList"></activity>
     </application>
 
 </manifest>
