@@ -11,6 +11,7 @@ import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
 import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetResponse;
 import com.google.api.services.sheets.v4.model.ClearValuesRequest;
 import com.google.api.services.sheets.v4.model.ClearValuesResponse;
+import com.google.api.services.sheets.v4.model.DeleteSheetRequest;
 import com.google.api.services.sheets.v4.model.Request;
 import com.google.api.services.sheets.v4.model.SheetProperties;
 import com.google.api.services.sheets.v4.model.ValueRange;
@@ -191,13 +192,20 @@ public class SheetApi {
                 AddSheetRequest addFirst = new AddSheetRequest();
                 addFirst.setProperties(new SheetProperties().setTitle(firstTabName));
                 Request firstRequest = new Request().setAddSheet(addFirst);
+
                 AddSheetRequest addSecond = new AddSheetRequest();
                 addSecond.setProperties(new SheetProperties().setTitle(secondTabName));
                 Request secondRequest = new Request().setAddSheet(addSecond);
+
+                DeleteSheetRequest delete = new DeleteSheetRequest();
+                delete.setSheetId(0);
+                Request deleteRequest = new Request().setDeleteSheet(delete);
+
                 BatchUpdateSpreadsheetRequest batchUpdate = new BatchUpdateSpreadsheetRequest();
                 List<Request> requests = new ArrayList<>();
                 requests.add(firstRequest);
                 requests.add(secondRequest);
+                requests.add(deleteRequest);
                 batchUpdate.setRequests(requests);
 
                 try {
