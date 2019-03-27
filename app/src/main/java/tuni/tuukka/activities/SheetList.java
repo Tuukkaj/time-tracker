@@ -17,18 +17,18 @@ public class SheetList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_files);
+        ArrayList<SheetInformation> infos = new ArrayList<>();
+        ArrayList<String> names = getIntent().getStringArrayListExtra("names");
+        ArrayList<String> ids = getIntent().getStringArrayListExtra("ids");
 
+        for(int i = 0; names != null && ids != null && i < names.size(); i++) {
+            infos.add(new SheetInformation(names.get(i), ids.get(i)));
+        }
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(false);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ArrayList<SheetInformation> data = new ArrayList<>();
-        data.add(new SheetInformation("Kaljan juonti", "sdjfhdsuhfa7234"));
-        data.add(new SheetInformation("Koodaus", "asfojdfiu328ry9ha9f123"));
-        data.add(new SheetInformation("Syöminen", "dig239r8323eh119xj21"));
-        data.add(new SheetInformation("Työskentely", "dt4uhjfjh348yf438373"));
 
-        recyclerView.setAdapter(new SheetRecyclerViewAdapter(data));
+        recyclerView.setAdapter(new SheetRecyclerViewAdapter(infos));
     }
 
     public class SheetInformation {
