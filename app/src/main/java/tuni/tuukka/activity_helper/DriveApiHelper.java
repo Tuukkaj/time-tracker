@@ -1,13 +1,16 @@
 package tuni.tuukka.activity_helper;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.services.drive.model.File;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import tuni.tuukka.activities.SheetList;
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.DriveApi;
@@ -87,7 +90,20 @@ public class DriveApiHelper {
         return new DoAfter<List<File>>() {
             @Override
             public void onSuccess(List<File> list) {
-                list.forEach(System.out::println);
+                ArrayList<String> fileNames = new ArrayList<>();
+                ArrayList<String> fileIds = new ArrayList<>();
+
+                list.forEach(file -> {
+                    System.out.println(file);
+                    fileNames.add(file.getName());
+                    fileIds.add(file.getId());
+                });
+
+                Intent intent = new Intent(activity, SheetList.class);
+                intent.putStringArrayListExtra("names", fileNames);
+                intent.putStringArrayListExtra("ids", fileIds);
+
+                activity.startActivity(intent);
             }
 
             @Override
