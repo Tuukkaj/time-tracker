@@ -196,17 +196,19 @@ public class DriveApi {
      * Creates List<File> users spreadsheet files in Drive.
      * @param listFiles Interface to list results from Google.
      */
-    public static void listFiles(ListFilesInterface listFiles) {
+    public static void listFiles(DoAfter<List<File>> listFiles) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
                     List<File> files = drive.files().list().setQ("name contains 'time-tracker' and mimeType = 'application/vnd.google-apps.spreadsheet'").execute().getFiles();
-                    listFiles.useFileList(files);
+                    listFiles.onSuccess(files);
                 }catch (IOException e) {
+                    listFiles.onFail();
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
+                    listFiles.onFail();
                     e.printStackTrace();
                 }
 
@@ -225,16 +227,6 @@ public class DriveApi {
         void onFileAlreadyCreated();
     }
 
-    /**
-     * Interface for listing users files.
-     */
-    public interface ListFilesInterface {
-        /**
-         * Called when list of users spreadsheets are acquired from Drive.
-         * @param file Spreadsheets from users Drive.
-         */
-        void useFileList(List<File> file);
-    }
 
     /**
      * Interface for checking users folders.

@@ -6,7 +6,10 @@ import android.widget.Toast;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.services.drive.model.File;
 
+import java.util.List;
+
 import tuni.tuukka.google.AccountAuthorization;
+import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.DriveApi;
 
 /**
@@ -76,6 +79,21 @@ public class DriveApiHelper {
             public void onSuccess(String fileId) {
                 //Do something with ui here
                 System.out.println("FILE CREATED" + fileId);
+            }
+        };
+    }
+
+    public static DoAfter<List<File>> interfaceListFiles(Activity activity, GoogleAccountCredential credential) {
+        return new DoAfter<List<File>>() {
+            @Override
+            public void onSuccess(List<File> list) {
+                list.forEach(System.out::println);
+            }
+
+            @Override
+            public void onFail() {
+                activity.runOnUiThread(() -> Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show());
+                AccountAuthorization.authorize(activity, credential);
             }
         };
     }

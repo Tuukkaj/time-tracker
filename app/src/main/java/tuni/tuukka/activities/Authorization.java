@@ -117,7 +117,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.getFiles:
                 if (token.isPresent()) {
                     // Lists all users spreadsheet files if they contain "time-tracker"
-                    DriveApi.listFiles(list -> list.forEach(System.out::println));
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
