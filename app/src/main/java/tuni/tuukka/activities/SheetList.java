@@ -22,7 +22,7 @@ public class SheetList extends AppCompatActivity {
         ArrayList<String> ids = getIntent().getStringArrayListExtra("ids");
 
         for(int i = 0; names != null && ids != null && i < names.size(); i++) {
-            infos.add(new SheetInformation(names.get(i), ids.get(i)));
+            infos.add(new SheetInformation(ids.get(i),names.get(i)));
         }
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(false);
