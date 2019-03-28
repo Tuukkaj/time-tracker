@@ -205,9 +205,11 @@ public class DriveApi {
                     List<File> files = drive.files().list().setQ("name contains 'time-tracker' and mimeType = 'application/vnd.google-apps.spreadsheet'").execute().getFiles();
                     listFiles.onSuccess(files);
                 }catch (IOException e) {
+                    System.out.println(1);
                     listFiles.onFail();
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
+                    System.out.println(2);
                     listFiles.onFail();
                     e.printStackTrace();
                 }
