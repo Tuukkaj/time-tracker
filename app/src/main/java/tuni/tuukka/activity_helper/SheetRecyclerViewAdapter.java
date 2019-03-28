@@ -29,8 +29,8 @@ public class SheetRecyclerViewAdapter extends RecyclerView.Adapter<SheetRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        ((TextView) viewHolder.cardView.findViewById(R.id.sheet_name)).setText(data.get(i).id);
-        ((TextView) viewHolder.cardView.findViewById(R.id.sheetId)).setText(data.get(i).name);
+        ((TextView) viewHolder.cardView.findViewById(R.id.sheet_name)).setText(data.get(i).name.substring(13));
+        ((TextView) viewHolder.cardView.findViewById(R.id.sheetId)).setText(data.get(i).id);
     }
 
     @Override
