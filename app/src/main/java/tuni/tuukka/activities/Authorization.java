@@ -163,9 +163,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         }
 
 
-        if (!Token.loadToken(this).isPresent()) {
-            AccountAuthorization.authorize(this, credential);
-        }
+        AccountAuthorization.authorize(this, credential);
 
         ((TextView) findViewById(R.id.accountName)).setText(credential.getSelectedAccountName());
         ((Button) findViewById(R.id.getSheets)).setVisibility(View.VISIBLE);
