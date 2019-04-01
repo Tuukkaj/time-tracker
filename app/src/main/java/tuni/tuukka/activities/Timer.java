@@ -13,6 +13,8 @@ public class Timer extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
+        String name = getIntent().getStringExtra("sheetName");
+        String id = getIntent().getStringExtra("sheetId");
     }
 
     public void onClick(View v) {
