@@ -28,7 +28,7 @@ public class SheetList extends AppCompatActivity {
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new SheetRecyclerViewAdapter(infos));
+        recyclerView.setAdapter(new SheetRecyclerViewAdapter(infos, this));
     }
 
     public class SheetInformation {
