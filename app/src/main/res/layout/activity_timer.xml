@@ -14,12 +14,12 @@
             android:layout_alignParentRight="true"
             android:layout_margin="30pt"
             >
-            <TextView
+            <TextView android:id="@+id/end-title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="START"
+                android:text="END"
                 android:textSize="15pt"/>
-            <TextView
+            <TextView android:id="@+id/end-text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12.5pt"
@@ -32,12 +32,12 @@
             android:layout_alignParentLeft="true"
             android:layout_margin="30pt"
             >
-            <TextView
+            <TextView   android:id="@+id/start-title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15pt"
-                android:text="END"/>
-            <TextView
+                android:text="START"/>
+            <TextView android:id="@+id/start-text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12.5pt"
@@ -46,11 +46,34 @@
 
 
     </RelativeLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="15pt"
         android:text="TIME"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15pt"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10pt">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20pt"
+            android:text="END"
+            android:enabled="false"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20pt"
+            android:text="START"
+            />
+    </RelativeLayout>
 
 </LinearLayout>
