@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import tuni.tuukka.R;
 
@@ -15,6 +16,9 @@ public class Timer extends AppCompatActivity {
         setContentView(R.layout.activity_timer);
         String name = getIntent().getStringExtra("sheetName");
         String id = getIntent().getStringExtra("sheetId");
+
+        ((TextView) findViewById(R.id.timer_sheetName)).setText(name.substring(13));
+        ((TextView) findViewById(R.id.timer_sheetId)).setText(id);
     }
 
     public void onClick(View v) {
