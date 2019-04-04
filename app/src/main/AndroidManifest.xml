@@ -25,6 +25,7 @@
         <activity android:name=".activities.Authorization"></activity>
         <activity android:name=".activities.SheetList"></activity>
         <activity android:name=".activities.Timer"></activity>
+        <service android:name=".services.TimerService"></service>
     </application>
 
 </manifest>
