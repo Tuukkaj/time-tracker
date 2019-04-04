@@ -35,7 +35,6 @@ public class TimerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         run = true;
-
         String name = intent.getStringExtra("sheetName");
         String id = intent.getStringExtra("sheetId");
         System.out.println(name + " "  + id);
@@ -57,6 +56,7 @@ public class TimerService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setAutoCancel(true);
 
+        startForeground(SERVICE_ID, builder.build());
         new Thread(() -> {
             Intent broadcast = new Intent(TIMER_EVENT_NAME);
             LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
