@@ -47,15 +47,18 @@ public class Timer extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        if(v.getId() == R.id.start_button) {
-            Button start = (Button) findViewById(R.id.start_button);
-            Button end = (Button) findViewById(R.id.end_button);
+        Button start = (Button) findViewById(R.id.start_button);
+        Button end = (Button) findViewById(R.id.end_button);
+        Intent serviceIntent = new Intent(this, TimerService.class);
 
+        if(v.getId() == R.id.start_button) {
             start.setEnabled(false);
             end.setEnabled(true);
-            startService(new Intent(this, TimerService.class));
+            startService(serviceIntent);
         } else if (v.getId() == R.id.end_button){
-            Button end = (Button) findViewById(R.id.end_button);
+            start.setEnabled(true);
+            end.setEnabled(false);
+            stopService(serviceIntent);
         }
     }
 }
