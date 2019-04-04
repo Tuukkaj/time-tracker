@@ -36,6 +36,27 @@ public class TimerService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         run = true;
 
+        String name = intent.getStringExtra("sheetName");
+        String id = intent.getStringExtra("sheetId");
+        System.out.println(name + " "  + id);
+
+        Intent resultIntent = new Intent(this, Timer.class);
+        resultIntent.putExtra("sheetName", name);
+        resultIntent.putExtra("sheetId", id);
+        resultIntent.putExtra("serviceOn", true);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        builder = new NotificationCompat.Builder(this, "time-tracker")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Elapsed time")
+                .setContentText("Time elapsed...")
+                .setContentIntent(resultPendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setAutoCancel(true);
+
         new Thread(() -> {
             Intent broadcast = new Intent(TIMER_EVENT_NAME);
             LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
@@ -63,6 +84,7 @@ public class TimerService extends Service {
     @Override
     public void onDestroy() {
         run = false;
+        NotificationManagerCompat.from(this).cancel(SERVICE_ID);
         super.onDestroy();
     }
 }
