@@ -18,13 +18,20 @@ import tuni.tuukka.services.TimerService;
 
 public class Timer extends AppCompatActivity {
     int seconds = 0;
-
+    String name;
+    String id;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
-        String name = getIntent().getStringExtra("sheetName");
-        String id = getIntent().getStringExtra("sheetId");
+        name = getIntent().getStringExtra("sheetName");
+        id = getIntent().getStringExtra("sheetId");
+
+
+        if (getIntent().getBooleanExtra("serviceOn", false)) {
+            ((Button) findViewById(R.id.start_button)).setEnabled(false);
+            ((Button) findViewById(R.id.end_button)).setEnabled(true);
+        }
 
         ((TextView) findViewById(R.id.timer_sheetName)).setText(name.substring(13));
         ((TextView) findViewById(R.id.timer_sheetId)).setText(id);
@@ -39,7 +46,7 @@ public class Timer extends AppCompatActivity {
         return new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                seconds++;
+                seconds = intent.getIntExtra(TimerService.TIMER_SEND_PARAM, seconds);
                 DateUtils.formatElapsedTime(seconds);
                 timeDisplay.setText(DateUtils.formatElapsedTime(seconds));
             }
@@ -54,6 +61,10 @@ public class Timer extends AppCompatActivity {
         if(v.getId() == R.id.start_button) {
             start.setEnabled(false);
             end.setEnabled(true);
+            serviceIntent.putExtra(TimerService.TIMER_START_PARAM, seconds);
+            serviceIntent.putExtra("sheetName", name);
+            serviceIntent.putExtra("sheetId", id);
+
             startService(serviceIntent);
         } else if (v.getId() == R.id.end_button){
             start.setEnabled(true);
