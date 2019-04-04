@@ -9,6 +9,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 public class TimerService extends Service {
     public final static String TIMER_EVENT_NAME = "time";
+    boolean run;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -17,12 +18,13 @@ public class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        run = true;
 
         new Thread(() -> {
             Intent broadcast = new Intent(TIMER_EVENT_NAME);
             LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
 
-            while (true) {
+            while (run) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
