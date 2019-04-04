@@ -78,7 +78,7 @@ public class TimerService extends Service {
             }
         }).start();
 
-        return super.onStartCommand(intent, flags, startId);
+        return Service.START_REDELIVER_INTENT;
     }
 
     @Override
