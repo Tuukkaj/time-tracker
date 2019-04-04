@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.ACCOUNT_MANAGER"
         tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
     <application
         android:allowBackup="true"
@@ -23,8 +25,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.Authorization"></activity>
-        <activity android:name=".activities.SheetList"></activity>
-        <activity android:name=".activities.Timer"></activity>
+        <activity android:name=".activities.SheetList"
+            android:parentActivityName=".activities.Authorization"></activity>
+        <activity android:name=".activities.Timer"
+            android:parentActivityName=".activities.Authorization"></activity>
         <service android:name=".services.TimerService"></service>
     </application>
 
