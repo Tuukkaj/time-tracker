@@ -25,12 +25,12 @@
             android:layout_alignParentRight="true"
             android:layout_margin="30pt"
             >
-            <TextView android:id="@+id/end-title"
+            <TextView android:id="@+id/timer-time-title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="END"
+                android:text="TIME"
                 android:textSize="15pt"/>
-            <TextView android:id="@+id/end-text"
+            <TextView android:id="@+id/timer-time-text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12.5pt"
@@ -55,14 +55,6 @@
                 android:text="12:54"/>
         </LinearLayout>
     </RelativeLayout>
-
-    <TextView android:id="@+id/timer-time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15pt"
-        android:text="00:00"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15pt"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
