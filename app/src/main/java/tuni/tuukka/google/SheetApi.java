@@ -119,6 +119,7 @@ public class SheetApi {
                 if(data instanceof DataTime) {
                     DataTime time = (DataTime) data;
                     objects.add(time.time);
+                    objects.add(time.date);
                     objects.add(time.category);
                     objects.add(time.comment);
                 } else if (data instanceof DataCategory) {

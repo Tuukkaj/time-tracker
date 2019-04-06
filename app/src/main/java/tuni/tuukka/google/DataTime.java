@@ -1,5 +1,8 @@
 package tuni.tuukka.google;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
  * @version     20190323
@@ -25,6 +28,8 @@ public class DataTime extends Data {
      */
     public String comment;
 
+    public String date;
+
     /**
      * Sets parameters to class variables.
      *
@@ -33,10 +38,11 @@ public class DataTime extends Data {
      * @param comment Comment of what user did while working.
      * @param info Target sheetId and range.
      */
-    public DataTime(long time, String category, String comment, SheetRequestsInfo info) {
+    public DataTime(float time, String category, String comment, SheetRequestsInfo info) {
         super(info);
         this.time = time;
         this.category = category;
         this.comment = comment;
+        date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
     }
 }
