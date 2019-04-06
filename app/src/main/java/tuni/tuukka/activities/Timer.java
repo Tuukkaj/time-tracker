@@ -63,7 +63,10 @@ public class Timer extends AppCompatActivity {
             Intent nextActivity = new Intent(this, Upload.class);
             nextActivity.putExtra("sheetName", name);
             nextActivity.putExtra("sheetId", id);
-            nextActivity.putExtra("time", System.currentTimeMillis() / 1000 - start);
+            float hoursWorked = ((System.currentTimeMillis() / 1000) - start)/ 3600f;
+            System.out.println(hoursWorked);
+            float rounded = Math.round(hoursWorked * 100) / 100;
+            nextActivity.putExtra("time", rounded);
             startActivity(nextActivity);
         }
     }
