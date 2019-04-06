@@ -29,6 +29,7 @@
             android:parentActivityName=".activities.Authorization"></activity>
         <activity android:name=".activities.Timer"
             android:parentActivityName=".activities.Authorization"></activity>
+        <activity android:name=".activities.Upload"></activity>
         <service android:name=".services.TimerService"></service>
     </application>
 
