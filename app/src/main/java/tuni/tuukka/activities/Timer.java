@@ -2,11 +2,15 @@ package tuni.tuukka.activities;
 
 
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -20,7 +24,6 @@ import tuni.tuukka.R;
 
 public class Timer extends AppCompatActivity {
     long start;
-    String startTime;
     String name;
     String id;
     boolean runTimer;
@@ -64,9 +67,7 @@ public class Timer extends AppCompatActivity {
             nextActivity.putExtra("sheetName", name);
             nextActivity.putExtra("sheetId", id);
             float hoursWorked = ((System.currentTimeMillis() / 1000) - start)/ 3600f;
-            System.out.println(hoursWorked);
-            float rounded = Math.round(hoursWorked * 100) / 100;
-            nextActivity.putExtra("time", rounded);
+            nextActivity.putExtra("time", hoursWorked);
             startActivity(nextActivity);
         }
     }
@@ -96,6 +97,12 @@ public class Timer extends AppCompatActivity {
         };
 
         timeTask.execute();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "time-tracker")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Started tracking work time")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        getSystemService(NotificationManager.class).notify(123, builder.build());
     }
 
     public void stopTime() {
