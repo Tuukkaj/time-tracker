@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
 
 
 import tuni.tuukka.R;
+import tuni.tuukka.google.DataTime;
+import tuni.tuukka.google.SheetApi;
+import tuni.tuukka.google.SheetRequestsInfo;
 
 public class Upload extends AppCompatActivity {
     private String id;
@@ -30,7 +34,9 @@ public class Upload extends AppCompatActivity {
     }
 
     public void clickUpload(View v) {
-
+        String comment = ((EditText) findViewById(R.id.upload_comment_field)).getText().toString();
+        DataTime data = new DataTime(time, comment, "implemented later", new SheetRequestsInfo(id, "work"));
+        SheetApi.appendSheet(data);
     }
 
     public void clickCancel(View v) {
