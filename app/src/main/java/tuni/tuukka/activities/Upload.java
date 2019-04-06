@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -26,6 +27,13 @@ public class Upload extends AppCompatActivity {
         time = extras.getExtras().getFloat("time");
         ((TextView) findViewById(R.id.upload_sheet_name)).setText(name);
         ((TextView) findViewById(R.id.upload_time_spent)).setText("Time: " + time);
+    }
+
+    public void clickUpload(View v) {
+
+    }
+
+    public void clickCancel(View v) {
 
     }
 

@@ -44,7 +44,8 @@
                 android:text="Upload"
                 android:backgroundTint="@color/colorPrimary"
                 android:textColor="#fff"
-                android:layout_marginRight="10pt" />
+                android:layout_marginRight="10pt"
+                android:onClick="clickUpload"/>
         </LinearLayout>
 
         <LinearLayout
@@ -57,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginLeft="10pt"
-                android:text="Cancel" />
+                android:text="Cancel"
+                android:onClick="clickCancel"/>
         </LinearLayout>
     </LinearLayout>
 
