@@ -60,6 +60,11 @@ public class Timer extends AppCompatActivity {
             endButton.setEnabled(false);
             stopTime();
             ((TextView) findViewById(R.id.timer_time_text)).setText(DateUtils.formatElapsedTime( (System.currentTimeMillis() /1000) - start));
+            Intent nextActivity = new Intent(this, Upload.class);
+            nextActivity.putExtra("sheetName", name);
+            nextActivity.putExtra("sheetId", id);
+            nextActivity.putExtra("time", System.currentTimeMillis() / 1000 - start);
+            startActivity(nextActivity);
         }
     }
 
