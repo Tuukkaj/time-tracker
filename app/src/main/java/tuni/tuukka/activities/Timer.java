@@ -17,13 +17,13 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import tuni.tuukka.R;
-import tuni.tuukka.services.TimerService;
 
 public class Timer extends AppCompatActivity {
     long start;
     String startTime;
     String name;
     String id;
+    boolean runTimer;
 
     AsyncTask<Void,Void,Void> timeTask;
 
@@ -65,12 +65,13 @@ public class Timer extends AppCompatActivity {
 
     public void startTime() {
         TextView timeText = (TextView) findViewById(R.id.timer_time_text);
-        Context context = this;
+        runTimer = true;
+
         timeTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
                 new Thread(() -> {
-                    while(true) {
+                    while(runTimer) {
                         Timer.this.runOnUiThread(() -> {
                             timeText.setText(DateUtils.formatElapsedTime((System.currentTimeMillis() / 1000) - start));
                         });
@@ -90,6 +91,7 @@ public class Timer extends AppCompatActivity {
     }
 
     public void stopTime() {
+        runTimer = false;
         timeTask.cancel(true);
     }
 }
