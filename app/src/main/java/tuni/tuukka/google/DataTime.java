@@ -13,12 +13,7 @@ public class DataTime extends Data {
     /**
      * Timestamp value of when work was started
      */
-    public long start;
-
-    /**
-     * Timestamp value of when work was ended.
-     */
-    public long end;
+    public float time;
 
     /**
      * Category of work
@@ -33,16 +28,14 @@ public class DataTime extends Data {
     /**
      * Sets parameters to class variables.
      *
-     * @param start Work start time.
-     * @param end Work end time.
+     * @param time Time worked.
      * @param category Category of work.
      * @param comment Comment of what user did while working.
      * @param info Target sheetId and range.
      */
-    public DataTime(long start, long end, String category, String comment, SheetRequestsInfo info) {
+    public DataTime(long time, String category, String comment, SheetRequestsInfo info) {
         super(info);
-        this.start = start;
-        this.end = end;
+        this.time = time;
         this.category = category;
         this.comment = comment;
     }
