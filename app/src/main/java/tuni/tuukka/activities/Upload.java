@@ -31,6 +31,7 @@ public class Upload extends AppCompatActivity {
         name = extras.getStringExtra("sheetName");
         id = extras.getStringExtra("sheetId");
         time = extras.getExtras().getFloat("time");
+        time = Math.round((time / 3600) * 100f) / 100f;
         ((TextView) findViewById(R.id.upload_sheet_name)).setText(name);
         ((TextView) findViewById(R.id.upload_time_spent)).setText("Time: " + time);
     }
