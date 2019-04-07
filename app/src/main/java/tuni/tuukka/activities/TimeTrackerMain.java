@@ -40,7 +40,7 @@ public class TimeTrackerMain extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "time-tracker";
             String description = "Used to inform user about elapsed work time";
-            NotificationChannel channel = new NotificationChannel("time-tracker", name, NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel channel = new NotificationChannel("time-tracker", name, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
