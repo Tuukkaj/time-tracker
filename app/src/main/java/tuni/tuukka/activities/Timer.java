@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
@@ -18,7 +19,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
+import java.util.Date;
 
 import tuni.tuukka.R;
 
@@ -108,5 +112,35 @@ public class Timer extends AppCompatActivity {
     public void stopTime() {
         runTimer = false;
         timeTask.cancel(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("PAUSE" + start);
+        String text = ((TextView) findViewById(R.id.start_text)).getText().toString();
+        getSharedPreferences("time-tracker", Context.MODE_PRIVATE).edit().putLong("start",start).apply();
+        getSharedPreferences("time-tracker", Context.MODE_PRIVATE).edit().putString("time-text",text).apply();
+
+        stopTime();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        long time = System.currentTimeMillis() / 1000;
+        start = getSharedPreferences("time-tracker", Context.MODE_PRIVATE).getLong("start",time);
+        String text = getSharedPreferences("time-tracker", Context.MODE_PRIVATE).getString("time-text","");
+
+        if(time != start) {
+            startTime();
+            ((TextView) findViewById(R.id.start_text)).setText(text);
+        }
+
+        getSharedPreferences("time-tracker", Context.MODE_PRIVATE).edit().remove("start").apply();
+        getSharedPreferences("time-tracker", Context.MODE_PRIVATE).edit().remove("time-text").apply();
+
+
+        System.out.println("RESUME" + start);
     }
 }
