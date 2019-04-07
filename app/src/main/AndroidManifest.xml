@@ -32,6 +32,7 @@
         <activity android:name=".activities.Upload"></activity>
         <activity android:name=".activities.CreateSheet"></activity>
         <activity android:name=".activities.ManualTimeInput"></activity>
+        <activity android:name=".activities.WorkTimeData"></activity>
         <service android:name=".services.TimerService"></service>
     </application>
 
