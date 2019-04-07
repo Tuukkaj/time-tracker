@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -117,7 +118,6 @@ public class Timer extends AppCompatActivity {
 
     public void stopTime() {
         runTimer = false;
-        timeTask.cancel(true);
     }
 
     @Override
@@ -133,18 +133,19 @@ public class Timer extends AppCompatActivity {
         } else {
             editor.clear().commit();
         }
+
         stopTime();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        long time = System.currentTimeMillis() / 1000;
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
 
-        start = preferences.getLong("start",time);
+        long temp = preferences.getLong("start",0);
 
-        if(time != start && start != 1) {
+        if(temp != 0) {
+            start = temp;
             startTime();
             String text = preferences.getString("time-text","");
             ((TextView) findViewById(R.id.start_text)).setText(text);
