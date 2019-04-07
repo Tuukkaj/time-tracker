@@ -40,14 +40,19 @@ public class WorkTimeData extends AppCompatActivity {
                     recyclerView.setLayoutManager(new LinearLayoutManager(WorkTimeData.this));
                     ArrayList<SheetInformation> infos = new ArrayList<>();
 
-                    for(int i = 0; i < value.size(); i++) {
-                        infos.add(new SheetInformation(Float.parseFloat(String.valueOf(value.get(i).get(0))),
-                                (String) value.get(i).get(1),
-                                (String) value.get(i).get(2),
-                                (String) value.get(i).get(3)));
-                    }
+                    if(value != null && value.size() > 0) {
+                        for (int i = 0; i < value.size(); i++) {
+                            infos.add(new SheetInformation(Float.parseFloat(String.valueOf(value.get(i).get(0))),
+                                    (String) value.get(i).get(1),
+                                    (String) value.get(i).get(2),
+                                    (String) value.get(i).get(3)));
+                        }
 
-                    recyclerView.setAdapter(new TimeDataRecyclerView(infos));
+                        recyclerView.setAdapter(new TimeDataRecyclerView(infos));
+                    } else {
+                        infos.add(new SheetInformation(0, "No data present", "-", "-"));
+                        recyclerView.setAdapter(new TimeDataRecyclerView(infos));
+                    }
                 });
             }
 
