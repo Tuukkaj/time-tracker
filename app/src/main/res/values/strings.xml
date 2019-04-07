@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">time-tracker</string>
-    <string name="accouthelper_btn_getSheet">Get sheets</string>
+    <string name="authorization_manual">manual time input</string>
+    <string name="authorization_start_working">timer</string>
+    <string name="authorization_show_work_time">show work times</string>
     <string name="accouthelper_btn_getAccount">Get account</string>
 </resources>

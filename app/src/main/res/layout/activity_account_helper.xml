@@ -25,7 +25,7 @@
         android:layout_gravity="center"
         android:visibility="invisible"
         android:onClick="buttonClick"
-        android:text="@string/accouthelper_btn_getSheet"/>
+        android:text="@string/authorization_start_working"/>
 
     <Button android:id="@+id/getFiles"
         android:layout_width="wrap_content"
@@ -33,13 +33,14 @@
         android:layout_gravity="center"
         android:visibility="invisible"
         android:onClick="buttonClick"
-        android:text="get files"/>
+        android:text="@string/authorization_manual"/>
+
     <Button android:id="@+id/getFolder"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:visibility="invisible"
         android:onClick="buttonClick"
-        android:text="getFolder"/>
+        android:text="@string/authorization_show_work_time"/>
 
 </LinearLayout>

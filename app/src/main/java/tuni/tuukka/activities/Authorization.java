@@ -34,6 +34,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
 import tuni.tuukka.activity_helper.SheetApiHelper;
+import tuni.tuukka.activity_helper.SheetRecyclerViewAdapter;
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DataCategory;
 import tuni.tuukka.google.DriveApi;
@@ -106,9 +107,8 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.getSheets:
                 if (token.isPresent()) {
                     // Reads public sheet and prints results to console
-                    SheetApi.readRanges(
-                            new SheetRequestsInfo("1Fy4CuCOZI6MXF_UcvQsT2Tsxhx1SyGjk_nG1dRe34bY", SheetRequestsInfo.getRanges()),
-                            SheetApiHelper.interfaceReadRanges(this, credential));
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_TIMER));
+
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -117,7 +117,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.getFiles:
                 if (token.isPresent()) {
                     // Lists all users spreadsheet files if they contain "time-tracker"
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential));
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_MANUAL_INPUT));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
