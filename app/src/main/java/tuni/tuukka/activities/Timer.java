@@ -56,7 +56,8 @@ public class Timer extends AppCompatActivity {
         if(v.getId() == R.id.start_button) {
             startButton.setEnabled(false);
             endButton.setEnabled(true);
-            ((TextView) findViewById(R.id.start_text)).setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) +":"+Calendar.getInstance().get(Calendar.MINUTE));
+            ((TextView) findViewById(R.id.start_text)).setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) +":"+
+                    (Calendar.getInstance().get(Calendar.MINUTE) < 10?"0"+Calendar.getInstance().get(Calendar.MINUTE):Calendar.getInstance().get(Calendar.MINUTE)));
             start = System.currentTimeMillis() / 1000;
             startTime();
             createNotification();
@@ -67,8 +68,6 @@ public class Timer extends AppCompatActivity {
 
             getPreferences(Context.MODE_PRIVATE).edit().clear().commit();
             saveTime = false;
-            System.out.println(getSharedPreferences("time-tracker", Context.MODE_PRIVATE).getLong("start",123));
-            System.out.println(getSharedPreferences("time-tracker", Context.MODE_PRIVATE).getString("time-text","TYHJÄ"));
 
             Intent nextActivity = new Intent(this, Upload.class);
             nextActivity.putExtra("sheetName", name);
@@ -144,13 +143,10 @@ public class Timer extends AppCompatActivity {
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
 
         start = preferences.getLong("start",time);
-        String text = preferences.getString("time-text","");
-
-        System.out.println(time);
-        System.out.println(start);
 
         if(time != start && start != 1) {
             startTime();
+            String text = preferences.getString("time-text","");
             ((TextView) findViewById(R.id.start_text)).setText(text);
             ((Button) findViewById(R.id.start_button)).setEnabled(false);
             ((Button) findViewById(R.id.end_button)).setEnabled(true);
