@@ -1,14 +1,18 @@
 package tuni.tuukka.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 
 import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.SheetRecyclerViewAdapter;
+import tuni.tuukka.google.DriveApi;
+import tuni.tuukka.google.SheetApi;
 
 public class SheetList extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -39,5 +43,9 @@ public class SheetList extends AppCompatActivity {
             this.id = id;
             this.name = name;
         }
+    }
+
+    public void addSheet(View v) {
+        startActivity(new Intent(this, CreateSheet.class));
     }
 }
