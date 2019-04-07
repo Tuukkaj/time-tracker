@@ -1,7 +1,9 @@
 package tuni.tuukka.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +19,7 @@ import tuni.tuukka.google.SheetApi;
 public class SheetList extends AppCompatActivity {
     private RecyclerView recyclerView;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,9 @@ public class SheetList extends AppCompatActivity {
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         int mode = getIntent().getIntExtra("mode",0);
+        if(mode == SheetRecyclerViewAdapter.MODE_SHOW_TIME) {
+            ((FloatingActionButton) findViewById(R.id.list_file_floating_button)).setVisibility(View.INVISIBLE);
+        }
         recyclerView.setAdapter(new SheetRecyclerViewAdapter(infos, this, mode));
     }
 
