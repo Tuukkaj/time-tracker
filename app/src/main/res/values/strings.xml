@@ -4,4 +4,7 @@
     <string name="authorization_start_working">timer</string>
     <string name="authorization_show_work_time">show work times</string>
     <string name="accouthelper_btn_getAccount">Get account</string>
+    <string name="list_time_data_comment">Comment: </string>
+    <string name="list_time_data_time">Work time: </string>
+    <string name="list_time_data_category">Category: </string>
 </resources>
