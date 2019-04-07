@@ -16,6 +16,9 @@ import tuni.tuukka.R;
 import tuni.tuukka.activities.ManualTimeInput;
 import tuni.tuukka.activities.SheetList;
 import tuni.tuukka.activities.Timer;
+import tuni.tuukka.activities.WorkTimeData;
+import tuni.tuukka.google.SheetApi;
+import tuni.tuukka.google.SheetRequestsInfo;
 
 public class SheetRecyclerViewAdapter extends RecyclerView.Adapter<SheetRecyclerViewAdapter.ViewHolder> {
     private List<SheetList.SheetInformation> data;
@@ -55,8 +58,12 @@ public class SheetRecyclerViewAdapter extends RecyclerView.Adapter<SheetRecycler
                 activity.startActivity(intent);
             });
         } else if(mode == MODE_SHOW_TIME) {
-            //TODO IMPLEMENT LATER
-            System.out.println("MODE SHOW TIME" + MODE_SHOW_TIME);
+            ((Button) viewHolder.cardView.findViewById(R.id.button_select)).setOnClickListener(event -> {
+                Intent intent = new Intent(activity, WorkTimeData.class);
+                intent.putExtra("sheetId", data.get(i).id);
+                intent.putExtra("sheetName", data.get(i).name);
+                activity.startActivity(intent);
+            });
         }
 
         ((TextView) viewHolder.cardView.findViewById(R.id.sheet_name)).setText(data.get(i).name.substring(13));
