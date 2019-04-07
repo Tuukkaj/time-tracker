@@ -126,7 +126,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.getFolder: {
                 if(token.isPresent()) {
                     // Creates folder and sheet to users Drive
-                    DriveApi.createNewSheet("InsertSheetNameHere", DriveApiHelper.interfaceCreateSheet(this, credential));
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_SHOW_TIME));
                 } else{
                     AccountAuthorization.authorize(this,credential);
                 }
