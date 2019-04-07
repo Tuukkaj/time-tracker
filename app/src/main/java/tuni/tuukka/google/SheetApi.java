@@ -109,7 +109,7 @@ public class SheetApi {
      * Appends given data to spreadsheet. Gets spreadsheet to append id and range from parameter.
      * @param data Data to put into spreadsheet.
      */
-    public static void appendSheet(Data data) {
+    public static void appendSheet(Data data, DoAfter<AppendValuesResponse> doAfter) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -137,10 +137,13 @@ public class SheetApi {
                     request.setInsertDataOption("INSERT_ROWS");
                     request.setValueInputOption("RAW");
                     AppendValuesResponse response = request.execute();
-                    System.out.println(response);
+                    doAfter.onSuccess(response);
+
                 } catch (IOException e) {
+                    doAfter.onFail();
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
+                    doAfter.onFail();
                     e.printStackTrace();
                 }
                 return null;
