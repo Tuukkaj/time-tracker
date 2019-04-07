@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id="@+id/manualtimeinput-sheetName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SHEETNAME"
+        android:textSize="20pt"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView android:id="@+id/manualtimeinput-sheetId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1ROe_wSH0d78dCdI8YpGzsAoYM2IST120iZs0TEFQC8o"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WOKR TIME: "/>
+        <EditText android:id="@+id/manualtimeinput-hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hours,"/>
+
+        <EditText android:id="@+id/manualtimeinput-minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="minutes"
+            android:inputType="number"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="COMMENT"/>
+        <EditText android:id="@+id/manualtimeinput-comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CATEGORY"/>
+        <EditText android:id="@+id/manualtimeinput-category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"/>
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_add_black_24dp"
+        android:layout_marginTop="5pt"
+        android:layout_gravity="center_horizontal"
+        android:onClick="addClicked"/>
+</LinearLayout>
