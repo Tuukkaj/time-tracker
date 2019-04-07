@@ -86,7 +86,7 @@ public class DriveApiHelper {
         };
     }
 
-    public static DoAfter<List<File>> interfaceListFiles(Activity activity, GoogleAccountCredential credential) {
+    public static DoAfter<List<File>> interfaceListFiles(Activity activity, GoogleAccountCredential credential, int mode) {
         return new DoAfter<List<File>>() {
             @Override
             public void onSuccess(List<File> list) {
@@ -100,6 +100,7 @@ public class DriveApiHelper {
                 });
 
                 Intent intent = new Intent(activity, SheetList.class);
+                intent.putExtra("mode", mode);
                 intent.putStringArrayListExtra("names", fileNames);
                 intent.putStringArrayListExtra("ids", fileIds);
 
