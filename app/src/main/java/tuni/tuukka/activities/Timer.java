@@ -109,7 +109,7 @@ public class Timer extends AppCompatActivity {
     public void createNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "time-tracker")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Started tracking work time")
+                .setContentTitle("Started tracking time")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         Notification notification = builder.build();
         notification.flags = Notification.FLAG_ONGOING_EVENT;
