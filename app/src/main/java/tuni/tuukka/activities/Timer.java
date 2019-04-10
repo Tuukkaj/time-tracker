@@ -25,12 +25,12 @@ import java.util.Calendar;
 import tuni.tuukka.R;
 
 public class Timer extends AppCompatActivity {
-    long start;
-    String name;
-    String id;
-    boolean runTimer;
-    boolean saveTime = true;
-    AsyncTask<Void,Void,Void> timeTask;
+    private long start;
+    private String name;
+    private String id;
+    private boolean runTimer;
+    private boolean saveTime = true;
+    private AsyncTask<Void,Void,Void> timeTask;
 
     private final String TAG = "Timer";
     @Override
