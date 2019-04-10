@@ -24,25 +24,36 @@ public class SheetList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_files);
-        ArrayList<SheetInformation> infos = new ArrayList<>();
+
+
+        int mode = getIntent().getIntExtra("mode",0);
+
+        setUpRecyclerView(createSheetInformation(), mode);
+        setContentTitle(mode);
+
+        if(mode == SheetRecyclerViewAdapter.MODE_SHOW_TIME) {
+            ((FloatingActionButton) findViewById(R.id.list_file_floating_button)).setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private ArrayList<SheetInformation> createSheetInformation() {
+        ArrayList<SheetInformation> data = new ArrayList<>();
         ArrayList<String> names = getIntent().getStringArrayListExtra("names");
         ArrayList<String> ids = getIntent().getStringArrayListExtra("ids");
 
         for(int i = 0; names != null && ids != null && i < names.size(); i++) {
-            infos.add(new SheetInformation(ids.get(i),names.get(i)));
+            data.add(new SheetInformation(ids.get(i),names.get(i)));
         }
 
+        return data;
+    }
+
+    private void setUpRecyclerView(ArrayList<SheetInformation> data, int mode) {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        int mode = getIntent().getIntExtra("mode",0);
-
-        setContentTitle(mode);
-        if(mode == SheetRecyclerViewAdapter.MODE_SHOW_TIME) {
-            ((FloatingActionButton) findViewById(R.id.list_file_floating_button)).setVisibility(View.INVISIBLE);
-        }
-        recyclerView.setAdapter(new SheetRecyclerViewAdapter(infos, this, mode));
+        recyclerView.setAdapter(new SheetRecyclerViewAdapter(data, this, mode));
     }
 
     private void setContentTitle(int mode) {
