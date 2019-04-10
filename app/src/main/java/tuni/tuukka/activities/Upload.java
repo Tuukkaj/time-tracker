@@ -1,7 +1,9 @@
 package tuni.tuukka.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -62,6 +64,9 @@ public class Upload extends AppCompatActivity {
     }
 
     public void clickDelete(View v) {
-
+        PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
+        Intent i = new Intent(this, Authorization.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 }
