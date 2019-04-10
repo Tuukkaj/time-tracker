@@ -16,6 +16,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -109,6 +110,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.getSheets:
                 if (token.isPresent()) {
                     // Reads public sheet and prints results to console
+                    startLoadStreet();
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_TIMER));
 
                 } else {
@@ -119,6 +121,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.getFiles:
                 if (token.isPresent()) {
                     // Lists all users spreadsheet files if they contain "time-tracker"
+                    startLoadStreet();
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_MANUAL_INPUT));
                 } else {
                     AccountAuthorization.authorize(this,credential);
@@ -128,6 +131,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.getFolder: {
                 if(token.isPresent()) {
                     // Creates folder and sheet to users Drive
+                    startLoadStreet();
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_SHOW_TIME));
                 } else{
                     AccountAuthorization.authorize(this,credential);
@@ -136,6 +140,11 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 break;
             }
         }
+    }
+
+    private void startLoadStreet()  {
+        setContentView(R.layout.loading_screen);
+        ((ImageView) findViewById(R.id.loading)).setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
     }
 
     /**
