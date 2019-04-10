@@ -25,6 +25,14 @@ import java.util.Calendar;
 import tuni.tuukka.R;
 
 public class Timer extends AppCompatActivity {
+    private final static String TAG = "Timer";
+    private final static String PREF_SHEETNAME = "sheetName";
+    private final static String PREF_SHEETID = "sheetId";
+    private final static String PREF_START = "start";
+    private final static String PREF_START_TEXT = "startText";
+    public final static String EXTRA_SHEETNAME = "extraSheetName";
+    public final static String EXTRA_SHEETID = "extraSheetId";
+
     private long start;
     private String name;
     private String id;
@@ -32,13 +40,12 @@ public class Timer extends AppCompatActivity {
     private boolean saveTime = true;
     private AsyncTask<Void,Void,Void> timeTask;
 
-    private final String TAG = "Timer";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
-        name = getIntent().getStringExtra("sheetName");
-        id = getIntent().getStringExtra("sheetId");
+        name = getIntent().getStringExtra(EXTRA_SHEETNAME);
+        id = getIntent().getStringExtra(EXTRA_SHEETID);
 
 
         if (getIntent().getBooleanExtra("serviceOn", false)) {
@@ -129,10 +136,10 @@ public class Timer extends AppCompatActivity {
 
         if(saveTime) {
             String text = ((TextView) findViewById(R.id.start_text)).getText().toString();
-            editor.putLong("start", start);
-            editor.putString("time-text", text);
-            editor.putString("sheetName", name);
-            editor.putString("sheetId", id);
+            editor.putLong(PREF_START, start);
+            editor.putString(PREF_START_TEXT, text);
+            editor.putString(PREF_SHEETNAME, name);
+            editor.putString(PREF_SHEETID, id);
             editor.commit();
         } else {
             editor.clear().commit();
@@ -146,15 +153,15 @@ public class Timer extends AppCompatActivity {
         super.onResume();
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
 
-        long tempTime = preferences.getLong("start",0);
-        String tempId = preferences.getString("sheetId", "");
+        long tempTime = preferences.getLong(PREF_START,0);
+        String tempId = preferences.getString(PREF_SHEETID, "");
         Log.d(TAG, "onResume: CALLED");
 
         if(tempTime != 0 && !tempId.isEmpty()) {
             start = tempTime;
             id = tempId;
-            name = preferences.getString("sheetName", name);
-            String text = preferences.getString("time-text","");
+            name = preferences.getString(PREF_SHEETNAME, name);
+            String text = preferences.getString(PREF_START_TEXT,"");
             Log.d(TAG, "onResume: PRESENT");
             startTime();
 

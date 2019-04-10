@@ -46,8 +46,8 @@ public class SheetRecyclerViewAdapter extends RecyclerView.Adapter<SheetRecycler
         if(mode == MODE_TIMER) {
             ((Button) viewHolder.cardView.findViewById(R.id.button_select)).setOnClickListener(event -> {
                 Intent intent = new Intent(activity, Timer.class);
-                intent.putExtra("sheetId", data.get(i).id);
-                intent.putExtra("sheetName", data.get(i).name);
+                intent.putExtra(Timer.EXTRA_SHEETID, data.get(i).id);
+                intent.putExtra(Timer.EXTRA_SHEETNAME, data.get(i).name);
                 activity.startActivity(intent);
             });
         } else if(mode == MODE_MANUAL_INPUT) {
