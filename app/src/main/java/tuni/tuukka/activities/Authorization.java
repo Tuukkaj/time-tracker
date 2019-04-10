@@ -89,6 +89,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         setContentView(R.layout.activity_authorization);
         Set<String> scopes = DriveScopes.all();
         credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), scopes).setBackOff(new ExponentialBackOff());
+        login();
     }
 
     /**
