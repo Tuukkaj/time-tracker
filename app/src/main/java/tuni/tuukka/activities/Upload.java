@@ -58,7 +58,6 @@ public class Upload extends AppCompatActivity {
     }
 
     public void clickCancel(View v) {
-
+        finish();
     }
-
 }
