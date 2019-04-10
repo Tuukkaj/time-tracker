@@ -32,6 +32,7 @@ public class Timer extends AppCompatActivity {
     boolean saveTime = true;
     AsyncTask<Void,Void,Void> timeTask;
 
+    private final String TAG = "Timer";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,9 +46,10 @@ public class Timer extends AppCompatActivity {
             ((Button) findViewById(R.id.end_button)).setEnabled(true);
         }
 
-        ((TextView) findViewById(R.id.timer_sheetName)).setText(name.substring(13));
-        ((TextView) findViewById(R.id.timer_sheetId)).setText(id);
-
+        if(name != null && id != null) {
+            ((TextView) findViewById(R.id.timer_sheetName)).setText(name.substring(13));
+            ((TextView) findViewById(R.id.timer_sheetId)).setText(id);
+        }
     }
 
     public void onClick(View v) {
@@ -67,7 +69,7 @@ public class Timer extends AppCompatActivity {
             endButton.setEnabled(false);
             stopTime();
 
-            getPreferences(Context.MODE_PRIVATE).edit().clear().commit();
+            //getPreferences(Context.MODE_PRIVATE).edit().clear().commit();
             saveTime = false;
 
             Intent nextActivity = new Intent(this, Upload.class);
@@ -129,6 +131,8 @@ public class Timer extends AppCompatActivity {
             String text = ((TextView) findViewById(R.id.start_text)).getText().toString();
             editor.putLong("start", start);
             editor.putString("time-text", text);
+            editor.putString("sheetName", name);
+            editor.putString("sheetId", id);
             editor.commit();
         } else {
             editor.clear().commit();
@@ -142,12 +146,20 @@ public class Timer extends AppCompatActivity {
         super.onResume();
         SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
 
-        long temp = preferences.getLong("start",0);
+        long tempTime = preferences.getLong("start",0);
+        String tempId = preferences.getString("sheetId", "");
+        Log.d(TAG, "onResume: CALLED");
 
-        if(temp != 0) {
-            start = temp;
-            startTime();
+        if(tempTime != 0 && !tempId.isEmpty()) {
+            start = tempTime;
+            id = tempId;
+            name = preferences.getString("sheetName", name);
             String text = preferences.getString("time-text","");
+            Log.d(TAG, "onResume: PRESENT");
+            startTime();
+
+            ((TextView) findViewById(R.id.timer_sheetName)).setText(name.substring(13));
+            ((TextView) findViewById(R.id.timer_sheetId)).setText(id);
             ((TextView) findViewById(R.id.start_text)).setText(text);
             ((Button) findViewById(R.id.start_button)).setEnabled(false);
             ((Button) findViewById(R.id.end_button)).setEnabled(true);
