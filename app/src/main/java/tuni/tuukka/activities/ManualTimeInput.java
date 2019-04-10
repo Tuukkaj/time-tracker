@@ -3,9 +3,11 @@ package tuni.tuukka.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,17 +20,64 @@ import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
 
 public class ManualTimeInput extends AppCompatActivity {
+    private TextView timeView;
+    private FloatingActionButton addButton;
+
     private String id;
+    private int hours;
+    private int minutes;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manualtimeinput);
+
+        timeView = (TextView) findViewById(R.id.manualtimeinput_time);
+        addButton = (FloatingActionButton) findViewById(R.id.manualtimeinput_addbutton);
+
+        addButton.setEnabled(false);
+        addButton.setBackgroundTintList(getColorStateList(R.color.shadow));
+
         String name = getIntent().getStringExtra("sheetName");
         id = getIntent().getStringExtra("sheetId");
 
         ((TextView) findViewById(R.id.manualtimeinput_sheetName)).setText(name.substring(13));
         ((TextView) findViewById(R.id.manualtimeinput_sheetId)).setText(id);
+
+        setOnChangeListener(R.id.manualtimeinput_hour, value -> hours = value);
+        setOnChangeListener(R.id.manualtimeinput_minute, value -> minutes = value);
+
+    }
+
+    private void setTimeText(Integer hours, Integer minutes) {
+        String hourText = hours < 10 ? "0" + hours : String.valueOf(hours);
+        String minuteText = minutes < 10 ? "0" + minutes : String.valueOf(minutes);
+        timeView.setText(hourText+":"+minuteText);
+    }
+
+    public void setOnChangeListener(int id, SetValue set) {
+        SeekBar bar = (SeekBar) findViewById(id);
+
+        bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                set.setValue(progress);
+                setTimeText(hours, minutes);
+
+                if(hours <= 0 && minutes <= 0) {
+                    addButton.setEnabled(false);
+                    addButton.setBackgroundTintList(getColorStateList(R.color.shadow));
+                } else {
+                    addButton.setEnabled(true);
+                    addButton.setBackgroundTintList(getColorStateList(R.color.colorAccent));
+                }
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
     }
 
     public void addClicked(View v) {
@@ -65,5 +114,9 @@ public class ManualTimeInput extends AppCompatActivity {
                 Toast.makeText(ManualTimeInput.this, "Check your connection status", Toast.LENGTH_SHORT).show();
             }
         };
+    }
+
+    private interface SetValue {
+        void setValue(int value);
     }
 }
