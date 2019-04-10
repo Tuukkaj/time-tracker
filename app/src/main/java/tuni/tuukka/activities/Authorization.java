@@ -36,13 +36,9 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
-import tuni.tuukka.activity_helper.SheetApiHelper;
 import tuni.tuukka.activity_helper.SheetRecyclerViewAdapter;
 import tuni.tuukka.google.AccountAuthorization;
-import tuni.tuukka.google.DataCategory;
 import tuni.tuukka.google.DriveApi;
-import tuni.tuukka.google.SheetApi;
-import tuni.tuukka.google.SheetRequestsInfo;
 import tuni.tuukka.google.Token;
 
 /**
@@ -90,7 +86,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createNotificationChannel();
-        setContentView(R.layout.activity_account_helper);
+        setContentView(R.layout.activity_authorization);
         Set<String> scopes = DriveScopes.all();
         credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), scopes).setBackOff(new ExponentialBackOff());
     }
