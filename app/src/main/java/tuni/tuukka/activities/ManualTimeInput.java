@@ -81,23 +81,12 @@ public class ManualTimeInput extends AppCompatActivity {
     }
 
     public void addClicked(View v) {
-        String hoursText = ((EditText) findViewById(R.id.manualtimeinput_hours)).getText().toString();
-        String minutesText =((EditText) findViewById(R.id.manualtimeinput_minutes)).getText().toString();
         String comment = ((EditText) findViewById(R.id.manualtimeinput_comment)).getText().toString();
-        String category = ((EditText) findViewById(R.id.manualtimeinput_category)).getText().toString();
-
-        if(hoursText.length() > 0 && minutesText.length() > 0) {
-            float hours = Float.parseFloat(hoursText);
-            int minutes = Integer.parseInt(minutesText);
-            float decimalMinutes = minutes / 60f;
-            if(decimalMinutes < 1) {
-                DataTime dataTime = new DataTime(Math.round((hours+decimalMinutes) * 100f) / 100f, comment, category, new SheetRequestsInfo(id, "work"));
-                SheetApi.appendSheet(dataTime, createInterface());
-            }
-        } else {
-            Toast.makeText(this, "Enter time please", Toast.LENGTH_SHORT).show();
-        }
+        float decimalMinutes = minutes / 60f;
+        DataTime dataTime = new DataTime(Math.round((hours+decimalMinutes) * 100f) / 100f, comment, "REPLACE", new SheetRequestsInfo(id, "work"));
+        SheetApi.appendSheet(dataTime, createInterface());
     }
+
 
     private DoAfter<AppendValuesResponse> createInterface() {
         return new DoAfter<AppendValuesResponse>() {
