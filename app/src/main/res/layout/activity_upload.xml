@@ -2,18 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <TextView android:id="@+id/upload_sheet-name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20pt"/>
-    <TextView android:id="@+id/upload_time-spent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="15pt"/>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0pt"
+        android:orientation="vertical"
+        android:layout_weight="0.3">
+        <TextView android:id="@+id/upload_sheet-name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20pt"/>
+        <TextView android:id="@+id/upload_time-spent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15pt"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0pt"
+        android:orientation="horizontal"
+        android:layout_weight="0.3">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,40 +35,59 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="20pt">
+        android:layout_height="0pt"
+        android:orientation="vertical"
+        android:layout_marginTop="20pt"
+        android:layout_weight="0.4">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
 
+            android:orientation="vertical">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="Upload"
+                android:layout_gravity="center"
+                android:text="save"
                 android:backgroundTint="@color/colorPrimary"
                 android:textColor="#fff"
-                android:layout_marginRight="10pt"
-                android:onClick="clickUpload"/>
+                />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
             android:orientation="vertical">
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginLeft="10pt"
-                android:text="Cancel"
+                android:layout_gravity="center"
+                android:text="back to timer"
                 android:onClick="clickCancel"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="delete sesssion"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:onClick="clickCancel"/>
+        </LinearLayout>
+
+
+
+
+
+
     </LinearLayout>
 
 
