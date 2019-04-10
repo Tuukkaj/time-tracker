@@ -32,8 +32,8 @@ public class Upload extends AppCompatActivity {
         id = extras.getStringExtra("sheetId");
         time = extras.getExtras().getFloat("time");
         time = Math.round((time / 3600) * 100f) / 100f;
-        ((TextView) findViewById(R.id.upload_sheet_name)).setText(name);
-        ((TextView) findViewById(R.id.upload_time_spent)).setText("Time: " + time);
+        ((TextView) findViewById(R.id.upload_sheet_name)).setText(name.substring(13));
+        ((TextView) findViewById(R.id.upload_time_spent)).setText("Time: " + time + "h");
     }
 
     public void clickUpload(View v) {
@@ -59,5 +59,9 @@ public class Upload extends AppCompatActivity {
 
     public void clickCancel(View v) {
         finish();
+    }
+
+    public void clickDelete(View v) {
+
     }
 }
