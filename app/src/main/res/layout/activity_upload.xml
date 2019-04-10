@@ -44,7 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
-
             android:orientation="vertical">
             <Button
                 android:layout_width="wrap_content"
@@ -53,6 +52,7 @@
                 android:text="save"
                 android:backgroundTint="@color/colorPrimary"
                 android:textColor="#fff"
+                android:onClick="clickUpload"
                 />
         </LinearLayout>
 
@@ -80,7 +80,7 @@
                 android:layout_gravity="center"
                 android:text="delete sesssion"
                 android:backgroundTint="@color/colorPrimaryDark"
-                android:onClick="clickCancel"/>
+                android:onClick="clickDelete"/>
         </LinearLayout>
 
 
