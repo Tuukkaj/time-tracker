@@ -76,9 +76,6 @@ public class Timer extends AppCompatActivity {
             endButton.setEnabled(false);
             stopTime();
 
-            //getPreferences(Context.MODE_PRIVATE).edit().clear().commit();
-            saveTime = false;
-
             Intent nextActivity = new Intent(this, Upload.class);
             nextActivity.putExtra("sheetName", name);
             nextActivity.putExtra("sheetId", id);
@@ -155,14 +152,13 @@ public class Timer extends AppCompatActivity {
 
         long tempTime = preferences.getLong(PREF_START,0);
         String tempId = preferences.getString(PREF_SHEETID, "");
-        Log.d(TAG, "onResume: CALLED");
 
         if(tempTime != 0 && !tempId.isEmpty()) {
             start = tempTime;
             id = tempId;
             name = preferences.getString(PREF_SHEETNAME, name);
             String text = preferences.getString(PREF_START_TEXT,"");
-            Log.d(TAG, "onResume: PRESENT");
+
             startTime();
 
             ((TextView) findViewById(R.id.timer_sheetName)).setText(name.substring(13));
