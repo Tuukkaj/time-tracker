@@ -109,6 +109,7 @@ public class DriveApiHelper {
 
             @Override
             public void onFail() {
+                activity.recreate();
                 activity.runOnUiThread(() -> Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show());
                 AccountAuthorization.authorize(activity, credential);
             }
