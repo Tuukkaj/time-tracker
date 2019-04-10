@@ -31,14 +31,39 @@ public class SheetList extends AppCompatActivity {
         for(int i = 0; names != null && ids != null && i < names.size(); i++) {
             infos.add(new SheetInformation(ids.get(i),names.get(i)));
         }
+
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         int mode = getIntent().getIntExtra("mode",0);
+
+        setContentTitle(mode);
         if(mode == SheetRecyclerViewAdapter.MODE_SHOW_TIME) {
             ((FloatingActionButton) findViewById(R.id.list_file_floating_button)).setVisibility(View.INVISIBLE);
         }
         recyclerView.setAdapter(new SheetRecyclerViewAdapter(infos, this, mode));
+    }
+
+    private void setContentTitle(int mode) {
+        switch (mode) {
+            case SheetRecyclerViewAdapter.MODE_TIMER: {
+                setTitle("Timer");
+                break;
+            }
+
+            case SheetRecyclerViewAdapter.MODE_MANUAL_INPUT: {
+                setTitle("Manual time input");
+
+                break;
+            }
+
+            case SheetRecyclerViewAdapter.MODE_SHOW_TIME: {
+                setTitle("Show work time");
+
+                break;
+            }
+        }
     }
 
     public class SheetInformation {
