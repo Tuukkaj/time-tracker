@@ -14,10 +14,7 @@
         android:text="@string/accouthelper_btn_getAccount"
         android:onClick="buttonClick"/>
 
-    <TextView android:id="@+id/accountName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"/>
+
 
     <Button android:id="@+id/getSheets"
         android:layout_width="wrap_content"
@@ -42,5 +39,24 @@
         android:visibility="invisible"
         android:onClick="buttonClick"
         android:text="@string/authorization_show_work_time"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+        <ImageView android:id="@+id/accountIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_perm_identity_black_24dp"
+            android:visibility="invisible"/>
+
+        <TextView android:id="@+id/accountName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#000"/>
+
+
+    </LinearLayout>
 
 </LinearLayout>

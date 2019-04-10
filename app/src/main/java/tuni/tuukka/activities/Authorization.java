@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -166,10 +167,15 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
         AccountAuthorization.authorize(this, credential);
 
-        ((TextView) findViewById(R.id.accountName)).setText(credential.getSelectedAccountName());
+        setProfileName(credential.getSelectedAccountName());
         ((Button) findViewById(R.id.getSheets)).setVisibility(View.VISIBLE);
         ((Button) findViewById(R.id.getFiles)).setVisibility(View.VISIBLE);
         ((Button) findViewById(R.id.getFolder)).setVisibility(View.VISIBLE);
+    }
+
+    private void setProfileName(String name) {
+        ((TextView) findViewById(R.id.accountName)).setText(name);
+        ((ImageView) findViewById(R.id.accountIcon)).setVisibility(View.VISIBLE);
     }
 
     /**
