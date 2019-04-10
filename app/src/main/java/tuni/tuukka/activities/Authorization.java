@@ -3,11 +3,14 @@ package tuni.tuukka.activities;
 import android.Manifest;
 import android.accounts.AccountManager;
 import android.app.Dialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -86,6 +89,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     @Override
     public void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        createNotificationChannel();
         setContentView(R.layout.activity_account_helper);
         Set<String> scopes = DriveScopes.all();
         credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), scopes).setBackOff(new ExponentialBackOff());
@@ -319,5 +323,21 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     @Override
     public void onPermissionsDenied(int requestCode, List<String> perms) {
         // Do nothing
+    }
+
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "time-tracker";
+            String description = "Used to inform user about elapsed work time";
+            NotificationChannel channel = new NotificationChannel("time-tracker", name, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
