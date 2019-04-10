@@ -6,7 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -85,6 +87,8 @@ public class ManualTimeInput extends AppCompatActivity {
         float decimalMinutes = minutes / 60f;
         DataTime dataTime = new DataTime(Math.round((hours+decimalMinutes) * 100f) / 100f, comment, "REPLACE", new SheetRequestsInfo(id, "work"));
         SheetApi.appendSheet(dataTime, createInterface());
+        setContentView(R.layout.loading_screen);
+        ((ImageView) findViewById(R.id.loading)).setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
     }
 
 
@@ -100,7 +104,11 @@ public class ManualTimeInput extends AppCompatActivity {
 
             @Override
             public void onFail() {
-                Toast.makeText(ManualTimeInput.this, "Check your connection status", Toast.LENGTH_SHORT).show();
+                ManualTimeInput.this.runOnUiThread(() -> {
+                    Toast.makeText(ManualTimeInput.this, "Check your connection status", Toast.LENGTH_SHORT).show();
+                    ManualTimeInput.this.finish();
+                    ManualTimeInput.this.startActivity(getIntent());
+                });
             }
         };
     }
