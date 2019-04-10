@@ -4,6 +4,8 @@ package tuni.tuukka.activities;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -114,9 +116,16 @@ public class Timer extends AppCompatActivity {
     }
 
     public void createNotification() {
+        Intent resultIntent = new Intent(this, Timer.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addNextIntentWithParentStack(resultIntent);
+        PendingIntent pendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "time-tracker")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("Started tracking time")
+                .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         Notification notification = builder.build();
         notification.flags = Notification.FLAG_ONGOING_EVENT;
