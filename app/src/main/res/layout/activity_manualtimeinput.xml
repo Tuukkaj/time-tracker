@@ -15,35 +15,79 @@
         android:layout_height="wrap_content"
         android:text="1ROe_wSH0d78dCdI8YpGzsAoYM2IST120iZs0TEFQC8o"/>
 
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="10pt"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:text="Hours worked"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0pt"
+            android:layout_weight="0.1"
             android:layout_height="wrap_content"
-            android:text="WOKR TIME: "/>
-        <EditText android:id="@+id/manualtimeinput-hours"
-            android:layout_width="wrap_content"
+            android:gravity="right"
+            android:text="0"/>
+        <SeekBar android:id="@+id/manualtimeinput-hour"
+            android:layout_width="0pt"
+            android:layout_weight="0.9"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:max="23" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0pt"
+            android:layout_weight="0.1"
             android:layout_height="wrap_content"
-            android:text="hours,"/>
-
-        <EditText android:id="@+id/manualtimeinput-minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="minutes"
-            />
+            android:text="23"/>
     </LinearLayout>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10pt"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10pt"
+        android:text="Minutes worked"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0pt"
+            android:layout_weight="0.1"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="0"/>
+        <SeekBar android:id="@+id/manualtimeinput-minute"
+            android:layout_width="0pt"
+            android:layout_weight="0.9"
+            android:layout_height="wrap_content"
+            android:max="60"/>
+        <TextView
+            android:layout_width="0pt"
+            android:layout_weight="0.1"
+            android:layout_height="wrap_content"
+            android:text="60"/>
+    </LinearLayout>
+
+
+    <TextView android:id="@+id/manualtimeinput-time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20pt"
+        android:text="00:00"
+        android:layout_gravity="center"/>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,25 +103,13 @@
             android:inputType="textMultiLine"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CATEGORY"/>
-        <EditText android:id="@+id/manualtimeinput-category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"/>
-    </LinearLayout>
-
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/manualtimeinput-addbutton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/ic_add_black_24dp"
         android:layout_marginTop="5pt"
         android:layout_gravity="center_horizontal"
         android:onClick="addClicked"/>
+
 </LinearLayout>
