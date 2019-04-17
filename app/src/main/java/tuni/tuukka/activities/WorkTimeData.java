@@ -48,13 +48,12 @@ public class WorkTimeData extends AppCompatActivity {
                         for (int i = 0; i < value.size(); i++) {
                             infos.add(new SheetInformation(Float.parseFloat(String.valueOf(value.get(i).get(0))),
                                     (String) value.get(i).get(1),
-                                    (String) value.get(i).get(2),
-                                    (String) value.get(i).get(3)));
+                                    (String) value.get(i).get(2)));
                         }
 
                         recyclerView.setAdapter(new TimeDataRecyclerView(infos));
                     } else {
-                        infos.add(new SheetInformation(0, "No data present", "-", "-"));
+                        infos.add(new SheetInformation(0, "No data present", "-"));
                         recyclerView.setAdapter(new TimeDataRecyclerView(infos));
                     }
                 });
@@ -73,7 +72,7 @@ public class WorkTimeData extends AppCompatActivity {
         public String comment;
         public String category;
 
-        public SheetInformation(float time, String date, String comment, String category) {
+        public SheetInformation(float time, String date, String comment) {
             this.time = time;
             this.date = date;
             this.comment = comment;
