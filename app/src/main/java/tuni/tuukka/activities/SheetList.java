@@ -3,20 +3,16 @@ package tuni.tuukka.activities;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
 
 import tuni.tuukka.R;
-import tuni.tuukka.activity_helper.SheetRecyclerViewAdapter;
-import tuni.tuukka.google.DriveApi;
-import tuni.tuukka.google.SheetApi;
+import tuni.tuukka.activity_helper.SheetDataAdapter;
 
 public class SheetList extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -74,23 +70,23 @@ public class SheetList extends AppCompatActivity {
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView.setAdapter(new SheetRecyclerViewAdapter(data, this, mode));
+        recyclerView.setAdapter(new SheetDataAdapter(data, this, mode));
     }
 
     private void setContentTitle(int mode) {
         switch (mode) {
-            case SheetRecyclerViewAdapter.MODE_TIMER: {
+            case SheetDataAdapter.MODE_TIMER: {
                 setTitle("Timer");
                 break;
             }
 
-            case SheetRecyclerViewAdapter.MODE_MANUAL_INPUT: {
+            case SheetDataAdapter.MODE_MANUAL_INPUT: {
                 setTitle("Manual time input");
 
                 break;
             }
 
-            case SheetRecyclerViewAdapter.MODE_SHOW_TIME: {
+            case SheetDataAdapter.MODE_SHOW_TIME: {
                 setTitle("Show work time");
 
                 break;

@@ -42,7 +42,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
-import tuni.tuukka.activity_helper.SheetRecyclerViewAdapter;
+import tuni.tuukka.activity_helper.SheetDataAdapter;
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DriveApi;
 import tuni.tuukka.google.Token;
@@ -143,7 +143,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.authorization_btn_timer:
                 if (token.isPresent()) {
                     startLoadStreet();
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_TIMER));
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_TIMER));
 
                 } else {
                     AccountAuthorization.authorize(this,credential);
@@ -153,7 +153,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.authorization_btn_input:
                 if (token.isPresent()) {
                     startLoadStreet();
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_MANUAL_INPUT));
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_MANUAL_INPUT));
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
@@ -162,7 +162,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.authorization_btn_show: {
                 if(token.isPresent()) {
                     startLoadStreet();
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_SHOW_TIME));
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_SHOW_TIME));
                 } else{
                     AccountAuthorization.authorize(this,credential);
                 }

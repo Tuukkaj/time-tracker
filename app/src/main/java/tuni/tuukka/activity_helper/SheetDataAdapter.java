@@ -17,14 +17,14 @@ import tuni.tuukka.activities.SheetList;
 import tuni.tuukka.activities.Timer;
 import tuni.tuukka.activities.TimeList;
 
-public class SheetRecyclerViewAdapter extends RecyclerView.Adapter<SheetRecyclerViewAdapter.ViewHolder> {
+public class SheetDataAdapter extends RecyclerView.Adapter<SheetDataAdapter.ViewHolder> {
     private List<SheetList.SheetInformation> data;
     private Activity activity;
     private int mode;
     public static final int MODE_TIMER = 0;
     public static final int MODE_MANUAL_INPUT = 1;
     public static final int MODE_SHOW_TIME = 2;
-    public SheetRecyclerViewAdapter(List<SheetList.SheetInformation> data, Activity activity, int mode) {
+    public SheetDataAdapter(List<SheetList.SheetInformation> data, Activity activity, int mode) {
         this.data = data;
         this.activity = activity;
         this.mode = mode;
