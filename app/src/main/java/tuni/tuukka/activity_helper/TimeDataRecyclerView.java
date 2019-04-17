@@ -29,10 +29,9 @@ public class TimeDataRecyclerView extends RecyclerView.Adapter<TimeDataRecyclerV
 
     @Override
     public void onBindViewHolder(@NonNull TimeDataRecyclerView.ViewHolder viewHolder, int i) {
-        ((TextView)viewHolder.cardView.findViewById(R.id.list_time_time)).setText(String.valueOf(data.get(i).time));
+        ((TextView)viewHolder.cardView.findViewById(R.id.list_time_time)).setText(String.valueOf(data.get(i).time) + "h");
         ((TextView)viewHolder.cardView.findViewById(R.id.list_time_date)).setText(String.valueOf(data.get(i).date));
         ((TextView)viewHolder.cardView.findViewById(R.id.list_time_comment)).setText(String.valueOf(data.get(i).comment));
-        ((TextView)viewHolder.cardView.findViewById(R.id.list_time_category)).setText(String.valueOf(data.get(i).category));
     }
 
     @Override
