@@ -57,8 +57,7 @@ public class Timer extends AppCompatActivity {
         }
 
         if(name != null && id != null) {
-            ((TextView) findViewById(R.id.timer_sheetName)).setText(name.substring(13));
-            ((TextView) findViewById(R.id.timer_sheetId)).setText(id);
+            getSupportActionBar().setTitle(name.substring(13));
         }
     }
 
@@ -171,8 +170,7 @@ public class Timer extends AppCompatActivity {
 
             startTime();
 
-            ((TextView) findViewById(R.id.timer_sheetName)).setText(name.substring(13));
-            ((TextView) findViewById(R.id.timer_sheetId)).setText(id);
+            getSupportActionBar().setTitle(name.substring(13));
             ((TextView) findViewById(R.id.start_text)).setText(text);
             ((Button) findViewById(R.id.start_button)).setEnabled(false);
             ((Button) findViewById(R.id.end_button)).setEnabled(true);
