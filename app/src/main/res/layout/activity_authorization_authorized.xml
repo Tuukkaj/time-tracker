@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="buttonClick"
-            android:src="@drawable/ic_timer_black_24dp" />
+            android:src="@drawable/ic_timer_white_24dp" />
         <TextView
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="buttonClick"
-            android:src="@drawable/ic_add_circle_outline_black_24dp" />
+            android:src="@drawable/ic_add_circle_outline_white_24dp" />
         <TextView
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"
