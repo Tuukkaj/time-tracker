@@ -6,7 +6,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -40,7 +39,7 @@ public class Timer extends AppCompatActivity {
     private String name;
     private String id;
     private boolean runTimer;
-    private boolean saveTime = true;
+    private boolean saveTime = false;
     private AsyncTask<Void,Void,Void> timeTask;
 
     @Override
@@ -68,6 +67,7 @@ public class Timer extends AppCompatActivity {
         if(v.getId() == R.id.start_button) {
             startButton.setEnabled(false);
             endButton.setEnabled(true);
+            saveTime = true;
             ((TextView) findViewById(R.id.start_text)).setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) +":"+
                     (Calendar.getInstance().get(Calendar.MINUTE) < 10?"0"+Calendar.getInstance().get(Calendar.MINUTE):Calendar.getInstance().get(Calendar.MINUTE)));
             start = System.currentTimeMillis() / 1000;
@@ -163,6 +163,8 @@ public class Timer extends AppCompatActivity {
         String tempId = preferences.getString(PREF_SHEETID, "");
 
         if(tempTime != 0 && !tempId.isEmpty()) {
+            saveTime = true;
+
             start = tempTime;
             id = tempId;
             name = preferences.getString(PREF_SHEETNAME, name);
