@@ -49,6 +49,7 @@ public class Upload extends AppCompatActivity {
             @Override
             public void onSuccess(AppendValuesResponse value) {
                 Upload.this.startActivity(new Intent(Upload.this, Authorization.class));
+                PreferenceManager.getDefaultSharedPreferences(Upload.this).edit().clear().commit();
                 Upload.this.runOnUiThread(() -> Toast.makeText(Upload.this, "Upload successful", Toast.LENGTH_SHORT).show());
             }
 
