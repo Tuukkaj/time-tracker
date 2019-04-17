@@ -15,6 +15,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -28,12 +31,9 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -105,6 +105,28 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             setContentView(R.layout.activity_authorization);
             login();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.authorization_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_logout: {
+                System.out.println("logout");
+                break;
+            }
+
+            case R.id.menu_about: {
+                System.out.println("Menu");
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
