@@ -18,6 +18,7 @@ public class CreateSheet extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_sheet);
+        getSupportActionBar().setTitle("Create sheet");
     }
 
     public void createClicked(View v) {
