@@ -70,13 +70,11 @@ public class WorkTimeData extends AppCompatActivity {
         public float time;
         public String date;
         public String comment;
-        public String category;
 
         public SheetInformation(float time, String date, String comment) {
             this.time = time;
             this.date = date;
             this.comment = comment;
-            this.category = category;
         }
     }
 
