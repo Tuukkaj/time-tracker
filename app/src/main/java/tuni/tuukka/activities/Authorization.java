@@ -242,10 +242,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         } else if(!isDeviceOnline()) {
             Toast.makeText(this, "Connect to internet", Toast.LENGTH_SHORT).show();
             return;
-
-        } else {
-            Toast.makeText(this, "Everything works fine! Time to make connection to your Sheets", Toast.LENGTH_SHORT).show();
-
         }
 
         AccountAuthorization.authorize(this, credential);
