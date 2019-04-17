@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class TimeList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_data);
+        setContentView(R.layout.activity_time_list);
 
         String name = getIntent().getStringExtra("sheetName");
         String id = getIntent().getStringExtra("sheetId");
@@ -42,17 +43,21 @@ public class TimeList extends AppCompatActivity {
                     recyclerView = findViewById(R.id.recycler_view);
                     recyclerView.setHasFixedSize(false);
                     recyclerView.setLayoutManager(new LinearLayoutManager(TimeList.this));
-                    ArrayList<SheetInformation> infos = new ArrayList<>();
+                    ArrayList<SheetInformation> infos;
+
+                    TextView txtAll = (TextView) findViewById(R.id.time_list_txt_all);
+                    TextView txtAverage = (TextView) findViewById(R.id.time_list_txt_average);
 
                     if(value != null && value.size() > 0) {
-                        for (int i = 0; i < value.size(); i++) {
-                            infos.add(new SheetInformation(Float.parseFloat(String.valueOf(value.get(i).get(0))),
-                                    (String) value.get(i).get(1),
-                                    (String) value.get(i).get(2)));
-                        }
-
+                        infos = toSheetInformation(value);
+                        txtAll.setText(String.valueOf(calcSum(infos)) + "h");
+                        txtAverage.setText(String.valueOf(calcAverage(infos)) + "h");
                         recyclerView.setAdapter(new TimeDataAdapter(infos));
                     } else {
+                        txtAll.setText("-");
+                        txtAverage.setText("-");
+
+                        infos = new ArrayList<>();
                         infos.add(new SheetInformation(0, "No data present", "-"));
                         recyclerView.setAdapter(new TimeDataAdapter(infos));
                     }
@@ -64,6 +69,48 @@ public class TimeList extends AppCompatActivity {
                 TimeList.this.runOnUiThread(() -> Toast.makeText(TimeList.this, "Please try again later", Toast.LENGTH_SHORT).show());
             }
         };
+    }
+
+    private float calcAverage(List<SheetInformation> values) {
+        float all = 0;
+        int times = 0;
+
+        for(SheetInformation info: values) {
+            if(info.time >= 0) {
+                all += info.time;
+                times++;
+            }
+        }
+
+        return Math.round((all / times) * 10f) / 10f;
+    }
+
+    private float calcSum(List<SheetInformation> values) {
+        float all = 0;
+
+        for(SheetInformation info: values) {
+            if(info.time >= 0) {
+                all += info.time;
+            }
+        }
+
+        return Math.round(all * 10f) / 10f;
+    }
+
+    private ArrayList<SheetInformation> toSheetInformation(List<List<Object>> values) {
+        ArrayList<SheetInformation> temp = new ArrayList<>();
+        for (int i = 0; i < values.size(); i++) {
+            try {
+                temp.add(new SheetInformation(
+                        Float.parseFloat(String.valueOf(values.get(i).get(0))),
+                        (String) values.get(i).get(1),
+                        (String) values.get(i).get(2)));
+            } catch (Exception e) {
+
+            }
+        }
+
+        return temp;
     }
 
     public class SheetInformation {
