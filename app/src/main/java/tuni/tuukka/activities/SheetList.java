@@ -21,7 +21,7 @@ public class SheetList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_files);
+        setContentView(R.layout.activity_sheet_list);
 
 
         int mode = getIntent().getIntExtra("mode",0);
