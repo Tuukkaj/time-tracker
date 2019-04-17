@@ -28,6 +28,8 @@ import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccoun
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -92,6 +94,17 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         Set<String> scopes = DriveScopes.all();
         credential = GoogleAccountCredential.usingOAuth2(getApplicationContext(), scopes).setBackOff(new ExponentialBackOff());
         login();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Test if activity_authorization is active
+        if (((TextView) findViewById(R.id.accountName)) == null) {
+            setContentView(R.layout.activity_authorization);
+            login();
+        }
     }
 
     /**
