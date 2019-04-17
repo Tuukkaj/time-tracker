@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_sheet_cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,28 +35,19 @@
                 android:shadowColor="@color/shadow"
                 android:shadowDx="1"
                 android:shadowDy="1"
-
                 android:shadowRadius="2"
                 >
             </TextView>
-            <Button android:id="@+id/button_select"
-                android:layout_alignParentRight="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="SELECT"/>
-        </RelativeLayout>
 
-        <TextView android:id="@+id/sheetId"
-            android:layout_marginLeft="3dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="giareu2389aifh389292dh2hji"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:shadowColor="@color/shadow"
-            android:shadowDx="1"
-            android:shadowDy="1"
-            android:shadowRadius="2"/>
+            <ImageView android:id="@+id/button_select"
+                android:src="@drawable/ic_keyboard_arrow_right_white_24dp"
+                android:scaleX="1.5"
+                android:scaleY="2"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

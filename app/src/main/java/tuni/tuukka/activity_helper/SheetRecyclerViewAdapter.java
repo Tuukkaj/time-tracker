@@ -7,7 +7,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -44,21 +43,21 @@ public class SheetRecyclerViewAdapter extends RecyclerView.Adapter<SheetRecycler
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         if(mode == MODE_TIMER) {
-            ((Button) viewHolder.cardView.findViewById(R.id.button_select)).setOnClickListener(event -> {
+            ((CardView) viewHolder.cardView.findViewById(R.id.list_sheet_cardview)).setOnClickListener(event -> {
                 Intent intent = new Intent(activity, Timer.class);
                 intent.putExtra(Timer.EXTRA_SHEETID, data.get(i).id);
                 intent.putExtra(Timer.EXTRA_SHEETNAME, data.get(i).name);
                 activity.startActivity(intent);
             });
         } else if(mode == MODE_MANUAL_INPUT) {
-            ((Button) viewHolder.cardView.findViewById(R.id.button_select)).setOnClickListener(event -> {
+            ((CardView) viewHolder.cardView.findViewById(R.id.list_sheet_cardview)).setOnClickListener(event -> {
                 Intent intent = new Intent(activity, ManualTimeInput.class);
                 intent.putExtra("sheetId", data.get(i).id);
                 intent.putExtra("sheetName", data.get(i).name);
                 activity.startActivity(intent);
             });
         } else if(mode == MODE_SHOW_TIME) {
-            ((Button) viewHolder.cardView.findViewById(R.id.button_select)).setOnClickListener(event -> {
+            ((CardView) viewHolder.cardView.findViewById(R.id.list_sheet_cardview)).setOnClickListener(event -> {
                 Intent intent = new Intent(activity, WorkTimeData.class);
                 intent.putExtra("sheetId", data.get(i).id);
                 intent.putExtra("sheetName", data.get(i).name);
@@ -67,7 +66,6 @@ public class SheetRecyclerViewAdapter extends RecyclerView.Adapter<SheetRecycler
         }
 
         ((TextView) viewHolder.cardView.findViewById(R.id.sheet_name)).setText(data.get(i).name.substring(13));
-        ((TextView) viewHolder.cardView.findViewById(R.id.sheetId)).setText(data.get(i).id);
     }
 
     @Override
