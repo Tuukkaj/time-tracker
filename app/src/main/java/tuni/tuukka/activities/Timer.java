@@ -29,9 +29,9 @@ import tuni.tuukka.R;
 
 public class Timer extends AppCompatActivity {
     private final static String TAG = "Timer";
-    private final static String PREF_SHEETNAME = "sheetName";
-    private final static String PREF_SHEETID = "sheetId";
-    private final static String PREF_START = "start";
+    public final static String PREF_SHEETNAME = "sheetName";
+    public final static String PREF_SHEETID = "sheetId";
+    public final static String PREF_START = "start";
     private final static String PREF_START_TEXT = "startText";
     public final static String EXTRA_SHEETNAME = "extraSheetName";
     public final static String EXTRA_SHEETID = "extraSheetId";

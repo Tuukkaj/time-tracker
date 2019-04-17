@@ -70,15 +70,35 @@
             />
     </LinearLayout>
     <LinearLayout
+        android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.33">
+        android:layout_weight="0.33"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/authorization_btn_continue"
+            android:backgroundTint="@color/colorPrimary"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:onClick="buttonClick"
+            android:src="@drawable/ic_keyboard_arrow_right_white_24dp"/>
+        <TextView android:id="@+id/authorization_txt_active"
+            android:visibility="invisible"
+            android:layout_marginLeft="5pt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20pt"
+            android:text="Active timer"
+            />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
-
         <ImageView
             android:id="@+id/accountIcon"
             android:layout_width="wrap_content"

@@ -1,8 +1,8 @@
 package tuni.tuukka.activities;
 
 import android.Manifest;
-import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,29 +13,25 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -104,12 +100,8 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     @Override
     protected void onResume() {
         super.onResume();
-
-        //Test if activity_authorization is active
-        if (((TextView) findViewById(R.id.accountName)) == null) {
-            setContentView(R.layout.activity_authorization);
-            login();
-        }
+        setContentView(R.layout.activity_authorization);
+        login();
     }
 
     @Override
@@ -176,6 +168,51 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
                 break;
             }
+
+            case R.id.authorization_btn_continue: {
+                if(token.isPresent()) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                    Intent i = new Intent(this, Timer.class);
+                    i.putExtra(Timer.EXTRA_SHEETNAME, prefs.getString(Timer.PREF_SHEETNAME, null));
+                    i.putExtra(Timer.EXTRA_SHEETID, prefs.getString(Timer.PREF_SHEETID,null));
+                    startActivity(i);
+                } else {
+                    AccountAuthorization.authorize(this,credential);
+                }
+
+                break;
+            }
+        }
+    }
+
+    private void checkTimer() {
+       SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+       String id = preferences.getString(Timer.PREF_SHEETID, "");
+       String name = preferences.getString(Timer.PREF_SHEETNAME,"");
+
+       if(!id.isEmpty() && !name.isEmpty()) {
+           layoutHandleActiveTimer(true);
+       } else {
+           layoutHandleActiveTimer(false);
+       }
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void layoutHandleActiveTimer(boolean on) {
+        FloatingActionButton btnContinue = (FloatingActionButton) findViewById(R.id.authorization_btn_continue);
+        FloatingActionButton btnStart = (FloatingActionButton) findViewById(R.id.authorization_btn_timer);
+        TextView txtContinue = (TextView) findViewById(R.id.authorization_txt_active);
+
+        if (on) {
+            btnContinue.setVisibility(View.VISIBLE);
+            txtContinue.setVisibility(View.VISIBLE);
+            btnStart.setEnabled(false);
+            btnStart.setBackgroundTintList(getColorStateList(R.color.shadow));
+        } else {
+            btnContinue.setVisibility(View.INVISIBLE);
+            txtContinue.setVisibility(View.INVISIBLE);
+            btnStart.setEnabled(true);
+            btnStart.setBackgroundTintList(getColorStateList(R.color.colorAccent));
         }
     }
 
@@ -214,6 +251,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         AccountAuthorization.authorize(this, credential);
         setContentView(R.layout.activity_authorization_authorized);
         setProfileName(credential.getSelectedAccountName());
+        checkTimer();
     }
 
     private void setProfileName(String name) {
