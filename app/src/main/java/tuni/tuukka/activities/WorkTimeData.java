@@ -27,6 +27,8 @@ public class WorkTimeData extends AppCompatActivity {
         String name = getIntent().getStringExtra("sheetName");
         String id = getIntent().getStringExtra("sheetId");
 
+        getSupportActionBar().setTitle(name.substring(13));
+
         SheetApi.readRange(new SheetRequestsInfo(id, "work"), createInterface());
     }
 
