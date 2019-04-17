@@ -10,12 +10,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import tuni.tuukka.R;
-import tuni.tuukka.activities.WorkTimeData;
+import tuni.tuukka.activities.TimeList;
 
 public class TimeDataRecyclerView extends RecyclerView.Adapter<TimeDataRecyclerView.ViewHolder> {
-    ArrayList<WorkTimeData.SheetInformation> data;
+    ArrayList<TimeList.SheetInformation> data;
 
-    public TimeDataRecyclerView(ArrayList<WorkTimeData.SheetInformation> data) {
+    public TimeDataRecyclerView(ArrayList<TimeList.SheetInformation> data) {
         this.data = data;
     }
 

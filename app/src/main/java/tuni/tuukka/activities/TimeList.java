@@ -18,7 +18,7 @@ import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
 
-public class WorkTimeData extends AppCompatActivity {
+public class TimeList extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     @Override
@@ -38,10 +38,10 @@ public class WorkTimeData extends AppCompatActivity {
         return new DoAfter<List<List<Object>>>() {
             @Override
             public void onSuccess(List<List<Object>> value) {
-                WorkTimeData.this.runOnUiThread(() -> {
+                TimeList.this.runOnUiThread(() -> {
                     recyclerView = findViewById(R.id.recycler_view);
                     recyclerView.setHasFixedSize(false);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(WorkTimeData.this));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(TimeList.this));
                     ArrayList<SheetInformation> infos = new ArrayList<>();
 
                     if(value != null && value.size() > 0) {
@@ -61,7 +61,7 @@ public class WorkTimeData extends AppCompatActivity {
 
             @Override
             public void onFail() {
-                WorkTimeData.this.runOnUiThread(() -> Toast.makeText(WorkTimeData.this, "Please try again later", Toast.LENGTH_SHORT).show());
+                TimeList.this.runOnUiThread(() -> Toast.makeText(TimeList.this, "Please try again later", Toast.LENGTH_SHORT).show());
             }
         };
     }
