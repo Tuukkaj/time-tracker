@@ -3,6 +3,7 @@ package tuni.tuukka.activities;
 import android.Manifest;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -419,5 +420,11 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    public static Intent toParentIntent(Activity activity) {
+        Intent i = new Intent(activity, Authorization.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        return i;
     }
 }

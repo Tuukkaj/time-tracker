@@ -47,6 +47,11 @@ public class SheetList extends AppCompatActivity {
                 startActivity(new Intent(this, CreateSheet.class));
                 break;
             }
+
+            case R.id.menu_home: {
+                startActivity(Authorization.toParentIntent(this));
+                break;
+            }
         }
 
         return super.onOptionsItemSelected(item);

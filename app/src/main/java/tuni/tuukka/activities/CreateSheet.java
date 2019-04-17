@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -56,5 +58,22 @@ public class CreateSheet extends AppCompatActivity {
                                 "Failed to create file. Check your connection status", Toast.LENGTH_SHORT).show());
             }
         };
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.all_menu_home, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_home: {
+                startActivity(Authorization.toParentIntent(this));
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
