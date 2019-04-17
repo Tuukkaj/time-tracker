@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity android:name=".activities.Authorization" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +32,6 @@
         <activity android:name=".activities.CreateSheet"></activity>
         <activity android:name=".activities.ManualTimeInput"></activity>
         <activity android:name=".activities.WorkTimeData"></activity>
-        <service android:name=".services.TimerService"></service>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package tuni.tuukka.activities;
 
 import android.Manifest;
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Dialog;
 import android.app.NotificationChannel;
@@ -25,12 +26,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
 
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -138,13 +143,12 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     public void buttonClick(View v) {
         Optional<String> token = Token.loadToken(this);
         switch (v.getId()) {
-            case R.id.getAccount:
+            case R.id.authorization_btn_authorize:
                 login();
                 break;
 
-            case R.id.getSheets:
+            case R.id.authorization_btn_timer:
                 if (token.isPresent()) {
-                    // Reads public sheet and prints results to console
                     startLoadStreet();
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_TIMER));
 
@@ -153,9 +157,8 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 }
                 break;
 
-            case R.id.getFiles:
+            case R.id.authorization_btn_input:
                 if (token.isPresent()) {
-                    // Lists all users spreadsheet files if they contain "time-tracker"
                     startLoadStreet();
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_MANUAL_INPUT));
                 } else {
@@ -163,9 +166,8 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 }
                 break;
 
-            case R.id.getFolder: {
+            case R.id.authorization_btn_show: {
                 if(token.isPresent()) {
-                    // Creates folder and sheet to users Drive
                     startLoadStreet();
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetRecyclerViewAdapter.MODE_SHOW_TIME));
                 } else{
@@ -206,15 +208,12 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
         } else {
             Toast.makeText(this, "Everything works fine! Time to make connection to your Sheets", Toast.LENGTH_SHORT).show();
+
         }
 
-
         AccountAuthorization.authorize(this, credential);
-
+        setContentView(R.layout.activity_authorization_authorized);
         setProfileName(credential.getSelectedAccountName());
-        ((Button) findViewById(R.id.getSheets)).setVisibility(View.VISIBLE);
-        ((Button) findViewById(R.id.getFiles)).setVisibility(View.VISIBLE);
-        ((Button) findViewById(R.id.getFolder)).setVisibility(View.VISIBLE);
     }
 
     private void setProfileName(String name) {
