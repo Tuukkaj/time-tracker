@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tuni.tuukka.R;
-import tuni.tuukka.activity_helper.TimeDataRecyclerView;
+import tuni.tuukka.activity_helper.TimeDataAdapter;
 import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
@@ -51,10 +51,10 @@ public class TimeList extends AppCompatActivity {
                                     (String) value.get(i).get(2)));
                         }
 
-                        recyclerView.setAdapter(new TimeDataRecyclerView(infos));
+                        recyclerView.setAdapter(new TimeDataAdapter(infos));
                     } else {
                         infos.add(new SheetInformation(0, "No data present", "-"));
-                        recyclerView.setAdapter(new TimeDataRecyclerView(infos));
+                        recyclerView.setAdapter(new TimeDataAdapter(infos));
                     }
                 });
             }
