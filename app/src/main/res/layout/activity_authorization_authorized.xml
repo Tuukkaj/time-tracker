@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
+    xmlns:app2="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -16,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="buttonClick"
-            android:src="@drawable/ic_timer_white_24dp" />
+            android:src="@drawable/ic_timer_white_24dp"
+            app:backgroundTint="@color/colorPrimaryDark"/>
         <TextView
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"
@@ -38,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="buttonClick"
-            android:src="@drawable/ic_add_circle_outline_white_24dp" />
+            android:src="@drawable/ic_add_circle_outline_white_24dp"
+            app1:backgroundTint="@color/colorPrimaryDark"/>
         <TextView
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"
@@ -60,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:onClick="buttonClick"
-            android:src="@drawable/ic_list_black_24dp" />
+            android:src="@drawable/ic_list_black_24dp"
+            app2:backgroundTint="@color/colorPrimaryDark"/>
         <TextView
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"

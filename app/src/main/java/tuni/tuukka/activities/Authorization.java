@@ -212,7 +212,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             btnContinue.setVisibility(View.INVISIBLE);
             txtContinue.setVisibility(View.INVISIBLE);
             btnStart.setEnabled(true);
-            btnStart.setBackgroundTintList(getColorStateList(R.color.colorAccent));
+            btnStart.setBackgroundTintList(getColorStateList(R.color.colorPrimaryDark));
         }
     }
 

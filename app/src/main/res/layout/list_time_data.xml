@@ -7,7 +7,7 @@
     android:layout_marginHorizontal="12dp"
     android:layout_marginVertical="5dp"
     android:elevation="5dp"
-    app:cardBackgroundColor="@color/colorPrimary">
+    app:cardBackgroundColor="@color/colorPrimaryDark">
 
     <RelativeLayout android:id="@+id/list_time_linear_layout"
         android:layout_width="match_parent"
