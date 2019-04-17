@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -30,10 +32,24 @@ public class SheetList extends AppCompatActivity {
 
         setUpRecyclerView(createSheetInformation(), mode);
         setContentTitle(mode);
+    }
 
-        if(mode == SheetRecyclerViewAdapter.MODE_SHOW_TIME) {
-            ((FloatingActionButton) findViewById(R.id.list_file_floating_button)).setVisibility(View.INVISIBLE);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sheet_list_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_add: {
+                startActivity(new Intent(this, CreateSheet.class));
+                break;
+            }
         }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private ArrayList<SheetInformation> createSheetInformation() {
@@ -85,9 +101,5 @@ public class SheetList extends AppCompatActivity {
             this.id = id;
             this.name = name;
         }
-    }
-
-    public void addSheet(View v) {
-        startActivity(new Intent(this, CreateSheet.class));
     }
 }

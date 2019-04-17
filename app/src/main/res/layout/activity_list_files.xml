@@ -12,17 +12,4 @@
         android:scrollbars="vertical"
         android:id="@+id/recycler_view"
         />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/list_file_floating_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2pt"
-        android:layout_marginRight="2pt"
-        android:src="@drawable/ic_add_white_24dp"
-        android:onClick="addSheet"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
-
-
 </RelativeLayout>
