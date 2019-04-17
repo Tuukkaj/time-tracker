@@ -43,9 +43,7 @@ public class ManualTimeInput extends AppCompatActivity {
         String name = getIntent().getStringExtra("sheetName");
         id = getIntent().getStringExtra("sheetId");
 
-        ((TextView) findViewById(R.id.manualtimeinput_sheetName)).setText(name.substring(13));
-        ((TextView) findViewById(R.id.manualtimeinput_sheetId)).setText(id);
-
+        getSupportActionBar().setTitle(name.substring(13));
         setOnChangeListener(R.id.manualtimeinput_hour, value -> hours = value);
         setOnChangeListener(R.id.manualtimeinput_minute, value -> minutes = value);
 
