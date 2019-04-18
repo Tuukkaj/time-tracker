@@ -85,7 +85,7 @@
         android:layout_gravity="center_horizontal">
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/authorization_btn_continue"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="@color/colorAccent"
             android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

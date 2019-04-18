@@ -5,8 +5,4 @@
         android:icon="@drawable/ic_add_white_24dp"
         android:title="About"
         app:showAsAction="always"></item>
-    <item android:id="@+id/menu_home"
-        android:title="home"
-        android:icon="@drawable/ic_home_white_24dp"
-        app:showAsAction="always"/>
 </menu>

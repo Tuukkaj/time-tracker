@@ -24,12 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SheetList"></activity>
-        <activity android:name=".activities.Timer"></activity>
-        <activity android:name=".activities.Upload"></activity>
-        <activity android:name=".activities.CreateSheet"></activity>
-        <activity android:name=".activities.ManualTimeInput"></activity>
-        <activity android:name=".activities.TimeList"></activity>
+        <activity android:name=".activities.SheetList"
+            android:parentActivityName=".activities.Authorization"></activity>
+        <activity android:name=".activities.Timer"
+            android:parentActivityName=".activities.Authorization"></activity>
+        <activity android:name=".activities.Upload"
+            android:parentActivityName=".activities.Authorization"></activity>
+        <activity android:name=".activities.CreateSheet"
+            android:parentActivityName=".activities.Authorization"></activity>
+        <activity android:name=".activities.ManualTimeInput"
+            android:parentActivityName=".activities.Authorization"></activity>
+        <activity android:name=".activities.TimeList"
+            android:parentActivityName=".activities.Authorization"></activity>
     </application>
 
 </manifest>
