@@ -140,17 +140,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             case R.id.authorization_btn_authorize:
                 login();
                 break;
-
-            case R.id.authorization_btn_timer:
-                if (token.isPresent()) {
-                    LoadingScreenHelper.start(this);
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_TIMER));
-
-                } else {
-                    AccountAuthorization.authorize(this,credential);
-                }
-                break;
-
             case R.id.authorization_btn_input:
                 if (token.isPresent()) {
                     LoadingScreenHelper.start(this);
@@ -170,8 +159,29 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
                 break;
             }
+        }
+    }
 
-            case R.id.authorization_btn_continue: {
+    private void checkTimer() {
+       SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+       String id = preferences.getString(Timer.PREF_SHEETID, "");
+       String name = preferences.getString(Timer.PREF_SHEETNAME,"");
+
+       layoutHandleActiveTimer(!id.isEmpty() && !name.isEmpty());
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void layoutHandleActiveTimer(boolean on) {
+        FloatingActionButton btnStart = (FloatingActionButton) findViewById(R.id.authorization_btn_timer);
+        TextView txtTimer = (TextView) findViewById(R.id.authorization_txt_timer);
+
+        if (on) {
+            txtTimer.setText("Active timer");
+            btnStart.setBackgroundTintList(getColorStateList(R.color.colorAccent));
+            btnStart.setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
+
+            btnStart.setOnClickListener(view -> {
+                Optional<String> token = Token.getToken();
                 if(token.isPresent()) {
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                     Intent i = new Intent(this, Timer.class);
@@ -181,40 +191,21 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 } else {
                     AccountAuthorization.authorize(this,credential);
                 }
+            });
 
-                break;
-            }
-        }
-    }
-
-    private void checkTimer() {
-       SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-       String id = preferences.getString(Timer.PREF_SHEETID, "");
-       String name = preferences.getString(Timer.PREF_SHEETNAME,"");
-
-       if(!id.isEmpty() && !name.isEmpty()) {
-           layoutHandleActiveTimer(true);
-       } else {
-           layoutHandleActiveTimer(false);
-       }
-    }
-
-    @SuppressLint("RestrictedApi")
-    private void layoutHandleActiveTimer(boolean on) {
-        FloatingActionButton btnContinue = (FloatingActionButton) findViewById(R.id.authorization_btn_continue);
-        FloatingActionButton btnStart = (FloatingActionButton) findViewById(R.id.authorization_btn_timer);
-        TextView txtContinue = (TextView) findViewById(R.id.authorization_txt_active);
-
-        if (on) {
-            btnContinue.setVisibility(View.VISIBLE);
-            txtContinue.setVisibility(View.VISIBLE);
-            btnStart.setEnabled(false);
-            btnStart.setBackgroundTintList(getColorStateList(R.color.shadow));
         } else {
-            btnContinue.setVisibility(View.INVISIBLE);
-            txtContinue.setVisibility(View.INVISIBLE);
-            btnStart.setEnabled(true);
             btnStart.setBackgroundTintList(getColorStateList(R.color.colorPrimaryDark));
+
+            btnStart.setOnClickListener(view -> {
+                Optional<String> token = Token.getToken();
+                if (token.isPresent()) {
+                    LoadingScreenHelper.start(this);
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_TIMER));
+
+                } else {
+                    AccountAuthorization.authorize(this,credential);
+                }
+            });
         }
     }
 

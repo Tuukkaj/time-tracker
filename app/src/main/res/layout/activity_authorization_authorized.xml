@@ -19,10 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:onClick="buttonClick"
             android:src="@drawable/ic_timer_white_24dp"
             app:backgroundTint="@color/colorPrimaryDark"/>
-        <TextView
+        <TextView android:id="@+id/authorization_txt_timer"
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,31 +73,6 @@
             android:layout_height="wrap_content"
             android:textSize="20pt"
             android:text="Show time"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="0.33"
-        android:orientation="vertical"
-        android:layout_gravity="center_horizontal">
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/authorization_btn_continue"
-            android:backgroundTint="@color/colorAccent"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:onClick="buttonClick"
-            android:src="@drawable/ic_keyboard_arrow_right_white_24dp"/>
-        <TextView android:id="@+id/authorization_txt_active"
-            android:visibility="invisible"
-            android:layout_marginLeft="5pt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20pt"
-            android:text="Active timer"
             />
     </LinearLayout>
 
