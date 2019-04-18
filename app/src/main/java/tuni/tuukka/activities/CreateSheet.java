@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import tuni.tuukka.R;
+import tuni.tuukka.activity_helper.LoadingScreenHelper;
 import tuni.tuukka.google.DriveApi;
 
 public class CreateSheet extends AppCompatActivity {
@@ -26,6 +27,7 @@ public class CreateSheet extends AppCompatActivity {
 
         if(text.length() > 1) {
             DriveApi.createNewSheet(text, createInterface());
+            LoadingScreenHelper.start(this);
         } else {
             Toast.makeText(this, "Enter longer sheet name", Toast.LENGTH_SHORT).show();
         }
@@ -39,9 +41,11 @@ public class CreateSheet extends AppCompatActivity {
         return new DriveApi.CreateNewSheetInterface() {
             @Override
             public void onFileAlreadyCreated() {
-                CreateSheet.this.runOnUiThread(() ->
+                CreateSheet.this.runOnUiThread(() -> {
+                    CreateSheet.this.setContentView(R.layout.activity_create_sheet);
                     Toast.makeText(CreateSheet.this,
-                            "File with that name already exists", Toast.LENGTH_SHORT).show());
+                            "File with that name already exists", Toast.LENGTH_SHORT).show();
+                });
             }
 
             @Override
@@ -54,9 +58,11 @@ public class CreateSheet extends AppCompatActivity {
 
             @Override
             public void onFail() {
-                CreateSheet.this.runOnUiThread(() ->
-                        Toast.makeText(CreateSheet.this,
-                                "Failed to create file. Check your connection status", Toast.LENGTH_SHORT).show());
+                CreateSheet.this.runOnUiThread(() -> {
+                    CreateSheet.this.setContentView(R.layout.activity_create_sheet);
+                    Toast.makeText(CreateSheet.this,
+                                "Failed to create file. Check your connection status", Toast.LENGTH_SHORT).show();
+                });
             }
         };
     }
