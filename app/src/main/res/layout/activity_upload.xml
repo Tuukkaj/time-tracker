@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="0pt"
         android:orientation="vertical"
-        android:layout_weight="0.3">
+        android:layout_weight="0.2">
         <TextView android:id="@+id/upload_sheet-name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,12 +16,11 @@
             android:layout_height="wrap_content"
             android:textSize="15pt"/>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0pt"
         android:orientation="horizontal"
-        android:layout_weight="0.3">
+        android:layout_weight="0.2">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,66 +31,75 @@
             android:inputType="textMultiLine"
             android:hint=""/>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0pt"
         android:orientation="vertical"
         android:layout_marginTop="20pt"
-        android:layout_weight="0.4">
-
+        android:layout_weight="0.6">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:orientation="vertical">
-            <Button
+            <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="save"
                 android:backgroundTint="@color/colorPrimary"
                 android:textColor="#fff"
                 android:onClick="clickUpload"
+                android:src="@drawable/ic_add_white_24dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save"
+                android:textSize="30dp"
+                android:layout_gravity="center_horizontal"
                 />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:orientation="vertical">
-            <Button
+            <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:src="@drawable/ic_arrow_back_black_24dp"
                 android:layout_gravity="center"
                 android:text="back to timer"
                 android:onClick="clickCancel"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back to timer"
+                android:textSize="30dp"
+                android:layout_gravity="center_horizontal"
+                />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.3"
             android:orientation="vertical">
-            <Button
+            <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="delete sesssion"
                 android:backgroundTint="@color/colorPrimaryDark"
+                android:src="@drawable/ic_close_black_24dp"
                 android:onClick="clickDelete"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete session"
+                android:textSize="30dp"
+                android:layout_gravity="center_horizontal"
+                />
         </LinearLayout>
-
-
-
-
-
-
     </LinearLayout>
-
-
-
-
-
 </LinearLayout>
