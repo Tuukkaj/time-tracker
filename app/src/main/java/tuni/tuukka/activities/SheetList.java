@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -21,13 +22,23 @@ public class SheetList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sheet_list);
-
 
         int mode = getIntent().getIntExtra("mode",0);
 
-        setUpRecyclerView(createSheetInformation(), mode);
+        ArrayList<SheetInformation> info = createSheetInformation();
+
+        if(info.isEmpty()) {
+            setContentView(R.layout.activity_sheet_list_empty);
+        } else {
+            setContentView(R.layout.activity_sheet_list);
+            setUpRecyclerView(createSheetInformation(), mode);
+        }
+
         setContentTitle(mode);
+    }
+
+    public void createSheet(View view) {
+        startActivity(new Intent(this, CreateSheet.class));
     }
 
     @Override

@@ -7,4 +7,6 @@
     <string name="list_time_data_comment">Comment: </string>
     <string name="time_list_sum">All: </string>
     <string name="time_list_average">Average: </string>
+    <string name="sheet_list_no_sheets_message">Uh oh, do not have any any sheets. Create new one</string>
+    <string name="sheet_list_no_sheets_create">Create Sheet</string>
 </resources>
