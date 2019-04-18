@@ -1,5 +1,6 @@
 package tuni.tuukka.activities;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -51,6 +52,7 @@ public class Upload extends AppCompatActivity {
             public void onSuccess(AppendValuesResponse value) {
                 Upload.this.startActivity(new Intent(Upload.this, Authorization.class));
                 PreferenceManager.getDefaultSharedPreferences(Upload.this).edit().clear().commit();
+                ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
                 Upload.this.runOnUiThread(() -> Toast.makeText(Upload.this, "Upload successful", Toast.LENGTH_SHORT).show());
             }
 
@@ -58,6 +60,7 @@ public class Upload extends AppCompatActivity {
             public void onFail() {
                 Upload.this.runOnUiThread(() -> {
                     Upload.this.setContentView(R.layout.activity_upload);
+                    ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
                     Toast.makeText(Upload.this, "Upload failed", Toast.LENGTH_SHORT).show();
                 });
             }
@@ -70,6 +73,7 @@ public class Upload extends AppCompatActivity {
 
     public void clickDelete(View v) {
         PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
+        ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
         Intent i = new Intent(this, Authorization.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
