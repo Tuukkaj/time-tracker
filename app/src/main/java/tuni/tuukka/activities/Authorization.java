@@ -136,29 +136,29 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
      */
     public void buttonClick(View v) {
         Optional<String> token = Token.getToken();
-        switch (v.getId()) {
-            case R.id.authorization_btn_authorize:
-                login();
-                break;
-            case R.id.authorization_btn_input:
-                if (token.isPresent()) {
-                    LoadingScreenHelper.start(this);
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_MANUAL_INPUT));
-                } else {
-                    AccountAuthorization.authorize(this,credential);
-                }
-                break;
 
-            case R.id.authorization_btn_show: {
-                if(token.isPresent()) {
-                    LoadingScreenHelper.start(this);
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_SHOW_TIME));
-                } else{
-                    AccountAuthorization.authorize(this,credential);
-                }
+        if(token.isPresent()) {
+            switch (v.getId()) {
+                case R.id.authorization_btn_authorize:
+                    login();
 
-                break;
+                    break;
+
+                case R.id.authorization_btn_input:
+                    LoadingScreenHelper.start(this);
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this, credential, SheetDataAdapter.MODE_MANUAL_INPUT));
+
+                    break;
+
+                case R.id.authorization_btn_show: {
+                    LoadingScreenHelper.start(this);
+                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this, credential, SheetDataAdapter.MODE_SHOW_TIME));
+
+                    break;
+                }
             }
+        } else {
+            AccountAuthorization.authorize(this, credential);
         }
     }
 
