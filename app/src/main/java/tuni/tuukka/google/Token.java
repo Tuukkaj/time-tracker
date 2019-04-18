@@ -23,7 +23,7 @@ public class Token extends Application {
      * @return users token.
      */
     public static Optional<String> getToken() {
-        return token;
+        return token != null ? token : Optional.ofNullable(null);
     }
 
     /**
