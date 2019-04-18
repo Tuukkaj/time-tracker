@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:onClick="onClick"
         android:layout_gravity="center_horizontal"
-        app:backgroundTint="@color/colorPrimary"/>
+        app:backgroundTint="@color/colorAccent"/>
     <TextView android:id="@+id/timer_txt_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
