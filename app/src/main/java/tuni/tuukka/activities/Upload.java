@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
 
 import tuni.tuukka.R;
+import tuni.tuukka.activity_helper.LoadingScreenHelper;
 import tuni.tuukka.google.DataTime;
 import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.SheetApi;
@@ -43,6 +44,7 @@ public class Upload extends AppCompatActivity {
     public void clickUpload(View v) {
         String comment = ((EditText) findViewById(R.id.upload_comment_field)).getText().toString();
         DataTime data = new DataTime(time, comment, "implemented later", new SheetRequestsInfo(id, "work"));
+        LoadingScreenHelper.start(this);
         SheetApi.appendSheet(data, createDoAfter());
     }
 
@@ -57,7 +59,10 @@ public class Upload extends AppCompatActivity {
 
             @Override
             public void onFail() {
-                Upload.this.runOnUiThread(() -> Toast.makeText(Upload.this, "Upload failed", Toast.LENGTH_SHORT).show());
+                Upload.this.runOnUiThread(() -> {
+                    Upload.this.setContentView(R.layout.activity_upload);
+                    Toast.makeText(Upload.this, "Upload failed", Toast.LENGTH_SHORT).show();
+                });
             }
         };
     }
