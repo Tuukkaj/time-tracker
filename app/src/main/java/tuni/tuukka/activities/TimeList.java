@@ -109,11 +109,11 @@ public class TimeList extends AppCompatActivity {
         for (int i = 0; i < values.size(); i++) {
             try {
                 temp.add(new SheetInformation(
-                        Float.parseFloat(String.valueOf(values.get(i).get(0))),
+                        Float.parseFloat(String.valueOf(values.get(i).get(0)).replace(",",".")),
                         (String) values.get(i).get(1),
-                        (String) values.get(i).get(2)));
+                        values.get(i).size() >= 3 ?  (String) values.get(i).get(2): ""));
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
 

@@ -23,10 +23,6 @@ public class DataTime extends Data {
      */
     public String category;
 
-    /**
-     * Comment of what user did while working
-     */
-    public String comment;
 
     public String date;
 
@@ -35,14 +31,12 @@ public class DataTime extends Data {
      *
      * @param time Time worked.
      * @param category Category of work.
-     * @param comment Comment of what user did while working.
      * @param info Target sheetId and range.
      */
-    public DataTime(float time, String category, String comment, SheetRequestsInfo info) {
+    public DataTime(float time, String category, SheetRequestsInfo info) {
         super(info);
         this.time = time;
         this.category = category;
-        this.comment = comment;
         date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
     }
 }

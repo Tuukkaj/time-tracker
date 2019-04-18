@@ -121,7 +121,6 @@ public class SheetApi {
                     objects.add(time.time);
                     objects.add(time.date);
                     objects.add(time.category);
-                    objects.add(time.comment);
                 } else if (data instanceof DataCategory) {
                     DataCategory category = (DataCategory) data;
                     objects.add(category.category);

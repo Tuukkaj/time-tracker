@@ -85,7 +85,7 @@ public class ManualTimeInput extends AppCompatActivity {
     public void addClicked(View v) {
         String comment = ((EditText) findViewById(R.id.manualtimeinput_comment)).getText().toString();
         float decimalMinutes = minutes / 60f;
-        DataTime dataTime = new DataTime(Math.round((hours+decimalMinutes) * 100f) / 100f, comment, "REPLACE", new SheetRequestsInfo(id, "work"));
+        DataTime dataTime = new DataTime(Math.round((hours+decimalMinutes) * 100f) / 100f, comment, new SheetRequestsInfo(id, "work"));
         SheetApi.appendSheet(dataTime, createInterface());
         setContentView(R.layout.loading_screen);
         ((ImageView) findViewById(R.id.loading)).setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));

@@ -41,7 +41,7 @@ public class Upload extends AppCompatActivity {
 
     public void clickUpload(View v) {
         String comment = ((EditText) findViewById(R.id.upload_comment_field)).getText().toString();
-        DataTime data = new DataTime(time, comment, "implemented later", new SheetRequestsInfo(id, "work"));
+        DataTime data = new DataTime(time, comment, new SheetRequestsInfo(id, "work"));
         LoadingScreenHelper.start(this);
         SheetApi.appendSheet(data, createDoAfter());
     }
