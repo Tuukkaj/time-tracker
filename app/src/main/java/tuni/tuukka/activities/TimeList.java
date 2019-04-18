@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +27,7 @@ public class TimeList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_time_list);
+        startLoadStreet();
 
         String name = getIntent().getStringExtra("sheetName");
         String id = getIntent().getStringExtra("sheetId");
@@ -35,11 +37,17 @@ public class TimeList extends AppCompatActivity {
         SheetApi.readRange(new SheetRequestsInfo(id, "work"), createInterface());
     }
 
+    private void startLoadStreet()  {
+        setContentView(R.layout.loading_screen);
+        ((ImageView) findViewById(R.id.loading)).setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
+    }
+
     private DoAfter<List<List<Object>>> createInterface() {
         return new DoAfter<List<List<Object>>>() {
             @Override
             public void onSuccess(List<List<Object>> value) {
                 TimeList.this.runOnUiThread(() -> {
+                    TimeList.this.setContentView(R.layout.activity_time_list);
                     recyclerView = findViewById(R.id.recycler_view);
                     recyclerView.setHasFixedSize(false);
                     recyclerView.setLayoutManager(new LinearLayoutManager(TimeList.this));
@@ -66,7 +74,10 @@ public class TimeList extends AppCompatActivity {
 
             @Override
             public void onFail() {
-                TimeList.this.runOnUiThread(() -> Toast.makeText(TimeList.this, "Please try again later", Toast.LENGTH_SHORT).show());
+                TimeList.this.runOnUiThread(() -> {
+                    TimeList.this.setContentView(R.layout.activity_time_list);
+                    Toast.makeText(TimeList.this, "Please try again later", Toast.LENGTH_SHORT).show();
+                });
             }
         };
     }
