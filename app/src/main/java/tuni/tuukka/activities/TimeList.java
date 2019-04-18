@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tuni.tuukka.R;
+import tuni.tuukka.activity_helper.LoadingScreenHelper;
 import tuni.tuukka.activity_helper.TimeDataAdapter;
 import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.SheetApi;
@@ -27,7 +28,7 @@ public class TimeList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startLoadStreet();
+        LoadingScreenHelper.start(this);
 
         String name = getIntent().getStringExtra("sheetName");
         String id = getIntent().getStringExtra("sheetId");
@@ -35,11 +36,6 @@ public class TimeList extends AppCompatActivity {
         getSupportActionBar().setTitle(name.substring(13));
 
         SheetApi.readRange(new SheetRequestsInfo(id, "work"), createInterface());
-    }
-
-    private void startLoadStreet()  {
-        setContentView(R.layout.loading_screen);
-        ((ImageView) findViewById(R.id.loading)).setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
     }
 
     private DoAfter<List<List<Object>>> createInterface() {

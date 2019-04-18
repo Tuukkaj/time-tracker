@@ -42,6 +42,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import tuni.tuukka.R;
 import tuni.tuukka.activity_helper.DriveApiHelper;
+import tuni.tuukka.activity_helper.LoadingScreenHelper;
 import tuni.tuukka.activity_helper.SheetDataAdapter;
 import tuni.tuukka.google.AccountAuthorization;
 import tuni.tuukka.google.DriveApi;
@@ -142,7 +143,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.authorization_btn_timer:
                 if (token.isPresent()) {
-                    startLoadStreet();
+                    LoadingScreenHelper.start(this);
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_TIMER));
 
                 } else {
@@ -152,7 +153,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.authorization_btn_input:
                 if (token.isPresent()) {
-                    startLoadStreet();
+                    LoadingScreenHelper.start(this);
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_MANUAL_INPUT));
                 } else {
                     AccountAuthorization.authorize(this,credential);
@@ -161,7 +162,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             case R.id.authorization_btn_show: {
                 if(token.isPresent()) {
-                    startLoadStreet();
+                    LoadingScreenHelper.start(this);
                     DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_SHOW_TIME));
                 } else{
                     AccountAuthorization.authorize(this,credential);
@@ -215,11 +216,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             btnStart.setEnabled(true);
             btnStart.setBackgroundTintList(getColorStateList(R.color.colorPrimaryDark));
         }
-    }
-
-    private void startLoadStreet()  {
-        setContentView(R.layout.loading_screen);
-        ((ImageView) findViewById(R.id.loading)).setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
     }
 
     /**
