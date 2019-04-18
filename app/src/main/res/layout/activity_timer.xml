@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -43,26 +45,17 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/end_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10pt">
-        <Button android:id="@+id/end-button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20pt"
-            android:text="END"
-            android:enabled="false"
-            android:onClick="onClick"
-            />
-        <Button android:id="@+id/start-button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20pt"
-            android:text="START"
-            android:onClick="onClick"/>
-    </RelativeLayout>
-
+        android:onClick="onClick"
+        android:layout_gravity="center_horizontal"
+        app:backgroundTint="@color/colorPrimary"/>
+    <TextView android:id="@+id/timer_txt_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="End"
+        android:layout_gravity="center_horizontal"/>
 </LinearLayout>

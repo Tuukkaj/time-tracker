@@ -12,14 +12,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -53,8 +51,9 @@ public class Timer extends AppCompatActivity {
 
 
         if (getIntent().getBooleanExtra("serviceOn", false)) {
-            ((Button) findViewById(R.id.start_button)).setEnabled(false);
-            ((Button) findViewById(R.id.end_button)).setEnabled(true);
+            ((FloatingActionButton) findViewById(R.id.end_button)).setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close_black_24dp));
+        } else {
+            ((FloatingActionButton) findViewById(R.id.end_button)).setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_timer_white_24dp));
         }
 
         if(name != null && id != null) {
@@ -63,21 +62,16 @@ public class Timer extends AppCompatActivity {
     }
 
     public void onClick(View v) {
-        Button startButton = (Button) findViewById(R.id.start_button);
-        Button endButton = (Button) findViewById(R.id.end_button);
-
-        if(v.getId() == R.id.start_button) {
-            startButton.setEnabled(false);
-            endButton.setEnabled(true);
+        if(!saveTime) {
             saveTime = true;
+            changeButtonState();
             ((TextView) findViewById(R.id.start_text)).setText(Calendar.getInstance().get(Calendar.HOUR_OF_DAY) +":"+
                     (Calendar.getInstance().get(Calendar.MINUTE) < 10?"0"+Calendar.getInstance().get(Calendar.MINUTE):Calendar.getInstance().get(Calendar.MINUTE)));
             start = System.currentTimeMillis() / 1000;
             startTime();
             createNotification();
-        } else if (v.getId() == R.id.end_button){
-            startButton.setEnabled(true);
-            endButton.setEnabled(false);
+        } else  {
+            changeButtonState();
             stopTime();
 
             Intent nextActivity = new Intent(this, Upload.class);
@@ -114,6 +108,18 @@ public class Timer extends AppCompatActivity {
         };
 
         timeTask.execute();
+    }
+
+    private void changeButtonState() {
+        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.end_button);
+        TextView textView = (TextView) findViewById(R.id.timer_txt_button);
+        if(saveTime) {
+            button.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close_black_24dp));
+            textView.setText("End");
+        } else {
+            button.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_timer_white_24dp));
+            textView.setText("Start");
+        }
     }
 
     public void createNotification() {
@@ -176,8 +182,10 @@ public class Timer extends AppCompatActivity {
 
             getSupportActionBar().setTitle(name.substring(13));
             ((TextView) findViewById(R.id.start_text)).setText(text);
-            ((Button) findViewById(R.id.start_button)).setEnabled(false);
-            ((Button) findViewById(R.id.end_button)).setEnabled(true);
+            ((FloatingActionButton) findViewById(R.id.end_button)).setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close_black_24dp));
+        } else {
+            ((FloatingActionButton) findViewById(R.id.end_button)).setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_timer_white_24dp));
+            saveTime = false;
         }
 
         preferences.edit().clear().commit();
