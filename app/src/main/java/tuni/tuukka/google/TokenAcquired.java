@@ -40,7 +40,7 @@ public class TokenAcquired implements AccountManagerCallback<Bundle> {
         try {
             Bundle bundle = accountManagerFuture.getResult();
             String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-            Token.saveToken(token, context);
+            Token.setToken(token);
 
         } catch (AuthenticatorException e) {
             e.printStackTrace();

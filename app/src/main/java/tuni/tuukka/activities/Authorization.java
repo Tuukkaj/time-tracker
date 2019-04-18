@@ -134,7 +134,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
      * @param v view that was clicked.
      */
     public void buttonClick(View v) {
-        Optional<String> token = Token.loadToken(this);
+        Optional<String> token = Token.getToken();
         switch (v.getId()) {
             case R.id.authorization_btn_authorize:
                 login();
