@@ -55,7 +55,7 @@
     <TextView android:id="@+id/timer_txt_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:text="End"
+        android:textSize="25dp"
+        android:text="@string/timer_button_start"
         android:layout_gravity="center_horizontal"/>
 </LinearLayout>
