@@ -71,9 +71,7 @@ public class Timer extends AppCompatActivity {
             startTime();
             createNotification();
         } else  {
-            changeButtonState();
             stopTime();
-
             Intent nextActivity = new Intent(this, Upload.class);
             nextActivity.putExtra("sheetName", name);
             nextActivity.putExtra("sheetId", id);
@@ -122,7 +120,7 @@ public class Timer extends AppCompatActivity {
         }
     }
 
-    public void createNotification() {
+    private void createNotification() {
         Intent resultIntent = new Intent(this, Timer.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntentWithParentStack(resultIntent);
