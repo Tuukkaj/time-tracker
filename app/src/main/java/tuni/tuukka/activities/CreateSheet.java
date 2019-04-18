@@ -34,7 +34,9 @@ public class CreateSheet extends AppCompatActivity {
     }
 
     public void cancelClicked(View v) {
-        startActivity(new Intent(this, Authorization.class));
+        Intent intent = new Intent(this, Authorization.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private DriveApi.CreateNewSheetInterface createInterface() {
@@ -53,7 +55,9 @@ public class CreateSheet extends AppCompatActivity {
                 CreateSheet.this.runOnUiThread(() ->
                         Toast.makeText(CreateSheet.this,
                                 "File created", Toast.LENGTH_SHORT).show());
-                CreateSheet.this.startActivity(new Intent(CreateSheet.this, Authorization.class));
+                Intent intent = new Intent(CreateSheet.this, Authorization.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                CreateSheet.this.startActivity(intent);
             }
 
             @Override
