@@ -116,7 +116,10 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_logout: {
-                System.out.println("logout");
+                getPreferences(Context.MODE_PRIVATE).edit().clear().commit();
+                setContentView(R.layout.activity_authorization);
+                chooseAccount();
+                login();
                 break;
             }
 
