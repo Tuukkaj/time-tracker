@@ -10,4 +10,16 @@
     <string name="sheet_list_no_sheets_message">Uh oh, do not have any any sheets. Create new one</string>
     <string name="sheet_list_no_sheets_create">Create Sheet</string>
     <string name="timer_button_start">Start</string>
+    <string name="about_author">Author: Tuukka Juusela</string>
+    <string name="about_project_description">This project is created for mobile programming course in Tampere
+    University of applied sciences as part of degree programme in business information systems. </string>
+    <string name="about_app_apis">Application uses Google Sheets and Google Drive API. Google Sheets API
+    is used to read and write users Sheets. Google Drive API is used to searching and creating
+    Sheet files. </string>
+    <string name="about_app_help">Time Tracker creates new folder to your Google Drive with name
+        "time-tracker" and uses its files from there. Time Tracker searches and uses Sheets files which start with
+        "time-tracker-". If you want to delete your time tracking files you can delete files in your
+        Google Drive (Remember to remove it from your Google Drive Bin too!). You can also manually input time
+        into Sheets files but it is recommended to use application for this.</string>
+
 </resources>
