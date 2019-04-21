@@ -121,7 +121,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             }
 
             case R.id.menu_about: {
-                System.out.println("Menu");
+                startActivity(new Intent(this,About.class));
                 break;
             }
         }
