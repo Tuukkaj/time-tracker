@@ -101,6 +101,9 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         login();
     }
 
+    /**
+     * Sets content view to 'activity_authorization' and calls login()
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -108,12 +111,18 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         login();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.authorization_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -167,6 +176,10 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         }
     }
 
+    /**
+     * Checks if application has active timer information in preferences. Calls
+     * layoutHandleActiveTimer with true or false depending on if the timer is on.
+     */
     private void checkTimer() {
        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
        String id = preferences.getString(Timer.PREF_SHEETID, "");
@@ -175,6 +188,11 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
        layoutHandleActiveTimer(!id.isEmpty() && !name.isEmpty());
     }
 
+    /**
+     * Handles button with id'@+id/authorization_btn_timer'. If parameter is true button directs to
+     * Timer class. If not directs to SheetList class.
+     * @param on If the timer is on.
+     */
     @SuppressLint("RestrictedApi")
     private void layoutHandleActiveTimer(boolean on) {
         FloatingActionButton btnStart = (FloatingActionButton) findViewById(R.id.authorization_btn_timer);
@@ -241,6 +259,10 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         checkTimer();
     }
 
+    /**
+     * Sets profile name to layout.
+     * @param name
+     */
     private void setProfileName(String name) {
         ((TextView) findViewById(R.id.accountName)).setText(name);
         ((ImageView) findViewById(R.id.accountIcon)).setVisibility(View.VISIBLE);
@@ -396,16 +418,15 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     }
 
 
+    /**
+     * Creates notification channel for the application.
+     */
     private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "time-tracker";
             String description = "Used to inform user about elapsed work time";
             NotificationChannel channel = new NotificationChannel("time-tracker", name, NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
@@ -417,6 +438,14 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         return i;
     }
 
+    /**
+     * Creates interface for listing files for SheetList class from Google Drive.
+     * @param activity Activity to call parent methods from.
+     * @param credential Credential of the current user. Used to read OAuth token with.
+     * @param mode Next action mode. SheetList directs to right activity with this call and sets
+     *             right title to itself.
+     * @return Interface to react to receiving list of files from Google Drive.
+     */
     private DoAfter<List<File>> interfaceListFiles(Activity activity, GoogleAccountCredential credential, int mode) {
         return new DoAfter<List<File>>() {
             @Override
