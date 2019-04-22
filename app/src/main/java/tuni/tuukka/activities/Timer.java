@@ -26,25 +26,93 @@ import java.util.Calendar;
 
 import tuni.tuukka.R;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190422
+ * @since       1.8
+ *
+ * Activity for timing. Saves time for
+ */
 public class Timer extends AppCompatActivity {
+    /**
+     * Key of Sheet name in preferences
+     */
     public final static String PREF_SHEETNAME = "sheetName";
+
+    /**
+     * Key of Sheet id in preferences.
+     */
     public final static String PREF_SHEETID = "sheetId";
+
+    /**
+     * Key of timer start time in preferences.
+     */
     public final static String PREF_START = "start";
+
+    /**
+     * Key of timer start time in HH:MM string in preferences.
+     */
     private final static String PREF_START_TEXT = "startText";
+
+    /**
+     * Key of Sheet name extra given to Timer activity.
+     */
     public final static String EXTRA_SHEETNAME = "extraSheetName";
+
+    /**
+     * Key of Sheet id extra given to Timer activity.
+     */
     public final static String EXTRA_SHEETID = "extraSheetId";
 
+    /**
+     * Key of Sheet name extra given to Upload activity.
+     */
     public final static String EXTRA_UPLOAD_SHEETNAME = "sheetName";
+
+    /**
+     * Key of Sheet id extra given to Upload activity.
+     */
     public final static String EXTRA_UPLOAD_SHEETID = "sheetId";
+
+    /**
+     * Key of Sheet time extra given to Upload activity.
+     */
     public final static String EXTRA_UPLOAD_TIME = "time";
 
+    /**
+     * Timestamp when timer was started.
+     */
     private long start;
+
+    /**
+     * Name of Sheet to record time to.
+     */
     private String name;
+
+    /**
+     * Id of Sheet to record time to.
+     */
     private String id;
+
+    /**
+     * Boolean if time text view should be changed UI from thread.
+     */
     private boolean runTimer;
+
+    /**
+     * Boolean if time data should be saved to preferences.
+     */
     private boolean saveTime = false;
+
+    /**
+     * AsyncTask for changing time text view in UI.
+     */
     private AsyncTask<Void,Void,Void> timeTask;
 
+    /**
+     * Sets name and id variable given in Intent.
+     * @param savedInstanceState Not in use.
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +125,10 @@ public class Timer extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts running timer if saveTime is false. If not, starts Activity Upload.
+     * @param v View Clicked. Not in use.
+     */
     public void onClick(View v) {
         if(!saveTime) {
             saveTime = true;
@@ -77,6 +149,10 @@ public class Timer extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts thread that changes time text view in UI. Thread can be killed by setting runTimer
+     * boolean to false.
+     */
     public void startTime() {
         TextView timeText = (TextView) findViewById(R.id.timer_time_text);
         runTimer = true;
@@ -104,6 +180,9 @@ public class Timer extends AppCompatActivity {
         timeTask.execute();
     }
 
+    /**
+     * Changes Start/End button icon and txt view of the button.
+     */
     private void changeButtonState() {
         FloatingActionButton button = (FloatingActionButton) findViewById(R.id.end_button);
         TextView textView = (TextView) findViewById(R.id.timer_txt_button);
@@ -116,6 +195,9 @@ public class Timer extends AppCompatActivity {
         }
     }
 
+    /**
+     * Creates notification to user that timer has been started.
+     */
     private void createNotification() {
         Intent resultIntent = new Intent(this, Timer.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
@@ -133,10 +215,16 @@ public class Timer extends AppCompatActivity {
         getSystemService(NotificationManager.class).notify(123, builder.build());
     }
 
+    /**
+     * Sets runTimer to false and kills thread updating time text view.
+     */
     public void stopTime() {
         runTimer = false;
     }
 
+    /**
+     * If saveTime is true, saves time information to preferences. If not, clears preferences.
+     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -156,6 +244,10 @@ public class Timer extends AppCompatActivity {
         stopTime();
     }
 
+    /**
+     * If preferences contains time information, continues timer. If not, sets Timer activity to
+     * default mode.
+     */
     @Override
     protected void onResume() {
         super.onResume();
