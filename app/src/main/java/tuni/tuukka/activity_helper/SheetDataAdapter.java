@@ -20,29 +20,77 @@ import tuni.tuukka.activities.SheetList;
 import tuni.tuukka.activities.Timer;
 import tuni.tuukka.activities.TimeList;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190422
+ * @since       1.8
+ *
+ * Used by SheetList activity to create RecyclerView of list of Sheet files in users Google Drive.
+ */
 public class SheetDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    /**
+     * Users Sheets in Drive.
+     */
     private List<SheetList.SheetInformation> data;
+
+    /**
+     * Parent Activity.
+     */
     private Activity activity;
+
+    /**
+     * Mode used to determine where user should be directed when Recycler view's item is clicked.
+     */
     private int mode;
 
+    /**
+     * Mode used when user should be directed to Timer activity from SheetList.
+     */
     public static final int MODE_TIMER = 0;
+
+    /**
+     * Mode used when user should be directed to ManualTimeInput activity from SheetList.
+     */
     public static final int MODE_MANUAL_INPUT = 1;
+
+    /**
+     * Mode used when user should be directed to TimeList activity from SheetList.
+     */
     public static final int MODE_SHOW_TIME = 2;
 
+    /**
+     * List item type in Recycler view. Used to determine which layout Recycler view item gets.
+     */
     private static final int TYPE_LIST_ITEM = 0;
+
+    /**
+     * Button item type in Recycler view. Used to determine which layout Recycler view item gets.
+     */
     private static final int TYPE_BUTTON = 1;
 
+    /**
+     * Sets given parameters to variables.
+     * @param data Sheet files of user.
+     * @param activity Parent activity.
+     * @param mode Mode used to determine where user should be directed when Recycler view's item is clicked.
+     */
     public SheetDataAdapter(List<SheetList.SheetInformation> data, Activity activity, int mode) {
         this.data = data;
         this.activity = activity;
         this.mode = mode;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getItemViewType(int position) {
         return position != data.size() - 1 ?  TYPE_LIST_ITEM : TYPE_BUTTON;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, final int viewType) {
@@ -66,6 +114,9 @@ public class SheetDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         switch (viewHolder.getItemViewType()) {
@@ -112,23 +163,46 @@ public class SheetDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getItemCount() {
         return data.size();
     }
 
+    /**
+     * POJO class for holding Recycler views List item.
+     */
     public static class ListItemViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * Card view in List Item.
+         */
         public CardView cardView;
 
+        /**
+         * Sets parameter to cardView variable.
+         * @param cardView Card View in Recycler View.
+         */
         public ListItemViewHolder(CardView cardView) {
             super(cardView);
             this.cardView = cardView;
         }
     }
 
+    /**
+     * POJO class for holding Recycler views Button item.
+     */
     public static class ButtonViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * Linear layout of Button view holder
+         */
         public LinearLayout layout;
 
+        /**
+         * Sets parameter to layout variable.
+         * @param layout LinearLayout in Recycler view.
+         */
         public ButtonViewHolder(@NonNull LinearLayout layout) {
             super(layout);
 
