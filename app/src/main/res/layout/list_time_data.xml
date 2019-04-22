@@ -20,7 +20,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="08.04.2019"
             android:textSize="20dp"/>
 
         <TextView android:id="@+id/list_time_time"
@@ -44,7 +43,6 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/list_time_data_comment"
             android:layout_below="@+id/list_time_separator"
             android:textColor="@color/white"
             />
