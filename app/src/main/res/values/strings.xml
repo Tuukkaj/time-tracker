@@ -65,4 +65,5 @@
     <string name="upload_comment">Comment: </string>
     <string name="upload_comment_hint">I used my time on...</string>
     <string name="notification_content">Started tracking time</string>
+    <string name="error_general">Something went wrong. Relaunch application</string>
 </resources>
