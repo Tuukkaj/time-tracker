@@ -97,7 +97,7 @@ public class ManualTimeInput extends AppCompatActivity {
                     addButton.setBackgroundTintList(getColorStateList(R.color.shadow));
                 } else {
                     addButton.setEnabled(true);
-                    addButton.setBackgroundTintList(getColorStateList(R.color.colorPrimary));
+                    addButton.setBackgroundTintList(getColorStateList(R.color.colorAccent));
                 }
             }
             @Override
