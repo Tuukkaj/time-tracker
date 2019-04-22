@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="10pt"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="Time"
 
+        android:layout_marginLeft="10dp"/>
+
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/list_time_date"
+        android:layout_marginHorizontal="5dp"
+        android:background="@color/colorPrimaryDark"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="10pt"
+        android:layout_marginLeft="10dp"
         android:text="Hours worked"/>
 
     <LinearLayout
@@ -44,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="10pt"
+        android:layout_marginLeft="10dp"
         android:text="Minutes worked"/>
 
 
@@ -68,7 +83,6 @@
             android:text="60"/>
     </LinearLayout>
 
-
     <TextView android:id="@+id/manualtimeinput-time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,27 +90,77 @@
         android:text="00:00"
         android:layout_gravity="center"/>
 
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="30dp"
+        android:text="Date"
+        />
+
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/list_time_date"
+        android:layout_marginHorizontal="5dp"
+        android:background="@color/colorPrimaryDark"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView android:id="@+id/manualtimeinput-current-date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="COMMENT"/>
-        <EditText android:id="@+id/manualtimeinput-comment"
-            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:textSize="30dp"
+            />
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textMultiLine"/>
-    </LinearLayout>
+            android:layout_toEndOf="@id/manualtimeinput-current-date"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            app:fabSize="mini"
+            android:src="@drawable/ic_date_range_white_24dp"
+            android:onClick="timePickerClicked"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="30dp"
+        android:text="Comment"
+        android:layout_marginLeft="10dp"
+        />
+
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/list_time_date"
+        android:layout_marginHorizontal="5dp"
+        android:background="@color/colorPrimaryDark"/>
+
+    <EditText android:id="@+id/manualtimeinput-comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="Spent time doing many things such as..."
+        android:layout_marginLeft="10dp"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/manualtimeinput-addbutton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/ic_add_white_24dp"
-        android:layout_marginTop="5pt"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center_horizontal"
         android:onClick="addClicked"/>
 
