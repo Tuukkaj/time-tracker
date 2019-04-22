@@ -1,14 +1,12 @@
 package tuni.tuukka.activities;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,12 +56,9 @@ public class TimeList extends AppCompatActivity {
                         txtAverage.setText(String.valueOf(calcAverage(infos)) + "h");
                         recyclerView.setAdapter(new TimeDataAdapter(infos));
                     } else {
-                        txtAll.setText("-");
-                        txtAverage.setText("-");
-
-                        infos = new ArrayList<>();
-                        infos.add(new SheetInformation(0, "No data present", "-"));
-                        recyclerView.setAdapter(new TimeDataAdapter(infos));
+                        TimeList.this.runOnUiThread(() -> {
+                            TimeList.this.setContentView(R.layout.activity_timelist_empty);
+                        });
                     }
                 });
             }
@@ -76,6 +71,12 @@ public class TimeList extends AppCompatActivity {
                 });
             }
         };
+    }
+
+    public void clickBack(View v) {
+        Intent intent = new Intent(this, Authorization.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private float calcAverage(List<SheetInformation> values) {
