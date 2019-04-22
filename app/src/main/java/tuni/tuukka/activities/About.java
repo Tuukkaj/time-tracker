@@ -5,8 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 
 import tuni.tuukka.R;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190422
+ * @since       1.8
+ *
+ * Activity for showing general information about the application
+ */
 public class About extends AppCompatActivity {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
