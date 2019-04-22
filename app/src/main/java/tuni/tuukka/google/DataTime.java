@@ -45,6 +45,7 @@ public class DataTime extends Data {
      *
      * @param time Time worked.
      * @param category Category of work.
+     * @param date Date when time was recorded.
      * @param info Target sheetId and range.
      */
     public DataTime(float time, String category, String date, SheetRequestsInfo info) {
