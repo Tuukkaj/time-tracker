@@ -50,8 +50,8 @@ public class ManualTimeInput extends AppCompatActivity {
         addButton.setEnabled(false);
         addButton.setBackgroundTintList(getColorStateList(R.color.shadow));
 
-        String name = getIntent().getStringExtra("sheetName");
-        id = getIntent().getStringExtra("sheetId");
+        String name = getIntent().getStringExtra(SheetList.EXTRA_SHEETNAME);
+        id = getIntent().getStringExtra(SheetList.EXTRA_SHEETID);
 
         getSupportActionBar().setTitle(name.substring(13));
         setOnChangeListener(R.id.manualtimeinput_hour, value -> hours = value);

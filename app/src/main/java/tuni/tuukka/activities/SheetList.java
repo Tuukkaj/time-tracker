@@ -16,12 +16,20 @@ import tuni.tuukka.activity_helper.SheetDataAdapter;
 public class SheetList extends AppCompatActivity {
     private RecyclerView recyclerView;
 
+    public static final String EXTRA_SHEETNAME = "sheetName";
+    public static final String EXTRA_SHEETID = "sheetId";
+
+    public static final String EXTRA_ARRAY_SHEETNAMES = "names";
+    public static final String EXTRA_ARRAY_SHEETIDS = "ids";
+    public static final String EXTRA_MODE = "mode";
+
+
     @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int mode = getIntent().getIntExtra("mode",0);
+        int mode = getIntent().getIntExtra(EXTRA_MODE,0);
 
         ArrayList<SheetInformation> info = createSheetInformation();
 
@@ -43,8 +51,8 @@ public class SheetList extends AppCompatActivity {
 
     private ArrayList<SheetInformation> createSheetInformation() {
         ArrayList<SheetInformation> data = new ArrayList<>();
-        ArrayList<String> names = getIntent().getStringArrayListExtra("names");
-        ArrayList<String> ids = getIntent().getStringArrayListExtra("ids");
+        ArrayList<String> names = getIntent().getStringArrayListExtra(EXTRA_ARRAY_SHEETNAMES);
+        ArrayList<String> ids = getIntent().getStringArrayListExtra(EXTRA_ARRAY_SHEETIDS);
 
         for(int i = 0; names != null && ids != null && i < names.size(); i++) {
             data.add(new SheetInformation(ids.get(i),names.get(i)));

@@ -100,9 +100,9 @@ public class DriveApiHelper {
                 });
 
                 Intent intent = new Intent(activity, SheetList.class);
-                intent.putExtra("mode", mode);
-                intent.putStringArrayListExtra("names", fileNames);
-                intent.putStringArrayListExtra("ids", fileIds);
+                intent.putExtra(SheetList.EXTRA_MODE, mode);
+                intent.putStringArrayListExtra(SheetList.EXTRA_ARRAY_SHEETNAMES, fileNames);
+                intent.putStringArrayListExtra(SheetList.EXTRA_ARRAY_SHEETIDS, fileIds);
 
                 activity.startActivity(intent);
             }

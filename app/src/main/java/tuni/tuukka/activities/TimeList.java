@@ -30,8 +30,8 @@ public class TimeList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LoadingScreenHelper.start(this);
 
-        String name = getIntent().getStringExtra("sheetName");
-        String id = getIntent().getStringExtra("sheetId");
+        String name = getIntent().getStringExtra(SheetList.EXTRA_SHEETNAME);
+        String id = getIntent().getStringExtra(SheetList.EXTRA_SHEETID);
 
         getSupportActionBar().setTitle(name.substring(13));
 

@@ -93,15 +93,15 @@ public class SheetDataAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 } else if(mode == MODE_MANUAL_INPUT) {
                     ((CardView) view.cardView.findViewById(R.id.list_sheet_cardview)).setOnClickListener(event -> {
                         Intent intent = new Intent(activity, ManualTimeInput.class);
-                        intent.putExtra("sheetId", data.get(i).id);
-                        intent.putExtra("sheetName", data.get(i).name);
+                        intent.putExtra(SheetList.EXTRA_SHEETID, data.get(i).id);
+                        intent.putExtra(SheetList.EXTRA_SHEETNAME, data.get(i).name);
                         activity.startActivity(intent);
                     });
                 } else if(mode == MODE_SHOW_TIME) {
                     ((CardView) view.cardView.findViewById(R.id.list_sheet_cardview)).setOnClickListener(event -> {
                         Intent intent = new Intent(activity, TimeList.class);
-                        intent.putExtra("sheetId", data.get(i).id);
-                        intent.putExtra("sheetName", data.get(i).name);
+                        intent.putExtra(SheetList.EXTRA_SHEETID, data.get(i).id);
+                        intent.putExtra(SheetList.EXTRA_SHEETNAME, data.get(i).name);
                         activity.startActivity(intent);
                     });
                 }
