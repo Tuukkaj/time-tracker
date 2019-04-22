@@ -31,7 +31,7 @@ import tuni.tuukka.R;
  * @version     20190422
  * @since       1.8
  *
- * Activity for timing. Saves time for
+ * Activity for timing. Saves timer time to preferences.
  */
 public class Timer extends AppCompatActivity {
     /**
