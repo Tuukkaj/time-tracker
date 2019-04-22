@@ -35,6 +35,10 @@ public class Timer extends AppCompatActivity {
     public final static String EXTRA_SHEETNAME = "extraSheetName";
     public final static String EXTRA_SHEETID = "extraSheetId";
 
+    public final static String EXTRA_UPLOAD_SHEETNAME = "sheetName";
+    public final static String EXTRA_UPLOAD_SHEETID = "sheetId";
+    public final static String EXTRA_UPLOAD_TIME = "time";
+
     private long start;
     private String name;
     private String id;
@@ -66,10 +70,10 @@ public class Timer extends AppCompatActivity {
         } else  {
             stopTime();
             Intent nextActivity = new Intent(this, Upload.class);
-            nextActivity.putExtra("sheetName", name);
-            nextActivity.putExtra("sheetId", id);
+            nextActivity.putExtra(EXTRA_UPLOAD_SHEETNAME, name);
+            nextActivity.putExtra(EXTRA_UPLOAD_SHEETID, id);
             float hoursWorked = ((System.currentTimeMillis() / 1000) - start);
-            nextActivity.putExtra("time", hoursWorked);
+            nextActivity.putExtra(EXTRA_UPLOAD_TIME, hoursWorked);
             startActivity(nextActivity);
         }
     }

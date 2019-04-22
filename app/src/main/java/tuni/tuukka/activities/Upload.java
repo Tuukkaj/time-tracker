@@ -31,9 +31,9 @@ public class Upload extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent extras = getIntent();
         setContentView(R.layout.activity_upload);
-        name = extras.getStringExtra("sheetName");
-        id = extras.getStringExtra("sheetId");
-        time = extras.getExtras().getFloat("time");
+        name = extras.getStringExtra(Timer.EXTRA_UPLOAD_SHEETNAME);
+        id = extras.getStringExtra(Timer.EXTRA_UPLOAD_SHEETID);
+        time = extras.getExtras().getFloat(Timer.EXTRA_UPLOAD_TIME);
         time = Math.round((time / 3600) * 100f) / 100f;
         ((TextView) findViewById(R.id.upload_sheet_name)).setText(name.substring(13));
         ((TextView) findViewById(R.id.upload_time_spent)).setText("Time: " + time + "h");
@@ -41,7 +41,7 @@ public class Upload extends AppCompatActivity {
 
     public void clickUpload(View v) {
         String comment = ((EditText) findViewById(R.id.upload_comment_field)).getText().toString();
-        DataTime data = new DataTime(time, comment, new SheetRequestsInfo(id, "work"));
+        DataTime data = new DataTime(time, comment, new SheetRequestsInfo(id, SheetRequestsInfo.WORK_TAB));
         LoadingScreenHelper.start(this);
         SheetApi.appendSheet(data, createDoAfter());
     }
