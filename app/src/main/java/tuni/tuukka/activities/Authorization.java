@@ -432,12 +432,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         }
     }
 
-    public static Intent toParentIntent(Activity activity) {
-        Intent i = new Intent(activity, Authorization.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        return i;
-    }
-
     /**
      * Creates interface for listing files for SheetList class from Google Drive.
      * @param activity Activity to call parent methods from.
