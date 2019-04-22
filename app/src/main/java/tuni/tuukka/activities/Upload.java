@@ -59,7 +59,12 @@ public class Upload extends AppCompatActivity {
             @Override
             public void onFail() {
                 Upload.this.runOnUiThread(() -> {
-                    Upload.this.setContentView(R.layout.activity_upload);
+                    Intent intent = Upload.this.getIntent();
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    Upload.this.runOnUiThread(() -> Upload.this.startActivity(intent));
+                    Upload.this.finish();
+
                     ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
                     Toast.makeText(Upload.this, "Upload failed", Toast.LENGTH_SHORT).show();
                 });
