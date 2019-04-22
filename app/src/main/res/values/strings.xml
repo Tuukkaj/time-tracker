@@ -24,5 +24,5 @@
         "time-tracker-". If you want to delete your time tracking files you can delete files in your
         Google Drive (Remember to remove it from your Google Drive Bin too!). You can also manually input time
         into Sheets files but it is recommended to use application for this.</string>
-
+    <string name="about_title">About</string>
 </resources>
