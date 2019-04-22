@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -139,14 +136,14 @@ public class ManualTimeInput extends AppCompatActivity {
             public void onSuccess(AppendValuesResponse value) {
                 ManualTimeInput.this.startActivity(new Intent(ManualTimeInput.this, Authorization.class));
                 ManualTimeInput.this.runOnUiThread(()  -> {
-                    Toast.makeText(ManualTimeInput.this, "Data uploaded", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManualTimeInput.this, getString(R.string.manualtimeinput_success), Toast.LENGTH_SHORT).show();
                 });
             }
 
             @Override
             public void onFail() {
                 ManualTimeInput.this.runOnUiThread(() -> {
-                    Toast.makeText(ManualTimeInput.this, "Check your connection status", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManualTimeInput.this, getString(R.string.manualtimeinput_error_general), Toast.LENGTH_SHORT).show();
                     ManualTimeInput.this.finish();
                     ManualTimeInput.this.startActivity(getIntent());
                 });

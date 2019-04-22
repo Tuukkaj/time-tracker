@@ -34,5 +34,13 @@
     <string name="createsheet_hint">Sheet name</string>
     <string name="createsheet_create">Create</string>
     <string name="createsheet_cancel">Cancel</string>
-
+    <string name="manualtimeinput_success">Data uploaded</string>
+    <string name="manualtimeinput_error_general">Upload failed. Check your connection status</string>
+    <string name="manualtimeinput_title_time">Time</string>
+    <string name="manualtimeinput_title_comment">Comment</string>
+    <string name="manualtimeinput_title_date">Date</string>
+    <string name="manualtimeinput_slider_hours">Hours</string>
+    <string name="manualtimeinput_slider_minutes">Minutes</string>
+    <string name="manualtimeinput_comment_hint">Spent time doing things such as...</string>
+    <string name="manualtimeinput_default_time">00:00</string>
 </resources>

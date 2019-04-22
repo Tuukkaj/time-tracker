@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="30dp"
-        android:text="Time"
-
+        android:text="@string/manualtimeinput_title_time"
         android:layout_marginLeft="10dp"/>
 
     <View
@@ -25,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textSize="10pt"
         android:layout_marginLeft="10dp"
-        android:text="Hours worked"/>
+        android:text="@string/manualtimeinput_slider_hours"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +58,7 @@
         android:layout_height="wrap_content"
         android:textSize="10pt"
         android:layout_marginLeft="10dp"
-        android:text="Minutes worked"/>
+        android:text="@string/manualtimeinput_slider_minutes"/>
 
 
     <LinearLayout
@@ -87,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20pt"
-        android:text="00:00"
+        android:text="@string/manualtimeinput_default_time"
         android:layout_gravity="center"/>
 
     <TextView
@@ -96,7 +95,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:textSize="30dp"
-        android:text="Date"
+        android:text="@string/manualtimeinput_title_date"
         />
 
     <View
@@ -135,7 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textSize="30dp"
-        android:text="Comment"
+        android:text="@string/manualtimeinput_title_comment"
         android:layout_marginLeft="10dp"
         />
 
@@ -151,7 +150,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        android:hint="Spent time doing many things such as..."
+        android:hint="@string/manualtimeinput_comment_hint"
         android:layout_marginLeft="10dp"/>
 
 
