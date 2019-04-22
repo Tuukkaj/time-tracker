@@ -225,10 +225,8 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
     public void login() {
         if(!isGoogleServicesAvailable()) {
             acquirePlayServices();
-            Log.d("tuksu", "AVAIVABLE: " + isGoogleServicesAvailable());
             return;
         } else if(credential.getSelectedAccountName() == null) {
-            Log.d("tuksu", "Selected account name null" + credential.getSelectedAccountName());
             chooseAccount();
             return;
 
@@ -259,7 +257,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
             if(accountName != null) {
                 credential.setSelectedAccountName(accountName);
-                Log.d("tuksu", "GET ACCOUNT NAME " + credential.getSelectedAccountName());
                 login();
             } else {
                 startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
@@ -428,7 +425,6 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 ArrayList<String> fileIds = new ArrayList<>();
 
                 list.forEach(file -> {
-                    System.out.println(file);
                     fileNames.add(file.getName());
                     fileIds.add(file.getId());
                 });
