@@ -32,7 +32,9 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.util.ExponentialBackOff;
 import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.File;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -41,10 +43,10 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import tuni.tuukka.R;
-import tuni.tuukka.activity_helper.DriveApiHelper;
 import tuni.tuukka.activity_helper.LoadingScreenHelper;
 import tuni.tuukka.activity_helper.SheetDataAdapter;
 import tuni.tuukka.google.AccountAuthorization;
+import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.DriveApi;
 import tuni.tuukka.google.Token;
 
@@ -149,13 +151,13 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
 
                 case R.id.authorization_btn_input:
                     LoadingScreenHelper.start(this);
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this, credential, SheetDataAdapter.MODE_MANUAL_INPUT));
+                    DriveApi.listFiles(interfaceListFiles(this, credential, SheetDataAdapter.MODE_MANUAL_INPUT));
 
                     break;
 
                 case R.id.authorization_btn_show: {
                     LoadingScreenHelper.start(this);
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this, credential, SheetDataAdapter.MODE_SHOW_TIME));
+                    DriveApi.listFiles(interfaceListFiles(this, credential, SheetDataAdapter.MODE_SHOW_TIME));
 
                     break;
                 }
@@ -203,7 +205,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 Optional<String> token = Token.getToken();
                 if (token.isPresent()) {
                     LoadingScreenHelper.start(this);
-                    DriveApi.listFiles(DriveApiHelper.interfaceListFiles(this,credential, SheetDataAdapter.MODE_TIMER));
+                    DriveApi.listFiles(interfaceListFiles(this,credential, SheetDataAdapter.MODE_TIMER));
 
                 } else {
                     AccountAuthorization.authorize(this,credential);
@@ -416,5 +418,37 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         Intent i = new Intent(activity, Authorization.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         return i;
+    }
+
+    private DoAfter<List<File>> interfaceListFiles(Activity activity, GoogleAccountCredential credential, int mode) {
+        return new DoAfter<List<File>>() {
+            @Override
+            public void onSuccess(List<File> list) {
+                ArrayList<String> fileNames = new ArrayList<>();
+                ArrayList<String> fileIds = new ArrayList<>();
+
+                list.forEach(file -> {
+                    System.out.println(file);
+                    fileNames.add(file.getName());
+                    fileIds.add(file.getId());
+                });
+
+                Intent intent = new Intent(activity, SheetList.class);
+                intent.putExtra(SheetList.EXTRA_MODE, mode);
+                intent.putStringArrayListExtra(SheetList.EXTRA_ARRAY_SHEETNAMES, fileNames);
+                intent.putStringArrayListExtra(SheetList.EXTRA_ARRAY_SHEETIDS, fileIds);
+
+                activity.startActivity(intent);
+            }
+
+            @Override
+            public void onFail() {
+                activity.runOnUiThread(() -> {
+                    activity.recreate();
+                    Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show();
+                });
+                AccountAuthorization.authorize(activity, credential);
+            }
+        };
     }
 }
