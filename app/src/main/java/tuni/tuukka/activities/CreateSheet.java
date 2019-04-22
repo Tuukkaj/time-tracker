@@ -19,7 +19,7 @@ public class CreateSheet extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_sheet);
-        getSupportActionBar().setTitle("Create sheet");
+        getSupportActionBar().setTitle(getString(R.string.createsheet_title));
     }
 
     public void createClicked(View v) {
@@ -29,7 +29,7 @@ public class CreateSheet extends AppCompatActivity {
             DriveApi.createNewSheet(text, createInterface());
             LoadingScreenHelper.start(this);
         } else {
-            Toast.makeText(this, "Enter longer sheet name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.createsheet_error_no_name), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -46,7 +46,7 @@ public class CreateSheet extends AppCompatActivity {
                 CreateSheet.this.runOnUiThread(() -> {
                     CreateSheet.this.setContentView(R.layout.activity_create_sheet);
                     Toast.makeText(CreateSheet.this,
-                            "File with that name already exists", Toast.LENGTH_SHORT).show();
+                            getString(R.string.createsheet_error_name_already_taken), Toast.LENGTH_SHORT).show();
                 });
             }
 
@@ -54,7 +54,7 @@ public class CreateSheet extends AppCompatActivity {
             public void onSuccess(String value) {
                 CreateSheet.this.runOnUiThread(() ->
                         Toast.makeText(CreateSheet.this,
-                                "File created", Toast.LENGTH_SHORT).show());
+                                getString(R.string.createsheet_file_created), Toast.LENGTH_SHORT).show());
                 Intent intent = new Intent(CreateSheet.this, Authorization.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 CreateSheet.this.startActivity(intent);
@@ -65,7 +65,7 @@ public class CreateSheet extends AppCompatActivity {
                 CreateSheet.this.runOnUiThread(() -> {
                     CreateSheet.this.setContentView(R.layout.activity_create_sheet);
                     Toast.makeText(CreateSheet.this,
-                                "Failed to create file. Check your connection status", Toast.LENGTH_SHORT).show();
+                                getString(R.string.createsheet_error_general), Toast.LENGTH_SHORT).show();
                 });
             }
         };

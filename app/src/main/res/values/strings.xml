@@ -25,4 +25,14 @@
         Google Drive (Remember to remove it from your Google Drive Bin too!). You can also manually input time
         into Sheets files but it is recommended to use application for this.</string>
     <string name="about_title">About</string>
+    <string name="createsheet_title">Create Sheet</string>
+    <string name="createsheet_error_no_name">Enter longer Sheet name</string>
+    <string name="createsheet_error_name_already_taken">File with that name already exists</string>
+    <string name="createsheet_file_created">File created!</string>
+    <string name="createsheet_error_general">Failed to create file. Check your connection status</string>
+    <string name="createsheet_enter_name">Enter name of the Sheet</string>
+    <string name="createsheet_hint">Sheet name</string>
+    <string name="createsheet_create">Create</string>
+    <string name="createsheet_cancel">Cancel</string>
+
 </resources>
