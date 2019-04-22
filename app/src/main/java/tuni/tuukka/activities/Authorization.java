@@ -52,7 +52,7 @@ import tuni.tuukka.google.Token;
 
 /**
  * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
- * @version     20190323
+ * @version     20190422
  * @since       1.8
  *
  * Handles everything related to authorization of Google Account.
