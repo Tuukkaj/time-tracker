@@ -49,13 +49,6 @@ public class Timer extends AppCompatActivity {
         name = getIntent().getStringExtra(EXTRA_SHEETNAME);
         id = getIntent().getStringExtra(EXTRA_SHEETID);
 
-
-        if (getIntent().getBooleanExtra("serviceOn", false)) {
-            ((FloatingActionButton) findViewById(R.id.end_button)).setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close_black_24dp));
-        } else {
-            ((FloatingActionButton) findViewById(R.id.end_button)).setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_timer_white_24dp));
-        }
-
         if(name != null && id != null) {
             getSupportActionBar().setTitle(name.substring(13));
         }
@@ -177,6 +170,7 @@ public class Timer extends AppCompatActivity {
             String text = preferences.getString(PREF_START_TEXT,"");
 
             startTime();
+            changeButtonState();
 
             getSupportActionBar().setTitle(name.substring(13));
             ((TextView) findViewById(R.id.start_text)).setText(text);
