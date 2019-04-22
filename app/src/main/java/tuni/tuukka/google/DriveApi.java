@@ -49,7 +49,6 @@ public class DriveApi {
                         String name = object.getString("name");
                         String folderId = object.getString("id");
                         if(name.equalsIgnoreCase(APP_NAME)) {
-                            System.out.println("Name: " + name + " Id" + folderId);
                             checkReady.onSuccess(folderId);
                         } else {
                             checkReady.onNoFolderFound();
@@ -58,16 +57,10 @@ public class DriveApi {
                         checkReady.onNoFolderFound();
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
-                    System.out.println("1");
                     checkReady.onFail();
                 } catch (GeneralSecurityException e) {
-                    e.printStackTrace();
-                    System.out.println("2");
                     checkReady.onFail();
                 } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("3");
                     checkReady.onFail();
                 }
                 return null;
@@ -87,12 +80,8 @@ public class DriveApi {
                     Drive drive = DriveService.createDriveService(Token.getToken().get());
                     createFolder(drive);
                 } catch (IOException e) {
-                    System.out.println("1");
-                    e.printStackTrace();
                     onFail.onFail();
                 } catch (GeneralSecurityException e) {
-                    System.out.println("2");
-                    e.printStackTrace();
                     onFail.onFail();
                 }
                 return null;
@@ -138,7 +127,6 @@ public class DriveApi {
                         }
                     }
                     if(duplicateFiles) {
-                        System.out.println("DUPLICATE FILES FOUND");
                         sheetInterface.onFileAlreadyCreated();
                     } else if(folder != null) {
                         File file = createSheet(drive, name, folder.getId());
@@ -205,11 +193,9 @@ public class DriveApi {
                     List<File> files = drive.files().list().setQ("name contains 'time-tracker' and mimeType = 'application/vnd.google-apps.spreadsheet'").execute().getFiles();
                     listFiles.onSuccess(files);
                 }catch (IOException e) {
-                    System.out.println(1);
                     listFiles.onFail();
                     e.printStackTrace();
                 } catch (GeneralSecurityException e) {
-                    System.out.println(2);
                     listFiles.onFail();
                     e.printStackTrace();
                 }
