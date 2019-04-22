@@ -8,8 +8,19 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import tuni.tuukka.R;
-
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190422
+ * @since       1.8
+ *
+ * Used to change activity's content view to loading screen.
+ */
 public class LoadingScreenHelper {
+
+    /**
+     * Sets content view to loading screen in given activity.
+     * @param activity Activity to set content view to loading screen.
+     */
     public static void start(Activity activity)  {
         activity.setContentView(R.layout.loading_screen);
         ImageView view = (ImageView) activity.findViewById(R.id.loading);
