@@ -67,7 +67,7 @@ public class TimeList extends AppCompatActivity {
             public void onFail() {
                 TimeList.this.runOnUiThread(() -> {
                     TimeList.this.setContentView(R.layout.activity_time_list);
-                    Toast.makeText(TimeList.this, "Please try again later", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TimeList.this, getString(R.string.timelist_error_fail_general), Toast.LENGTH_SHORT).show();
                 });
             }
         };
