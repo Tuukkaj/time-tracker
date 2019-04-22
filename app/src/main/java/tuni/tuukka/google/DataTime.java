@@ -39,4 +39,18 @@ public class DataTime extends Data {
         this.category = category;
         date = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
     }
+
+    /**
+     * Sets parameters to class variables.
+     *
+     * @param time Time worked.
+     * @param category Category of work.
+     * @param info Target sheetId and range.
+     */
+    public DataTime(float time, String category, String date, SheetRequestsInfo info) {
+        super(info);
+        this.time = time;
+        this.category = category;
+        this.date = date;
+    }
 }

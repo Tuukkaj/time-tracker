@@ -1,5 +1,6 @@
 package tuni.tuukka.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.api.services.sheets.v4.model.AppendValuesResponse;
+
+import java.util.Calendar;
 
 import tuni.tuukka.R;
 import tuni.tuukka.google.DataTime;
@@ -28,6 +32,7 @@ public class ManualTimeInput extends AppCompatActivity {
     private FloatingActionButton addButton;
 
     private String id;
+    private Integer day, month, year;
     private int hours;
     private int minutes;
 
@@ -35,6 +40,12 @@ public class ManualTimeInput extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manualtimeinput);
+
+        day = new Integer(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
+        month = new Integer(Calendar.getInstance().get(Calendar.MONTH));
+        year = new Integer(Calendar.getInstance().get(Calendar.YEAR));
+
+        dateChanged();
 
         timeView = (TextView) findViewById(R.id.manualtimeinput_time);
         addButton = (FloatingActionButton) findViewById(R.id.manualtimeinput_addbutton);
@@ -49,6 +60,21 @@ public class ManualTimeInput extends AppCompatActivity {
         setOnChangeListener(R.id.manualtimeinput_hour, value -> hours = value);
         setOnChangeListener(R.id.manualtimeinput_minute, value -> minutes = value);
 
+    }
+
+    private void dateChanged() {
+        ((TextView) findViewById(R.id.manualtimeinput_current_date)).setText(dateToString());
+    }
+
+    private String dateToString() {
+        StringBuilder builder = new StringBuilder();
+
+        return builder.append(day.intValue() < 10? "0" + day.toString(): day.toString())
+                .append("-")
+                .append(month.intValue() < 10? "0" + month.toString():month.toString())
+                .append("-")
+                .append(year.toString())
+                .toString();
     }
 
     private void setTimeText(Integer hours, Integer minutes) {
@@ -82,10 +108,25 @@ public class ManualTimeInput extends AppCompatActivity {
         });
     }
 
+    public void timePickerClicked(View v) {
+        new DatePickerDialog(this, createDateSetListener(),
+                year.intValue(), month.intValue(), day.intValue()).show();
+    }
+
+    private DatePickerDialog.OnDateSetListener createDateSetListener() {
+        return (datePicker, year, month, day) -> {
+            ManualTimeInput.this.day = new Integer(day);
+            ManualTimeInput.this.month = new Integer(month);
+            ManualTimeInput.this.year = new Integer(year);
+
+            dateChanged();
+        };
+    }
+
     public void addClicked(View v) {
         String comment = ((EditText) findViewById(R.id.manualtimeinput_comment)).getText().toString();
         float decimalMinutes = minutes / 60f;
-        DataTime dataTime = new DataTime(Math.round((hours+decimalMinutes) * 100f) / 100f, comment, new SheetRequestsInfo(id, "work"));
+        DataTime dataTime = new DataTime(Math.round((hours+decimalMinutes) * 100f) / 100f, comment, dateToString(), new SheetRequestsInfo(id, "work"));
         SheetApi.appendSheet(dataTime, createInterface());
         setContentView(R.layout.loading_screen);
         ((ImageView) findViewById(R.id.loading)).setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
