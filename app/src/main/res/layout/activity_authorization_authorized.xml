@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20pt"
-            android:text="Timer"
+            android:text="@string/authorization_start_working"
             />
     </LinearLayout>
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20pt"
-            android:text="Add time"
+            android:text="@string/authorization_manual"
             />
     </LinearLayout>
 
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20pt"
-            android:text="Show time"
+            android:text="@string/authorization_show_work_time"
             />
     </LinearLayout>
 

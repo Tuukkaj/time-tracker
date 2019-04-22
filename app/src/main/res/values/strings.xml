@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">time-tracker</string>
-    <string name="authorization_manual">manual time input</string>
-    <string name="authorization_start_working">timer</string>
-    <string name="authorization_show_work_time">show work times</string>
+    <string name="app_name">Time Tracker</string>
+    <string name="authorization_manual">Input time</string>
+    <string name="authorization_start_working">Start timer</string>
+    <string name="authorization_show_work_time">Show time</string>
+    <string name="authorization_log_in">Log in</string>
+    <string name="authorization_switch_accounts">Switch accounts</string>
+    <string name="authorization_about">About</string>
     <string name="accouthelper_btn_getAccount">Get account</string>
     <string name="list_time_data_comment">Comment: </string>
     <string name="time_list_sum">All: </string>
