@@ -72,18 +72,18 @@ public class SheetList extends AppCompatActivity {
     private void setContentTitle(int mode) {
         switch (mode) {
             case SheetDataAdapter.MODE_TIMER: {
-                setTitle("Timer");
+                setTitle(getString(R.string.sheetlist_title_timer));
                 break;
             }
 
             case SheetDataAdapter.MODE_MANUAL_INPUT: {
-                setTitle("Manual time input");
+                setTitle(getString(R.string.sheetlist_title_time_input));
 
                 break;
             }
 
             case SheetDataAdapter.MODE_SHOW_TIME: {
-                setTitle("Show work time");
+                setTitle(getString(R.string.sheetlist_title_show_time));
 
                 break;
             }

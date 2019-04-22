@@ -11,7 +11,6 @@
     <string name="authorization_permission_google">This app needs to access your Google account (via Contacts)</string>
     <string name="authorization_error_google">Please install Google Play services from App store and relaunch app</string>
     <string name="authorization_error_general">Please try again</string>
-
     <string name="accouthelper_btn_getAccount">Get account</string>
     <string name="list_time_data_comment">Comment: </string>
     <string name="time_list_sum">All: </string>
@@ -49,4 +48,7 @@
     <string name="manualtimeinput_slider_minutes">Minutes</string>
     <string name="manualtimeinput_comment_hint">Spent time doing things such as...</string>
     <string name="manualtimeinput_default_time">00:00</string>
+    <string name="sheetlist_title_timer">Timer</string>
+    <string name="sheetlist_title_time_input">Time input</string>
+    <string name="sheetlist_title_show_time">Show time</string>
 </resources>
