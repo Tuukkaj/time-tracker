@@ -35,7 +35,7 @@ public class TimeList extends AppCompatActivity {
 
         getSupportActionBar().setTitle(name.substring(13));
 
-        SheetApi.readRange(new SheetRequestsInfo(id, "work"), createInterface());
+        SheetApi.readRange(new SheetRequestsInfo(id, SheetRequestsInfo.WORK_TAB), createInterface());
     }
 
     private DoAfter<List<List<Object>>> createInterface() {
