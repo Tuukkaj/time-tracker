@@ -126,7 +126,7 @@ public class Timer extends AppCompatActivity {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "time-tracker")
                 .setSmallIcon(R.drawable.ic_timer)
-                .setContentTitle("Started tracking time")
+                .setContentTitle(getString(R.string.notification_content))
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         Notification notification = builder.build();

@@ -55,6 +55,8 @@
     <string name="timelist_error_fail_general">Please try again later</string>
     <string name="timer_text_end">End</string>
     <string name="timer_text_start">Start</string>
+    <string name="timer_start">START</string>
+    <string name="timer_time">TIME</string>
     <string name="upload_error_general">Upload failed. Check connection</string>
     <string name="upload_success">Upload successful</string>
     <string name="upload_save">Save</string>
@@ -62,4 +64,5 @@
     <string name="upload_delete">Delete current session</string>
     <string name="upload_comment">Comment: </string>
     <string name="upload_comment_hint">I used my time on...</string>
+    <string name="notification_content">Started tracking time</string>
 </resources>

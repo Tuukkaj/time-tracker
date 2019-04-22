@@ -18,7 +18,7 @@
             <TextView android:id="@+id/timer-time-title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TIME"
+                android:text="@string/timer_time"
                 android:textSize="15pt"/>
             <TextView android:id="@+id/timer-time-text"
                 android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="15pt"
-                android:text="START"/>
+                android:text="@string/timer_start"/>
             <TextView android:id="@+id/start-text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
