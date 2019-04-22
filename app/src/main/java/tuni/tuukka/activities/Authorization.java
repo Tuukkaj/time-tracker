@@ -181,7 +181,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         TextView txtTimer = (TextView) findViewById(R.id.authorization_txt_timer);
 
         if (on) {
-            txtTimer.setText("Active timer");
+            txtTimer.setText(getString(R.string.authorization_timer_active));
             btnStart.setBackgroundTintList(getColorStateList(R.color.colorAccent));
             btnStart.setAnimation(AnimationUtils.loadAnimation(this, R.anim.rotation));
 
@@ -231,7 +231,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             return;
 
         } else if(!isDeviceOnline()) {
-            Toast.makeText(this, "Connect to internet", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.authorization_error_no_internet), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -262,7 +262,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
                 startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
             }
         } else {
-            EasyPermissions.requestPermissions(this, "This app needs to access your Google account (via Contacts)",
+            EasyPermissions.requestPermissions(this, getString(R.string.authorization_permission_google),
                     REQUEST_PERMISSION_GET_ACCOUNTS, Manifest.permission.GET_ACCOUNTS);
         }
     }
@@ -329,7 +329,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
         switch (requestCode) {
             case REQUEST_GOOGLE_PLAY_SERVICES:
                 if(requestCode != RESULT_OK) {
-                    Toast.makeText(this, "Please install Google Play services from App store. Then relaunch app.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.authorization_error_google), Toast.LENGTH_SHORT).show();
                 } else {
                     login();
                 }
@@ -441,7 +441,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             public void onFail() {
                 activity.runOnUiThread(() -> {
                     activity.recreate();
-                    Toast.makeText(activity, "Please try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, getString(R.string.authorization_error_general), Toast.LENGTH_SHORT).show();
                 });
                 AccountAuthorization.authorize(activity, credential);
             }

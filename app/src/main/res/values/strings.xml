@@ -6,6 +6,12 @@
     <string name="authorization_log_in">Log in</string>
     <string name="authorization_switch_accounts">Switch accounts</string>
     <string name="authorization_about">About</string>
+    <string name="authorization_timer_active">Active timer</string>
+    <string name="authorization_error_no_internet">Connect to internet and try again</string>
+    <string name="authorization_permission_google">This app needs to access your Google account (via Contacts)</string>
+    <string name="authorization_error_google">Please install Google Play services from App store and relaunch app</string>
+    <string name="authorization_error_general">Please try again</string>
+
     <string name="accouthelper_btn_getAccount">Get account</string>
     <string name="list_time_data_comment">Comment: </string>
     <string name="time_list_sum">All: </string>
