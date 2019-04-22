@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -31,7 +29,9 @@ public class SheetList extends AppCompatActivity {
             setContentView(R.layout.activity_sheet_list_empty);
         } else {
             setContentView(R.layout.activity_sheet_list);
-            setUpRecyclerView(createSheetInformation(), mode);
+
+            info.add(new SheetInformation("NULL", "EXTRA ITEM FOR BUTTON"));
+            setUpRecyclerView(info, mode);
         }
 
         setContentTitle(mode);
@@ -39,24 +39,6 @@ public class SheetList extends AppCompatActivity {
 
     public void createSheet(View view) {
         startActivity(new Intent(this, CreateSheet.class));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.sheet_list_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_add: {
-                startActivity(new Intent(this, CreateSheet.class));
-                break;
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private ArrayList<SheetInformation> createSheetInformation() {
