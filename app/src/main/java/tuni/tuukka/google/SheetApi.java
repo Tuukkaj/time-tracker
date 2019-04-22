@@ -48,20 +48,15 @@ public class SheetApi {
                                 .get(info.sheetID, info.range)
                                 .execute();
                         sheetInterface.onSuccess(response.getValues());
-                        System.out.println(response.getValues());
                     } else {
                         return null;
                     }
                 } catch (GoogleJsonResponseException e){
-                    e.printStackTrace();
-                    System.out.println("EXCPETION GoogleJsonResponseException");
                     sheetInterface.onFail();
                 }  catch (IOException e) {
                     sheetInterface.onFail();
-                    e.printStackTrace();
                 } catch (GeneralSecurityException e) {
                     sheetInterface.onFail();
-                    e.printStackTrace();
                 }
                 return null;
             }
@@ -90,15 +85,11 @@ public class SheetApi {
                         return null;
                     }
                 } catch (GoogleJsonResponseException e){
-                    e.printStackTrace();
-                    System.out.println("EXCPETION GoogleJsonResponseException");
                     doAfter.onFail();
                 }  catch (IOException e) {
                     doAfter.onFail();
-                    e.printStackTrace();
                 } catch (GeneralSecurityException e) {
                     doAfter.onFail();
-                    e.printStackTrace();
                 }
                 return null;
             }
@@ -166,7 +157,6 @@ public class SheetApi {
                     ClearValuesResponse response = sheets.spreadsheets()
                             .values().clear(info.sheetID, info.range,requestBody).execute();
 
-                    System.out.println(response);
                     doAfter.onSuccess(response);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -214,7 +204,6 @@ public class SheetApi {
                     Sheets sheets = SheetsService.createSheetService(Token.getToken().get());
                     BatchUpdateSpreadsheetResponse response =
                             sheets.spreadsheets().batchUpdate(sheetId, batchUpdate).execute();
-                    System.out.println(response);
                     doAfter.onSuccess(response.getSpreadsheetId());
                 } catch (IOException e) {
                     doAfter.onFail();
