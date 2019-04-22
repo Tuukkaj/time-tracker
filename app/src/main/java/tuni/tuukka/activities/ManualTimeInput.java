@@ -24,15 +24,48 @@ import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
 
+
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190422
+ * @since       1.8
+ *
+ * Activity for creating new Sheet file.
+ */
 public class ManualTimeInput extends AppCompatActivity {
+    /**
+     * Text view of time inputted by user
+     */
     private TextView timeView;
+
+    /**
+     * Add button from layout.
+     */
     private FloatingActionButton addButton;
 
+    /**
+     * Id of Sheet file in Google Drive.
+     */
     private String id;
+
+    /**
+     * Integers for day, month and year when time is inserted to Sheet. Modified by DatePicker in UI.
+     */
     private Integer day, month, year;
+
+    /**
+     * Hours worked by user. Modified by hours slider in UI.
+     */
     private int hours;
+
+    /**
+     * Minutes worked by user. Modified by minutes slider in UI.
+     */
     private int minutes;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,10 +92,17 @@ public class ManualTimeInput extends AppCompatActivity {
 
     }
 
+    /**
+     * Changes date text view to represent Integers day, month and year.
+     */
     private void dateChanged() {
         ((TextView) findViewById(R.id.manualtimeinput_current_date)).setText(dateToString());
     }
 
+    /**
+     * Creates date to use in Google Sheets and in date text view.
+     * @return String format of date created from Integers day, month and year.
+     */
     private String dateToString() {
         StringBuilder builder = new StringBuilder();
 
@@ -74,12 +114,22 @@ public class ManualTimeInput extends AppCompatActivity {
                 .toString();
     }
 
+    /**
+     * Sets time text in UI.
+     * @param hours Hours from hours slider.
+     * @param minutes Minutes from minutes slider.
+     */
     private void setTimeText(Integer hours, Integer minutes) {
         String hourText = hours < 10 ? "0" + hours : String.valueOf(hours);
         String minuteText = minutes < 10 ? "0" + minutes : String.valueOf(minutes);
         timeView.setText(hourText+":"+minuteText);
     }
 
+    /**
+     * Sets listener to given SeekBar. Sets time text view based on time in SeekBar
+     * @param id Id of  SeekBar
+     * @param set Interface for setting progress to ManualTimeInputs variables.
+     */
     public void setOnChangeListener(int id, SetValue set) {
         SeekBar bar = (SeekBar) findViewById(id);
 
@@ -105,11 +155,19 @@ public class ManualTimeInput extends AppCompatActivity {
         });
     }
 
+    /**
+     * Creates new DatePickerDialog.
+     * @param v Clicked view. Not in use.
+     */
     public void timePickerClicked(View v) {
         new DatePickerDialog(this, createDateSetListener(),
                 year.intValue(), month.intValue(), day.intValue()).show();
     }
 
+    /**
+     * Creates listener for DatePickerDialog. Sets picked values to Integers day, month and year.
+     * @return listener for DatePickerDialog.
+     */
     private DatePickerDialog.OnDateSetListener createDateSetListener() {
         return (datePicker, year, month, day) -> {
             ManualTimeInput.this.day = new Integer(day);
@@ -120,6 +178,10 @@ public class ManualTimeInput extends AppCompatActivity {
         };
     }
 
+    /**
+     * Tries to upload inserted date to Google Sheets. Sets content view to loading screen.
+     * @param v Clicked view. Not in use.
+     */
     public void addClicked(View v) {
         String comment = ((EditText) findViewById(R.id.manualtimeinput_comment)).getText().toString();
         float decimalMinutes = minutes / 60f;
@@ -130,6 +192,11 @@ public class ManualTimeInput extends AppCompatActivity {
     }
 
 
+    /**
+     * Creates interface for uploading data to Google Sheets. If upload is success starts Authorization
+     * activity and creates toast. If not recreates this activity and creates toast.
+     * @return
+     */
     private DoAfter<AppendValuesResponse> createInterface() {
         return new DoAfter<AppendValuesResponse>() {
             @Override
@@ -151,7 +218,14 @@ public class ManualTimeInput extends AppCompatActivity {
         };
     }
 
+    /**
+     * Interface for communicating with time sliders.
+     */
     private interface SetValue {
+        /**
+         * Sets slider value to variable.
+         * @param value Value of slider.
+         */
         void setValue(int value);
     }
 }
