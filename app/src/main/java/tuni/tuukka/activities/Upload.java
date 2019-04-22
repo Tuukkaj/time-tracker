@@ -21,11 +21,33 @@ import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190422
+ * @since       1.8
+ *
+ * Activity for uploading time data to Google Sheets.
+ */
 public class Upload extends AppCompatActivity {
+    /**
+     * Id of Sheet in Google Drive.
+     */
     private String id;
+
+    /**
+     * Name of Sheet in Google Drive.
+     */
     private String name;
+
+    /**
+     * Users time to be inserted to Google Sheets.
+     */
     private float time;
 
+    /**
+     * {@inheritDoc}
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +61,10 @@ public class Upload extends AppCompatActivity {
         ((TextView) findViewById(R.id.upload_time_spent)).setText("Time: " + time + "h");
     }
 
+    /**
+     * Tries to upload users time to Sheet. Starts loading screen.
+     * @param v View clicked. Not in use.
+     */
     public void clickUpload(View v) {
         String comment = ((EditText) findViewById(R.id.upload_comment_field)).getText().toString();
         DataTime data = new DataTime(time, comment, new SheetRequestsInfo(id, SheetRequestsInfo.WORK_TAB));
@@ -46,6 +72,12 @@ public class Upload extends AppCompatActivity {
         SheetApi.appendSheet(data, createDoAfter());
     }
 
+    /**
+     * Creates interface to react to uploading data to Sheet. If successful, starts activity
+     * Authorization and creates toast. If upload fails, recreates activity and creates toast informing
+     * user.
+     * @return Interface for reacting to response from upload.
+     */
     public DoAfter<AppendValuesResponse> createDoAfter() {
         return new DoAfter<AppendValuesResponse>() {
             @Override
@@ -72,10 +104,19 @@ public class Upload extends AppCompatActivity {
         };
     }
 
+    /**
+     * Finishes this activity.
+     * @param v View that was clicked. Not in use.
+     */
     public void clickCancel(View v) {
         finish();
     }
 
+    /**
+     * Deletes timer information from preferences and starts activity Authorization and removes
+     * activity stack.
+     * @param v View that was clicked. Not in use.
+     */
     public void clickDelete(View v) {
         PreferenceManager.getDefaultSharedPreferences(this).edit().clear().commit();
         ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
