@@ -53,4 +53,6 @@
     <string name="sheetlist_title_show_time">Show time</string>
     <string name="timelist_error_empty">Uh oh... You do not have any time information in this Sheet. Try Timer or Time input from main menu.</string>
     <string name="timelist_error_fail_general">Please try again later</string>
+    <string name="timer_text_end">End</string>
+    <string name="timer_text_start">Start</string>
 </resources>

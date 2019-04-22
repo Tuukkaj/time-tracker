@@ -110,10 +110,10 @@ public class Timer extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.timer_txt_button);
         if(saveTime) {
             button.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_close_black_24dp));
-            textView.setText("End");
+            textView.setText(getString(R.string.timer_text_end));
         } else {
             button.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_timer_white_24dp));
-            textView.setText("Start");
+            textView.setText(getString(R.string.timer_text_start));
         }
     }
 
