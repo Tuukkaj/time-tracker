@@ -20,9 +20,23 @@ import tuni.tuukka.google.DoAfter;
 import tuni.tuukka.google.SheetApi;
 import tuni.tuukka.google.SheetRequestsInfo;
 
+/**
+ * @author      Tuukka Juusela <tuukka.juusela@tuni.fi>
+ * @version     20190422
+ * @since       1.8
+ *
+ * Activity for showing Sheets time values.
+ */
 public class TimeList extends AppCompatActivity {
+
+    /**
+     * Recycler view for holding and showing Sheets time values.
+     */
     private RecyclerView recyclerView;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +50,12 @@ public class TimeList extends AppCompatActivity {
         SheetApi.readRange(new SheetRequestsInfo(id, SheetRequestsInfo.WORK_TAB), createInterface());
     }
 
+    /**
+     * Creates interface reacting to reading of files time information from Google Drive. If
+     * successful creates recycler view from information. If fails creates toast informing user of
+     * failure of reading.
+     * @return Interface for reacting to result of reading data from Google Sheets.
+     */
     private DoAfter<List<List<Object>>> createInterface() {
         return new DoAfter<List<List<Object>>>() {
             @Override
@@ -73,12 +93,21 @@ public class TimeList extends AppCompatActivity {
         };
     }
 
+    /**
+     * Starts activity Authorization and removes clears activity stack.
+     * @param v Clicked view. Not in use.
+     */
     public void clickBack(View v) {
         Intent intent = new Intent(this, Authorization.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
+    /**
+     * Calculates average time spent working on Sheet from parameter.
+     * @param values Sheets time information.
+     * @return Average of time spent working on a Sheet. Rounded to one decimal.
+     */
     private float calcAverage(List<SheetInformation> values) {
         float all = 0;
         int times = 0;
@@ -93,6 +122,11 @@ public class TimeList extends AppCompatActivity {
         return Math.round((all / times) * 10f) / 10f;
     }
 
+    /**
+     * Calculates sum of time spent working on Sheet from parameter.
+     * @param values Sheets time information.
+     * @return Sum of time spent working on a Sheet. Rounded to one decimal.
+     */
     private float calcSum(List<SheetInformation> values) {
         float all = 0;
 
@@ -105,6 +139,11 @@ public class TimeList extends AppCompatActivity {
         return Math.round(all * 10f) / 10f;
     }
 
+    /**
+     * Creates SheetInformation from parameter. If one data is in incorrect from it is skipped.
+     * @param values Values gotten from Google Sheets Api.
+     * @return SheetInformation list created from parameter.
+     */
     private ArrayList<SheetInformation> toSheetInformation(List<List<Object>> values) {
         ArrayList<SheetInformation> temp = new ArrayList<>();
         for (int i = 0; i < values.size(); i++) {
@@ -114,18 +153,37 @@ public class TimeList extends AppCompatActivity {
                         (String) values.get(i).get(1),
                         values.get(i).size() >= 3 ?  (String) values.get(i).get(2): ""));
             } catch (Exception e) {
-                e.printStackTrace();
             }
         }
 
         return temp;
     }
 
+    /**
+     * POJO for holding Sheets information.
+     */
     public class SheetInformation {
+        /**
+         * Time spent.
+         */
         public float time;
+
+        /**
+         * Date when time was recorded.
+         */
         public String date;
+
+        /**
+         * Comment of user about time.
+         */
         public String comment;
 
+        /**
+         * Sets parameters to variables.
+         * @param time Time spent.
+         * @param date Date when time was recorded.
+         * @param comment Comment of user about time.
+         */
         public SheetInformation(float time, String date, String comment) {
             this.time = time;
             this.date = date;
