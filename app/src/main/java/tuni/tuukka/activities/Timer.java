@@ -27,7 +27,6 @@ import java.util.Calendar;
 import tuni.tuukka.R;
 
 public class Timer extends AppCompatActivity {
-    private final static String TAG = "Timer";
     public final static String PREF_SHEETNAME = "sheetName";
     public final static String PREF_SHEETID = "sheetId";
     public final static String PREF_START = "start";
