@@ -24,12 +24,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Comment: "/>
+            android:text="@string/upload_comment"/>
         <EditText android:id="@+id/upload_comment-field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:hint=""/>
+            android:hint="@string/upload_comment_hint"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Back to timer"
+                android:text="@string/upload_back"
                 android:textSize="30dp"
                 android:layout_gravity="center_horizontal"
                 />
@@ -89,14 +89,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="delete sesssion"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:src="@drawable/ic_close_black_24dp"
                 android:onClick="clickDelete"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delete session"
+                android:text="@string/upload_delete"
                 android:textSize="30dp"
                 android:layout_gravity="center_horizontal"
                 />

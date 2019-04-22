@@ -53,7 +53,7 @@ public class Upload extends AppCompatActivity {
                 Upload.this.startActivity(new Intent(Upload.this, Authorization.class));
                 PreferenceManager.getDefaultSharedPreferences(Upload.this).edit().clear().commit();
                 ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
-                Upload.this.runOnUiThread(() -> Toast.makeText(Upload.this, "Upload successful", Toast.LENGTH_SHORT).show());
+                Upload.this.runOnUiThread(() -> Toast.makeText(Upload.this, getString(R.string.upload_success), Toast.LENGTH_SHORT).show());
             }
 
             @Override
@@ -66,7 +66,7 @@ public class Upload extends AppCompatActivity {
                     Upload.this.finish();
 
                     ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
-                    Toast.makeText(Upload.this, "Upload failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Upload.this, getString(R.string.upload_error_general), Toast.LENGTH_SHORT).show();
                 });
             }
         };
