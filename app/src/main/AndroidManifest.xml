@@ -29,7 +29,7 @@
             android:name=".activities.SheetList"
             android:parentActivityName=".activities.Authorization" />
         <activity
-            android:name=".activities.Timer"
+            android:name="tuni.tuukka.activities.Timer"
             android:parentActivityName=".activities.Authorization" />
         <activity
             android:name=".activities.Upload"
