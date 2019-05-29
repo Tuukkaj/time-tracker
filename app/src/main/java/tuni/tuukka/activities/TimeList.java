@@ -146,12 +146,14 @@ public class TimeList extends AppCompatActivity {
      */
     private ArrayList<SheetInformation> toSheetInformation(List<List<Object>> values) {
         ArrayList<SheetInformation> temp = new ArrayList<>();
-        for (int i = 0; i < values.size(); i++) {
+
+        for (int index = 0; index < values.size(); index++) {
             try {
                 temp.add(new SheetInformation(
-                        Float.parseFloat(String.valueOf(values.get(i).get(0)).replace(",",".")),
-                        (String) values.get(i).get(1),
-                        values.get(i).size() >= 3 ?  (String) values.get(i).get(2): ""));
+                        index,
+                        Float.parseFloat(String.valueOf(values.get(index).get(0)).replace(",",".")),
+                        (String) values.get(index).get(1),
+                        values.get(index).size() >= 3 ?  (String) values.get(index).get(2): ""));
             } catch (Exception e) {
             }
         }
@@ -179,12 +181,18 @@ public class TimeList extends AppCompatActivity {
         public String comment;
 
         /**
+         * Index of data entry in Sheets
+         */
+        public int index;
+
+        /**
          * Sets parameters to variables.
          * @param time Time spent.
          * @param date Date when time was recorded.
          * @param comment Comment of user about time.
          */
-        public SheetInformation(float time, String date, String comment) {
+        public SheetInformation(int index, float time, String date, String comment) {
+            this.index = index;
             this.time = time;
             this.date = date;
             this.comment = comment;
