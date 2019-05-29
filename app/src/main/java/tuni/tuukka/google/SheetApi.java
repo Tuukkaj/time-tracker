@@ -11,15 +11,19 @@ import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetRequest;
 import com.google.api.services.sheets.v4.model.BatchUpdateSpreadsheetResponse;
 import com.google.api.services.sheets.v4.model.ClearValuesRequest;
 import com.google.api.services.sheets.v4.model.ClearValuesResponse;
+import com.google.api.services.sheets.v4.model.DeleteRangeRequest;
 import com.google.api.services.sheets.v4.model.DeleteSheetRequest;
+import com.google.api.services.sheets.v4.model.GridRange;
 import com.google.api.services.sheets.v4.model.Request;
 import com.google.api.services.sheets.v4.model.SheetProperties;
+import com.google.api.services.sheets.v4.model.Spreadsheet;
 import com.google.api.services.sheets.v4.model.ValueRange;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,6 +61,53 @@ public class SheetApi {
                     sheetInterface.onFail();
                 } catch (GeneralSecurityException e) {
                     sheetInterface.onFail();
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    public static void deleteRow(String sheetId, int row, DoAfter<Void> doAfter) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try{
+                    if(Token.getToken().isPresent()) {
+                        Sheets service = SheetsService.createSheetService(Token.getToken().get());
+                        Spreadsheet spreadsheet = service.spreadsheets().get(sheetId).execute();
+                        int gridInt = spreadsheet.getSheets().get(0).getProperties().getSheetId();
+
+                        DeleteRangeRequest deleteRequest = new DeleteRangeRequest()
+                                .setRange(new GridRange()
+                                        .setSheetId(gridInt)
+                                        .setStartRowIndex(row)
+                                        .setEndRowIndex(row+1)
+                                        .setEndColumnIndex(null)
+                                        .setStartColumnIndex(null))
+                                .setShiftDimension("ROWS");
+
+                        BatchUpdateSpreadsheetRequest batchUpdate = new BatchUpdateSpreadsheetRequest();
+                        Request request = new Request().setDeleteRange(deleteRequest);
+                        batchUpdate.setRequests(Collections.singletonList(request));
+
+                        BatchUpdateSpreadsheetResponse response =
+                                service.spreadsheets().batchUpdate(sheetId, batchUpdate).execute();
+                        doAfter.onSuccess(null);
+
+                    } else {
+                        return null;
+                    }
+                } catch (GoogleJsonResponseException e){
+                    e.printStackTrace();
+                    doAfter.onFail();
+                }  catch (IOException e) {
+                    e.printStackTrace();
+
+                    doAfter.onFail();
+                } catch (GeneralSecurityException e) {
+                    e.printStackTrace();
+
+                    doAfter.onFail();
                 }
                 return null;
             }
