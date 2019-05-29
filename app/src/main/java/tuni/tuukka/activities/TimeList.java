@@ -34,6 +34,7 @@ public class TimeList extends AppCompatActivity {
      */
     private RecyclerView recyclerView;
 
+    private String sheetId;
     /**
      * {@inheritDoc}
      */
@@ -43,11 +44,25 @@ public class TimeList extends AppCompatActivity {
         LoadingScreenHelper.start(this);
 
         String name = getIntent().getStringExtra(SheetList.EXTRA_SHEETNAME);
-        String id = getIntent().getStringExtra(SheetList.EXTRA_SHEETID);
+        sheetId = getIntent().getStringExtra(SheetList.EXTRA_SHEETID);
 
         getSupportActionBar().setTitle(name.substring(13));
 
-        SheetApi.readRange(new SheetRequestsInfo(id, SheetRequestsInfo.WORK_TAB), createInterface());
+        SheetApi.readRange(new SheetRequestsInfo(sheetId, SheetRequestsInfo.WORK_TAB), createInterface());
+    }
+
+    private DoAfter<Void> createDeleteTimeInterface() {
+        return new DoAfter<Void>() {
+            @Override
+            public void onSuccess(Void value) {
+                TimeList.this.runOnUiThread(() -> TimeList.this.recreate());
+            }
+
+            @Override
+            public void onFail() {
+                TimeList.this.runOnUiThread(() -> TimeList.this.recreate());
+            }
+        };
     }
 
     /**
@@ -74,7 +89,7 @@ public class TimeList extends AppCompatActivity {
                         infos = toSheetInformation(value);
                         txtAll.setText(String.valueOf(calcSum(infos)) + "h");
                         txtAverage.setText(String.valueOf(calcAverage(infos)) + "h");
-                        recyclerView.setAdapter(new TimeDataAdapter(infos));
+                        recyclerView.setAdapter(new TimeDataAdapter(TimeList.this, sheetId, infos, createDeleteTimeInterface()));
                     } else {
                         TimeList.this.runOnUiThread(() -> {
                             TimeList.this.setContentView(R.layout.activity_timelist_empty);
