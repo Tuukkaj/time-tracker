@@ -90,8 +90,9 @@ public class TimeList extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                 });
 
-                TimeList.this.finish();
-                TimeList.this.startActivity(currentIntent);
+                Intent i = new Intent(TimeList.this, Authorization.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(i);
             }
         };
     }
