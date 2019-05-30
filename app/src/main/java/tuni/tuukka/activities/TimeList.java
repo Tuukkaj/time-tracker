@@ -34,6 +34,8 @@ public class TimeList extends AppCompatActivity {
      */
     private RecyclerView recyclerView;
 
+    private final String EXTRA_START_ANIMATION = "START_ANIMATION";
+
     private String sheetId;
     /**
      * {@inheritDoc}
@@ -41,10 +43,15 @@ public class TimeList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LoadingScreenHelper.start(this);
 
-        String name = getIntent().getStringExtra(SheetList.EXTRA_SHEETNAME);
-        sheetId = getIntent().getStringExtra(SheetList.EXTRA_SHEETID);
+        Bundle extras = getIntent().getExtras();
+
+        if (extras.getBoolean(EXTRA_START_ANIMATION, true)) {
+            LoadingScreenHelper.start(this);
+        }
+
+        String name = extras.getString(SheetList.EXTRA_SHEETNAME);
+        sheetId = extras.getString(SheetList.EXTRA_SHEETID);
 
         getSupportActionBar().setTitle(name.substring(13));
 
@@ -55,12 +62,20 @@ public class TimeList extends AppCompatActivity {
         return new DoAfter<Void>() {
             @Override
             public void onSuccess(Void value) {
-                TimeList.this.runOnUiThread(() -> TimeList.this.recreate());
+                TimeList.this.runOnUiThread(() -> {
+                    Intent currentIntent = TimeList.this.getIntent();
+                    currentIntent.putExtra(EXTRA_START_ANIMATION, false);
+                    TimeList.this.finish();
+                    TimeList.this.startActivity(currentIntent);
+                });
             }
 
             @Override
             public void onFail() {
-                TimeList.this.runOnUiThread(() -> TimeList.this.recreate());
+                Intent currentIntent = TimeList.this.getIntent();
+                currentIntent.putExtra(EXTRA_START_ANIMATION, false);
+                TimeList.this.finish();
+                TimeList.this.startActivity(currentIntent);
             }
         };
     }
