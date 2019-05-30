@@ -67,6 +67,13 @@ public class SheetApi {
         }.execute();
     }
 
+    /**
+     * Removes given row fro0m given sheet and gives results to given DoAfter interface
+     *
+     * @param sheetId Sheet id to remove row from
+     * @param row Row to remove
+     * @param doAfter Interface to react to results.
+     */
     public static void deleteRow(String sheetId, int row, DoAfter<Void> doAfter) {
         new AsyncTask<Void, Void, Void>() {
             @Override
