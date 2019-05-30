@@ -66,4 +66,6 @@
     <string name="upload_comment_hint">I used my time on...</string>
     <string name="notification_content">Started tracking time</string>
     <string name="error_general">Something went wrong. Relaunch application</string>
+    <string name="timelist_remove_data_success">Time entry removed</string>
+    <string name="timelist_remove_data_failure">Couldn\'t remove time entry</string>
 </resources>

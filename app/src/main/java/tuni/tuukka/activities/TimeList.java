@@ -65,6 +65,14 @@ public class TimeList extends AppCompatActivity {
                 TimeList.this.runOnUiThread(() -> {
                     Intent currentIntent = TimeList.this.getIntent();
                     currentIntent.putExtra(EXTRA_START_ANIMATION, false);
+
+                    TimeList.this.runOnUiThread(() -> {
+                        Toast.makeText(
+                                TimeList.this,
+                                TimeList.this.getString(R.string.timelist_remove_data_success),
+                                Toast.LENGTH_SHORT).show();
+                    });
+
                     TimeList.this.finish();
                     TimeList.this.startActivity(currentIntent);
                 });
@@ -74,6 +82,14 @@ public class TimeList extends AppCompatActivity {
             public void onFail() {
                 Intent currentIntent = TimeList.this.getIntent();
                 currentIntent.putExtra(EXTRA_START_ANIMATION, false);
+
+                TimeList.this.runOnUiThread(() -> {
+                    Toast.makeText(
+                            TimeList.this,
+                            TimeList.this.getString(R.string.timelist_remove_data_failure),
+                            Toast.LENGTH_SHORT).show();
+                });
+
                 TimeList.this.finish();
                 TimeList.this.startActivity(currentIntent);
             }
