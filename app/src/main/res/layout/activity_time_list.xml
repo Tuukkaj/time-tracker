@@ -42,7 +42,7 @@
         android:layout_height="2dp"
         android:layout_below="@+id/list_time_date"
         android:layout_marginHorizontal="5dp"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@color/colorAccent"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

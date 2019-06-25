@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_timer_white_24dp"
-            app:backgroundTint="@color/colorPrimaryDark"/>
+            app:backgroundTint="@color/colorPrimary"/>
         <TextView android:id="@+id/authorization_txt_timer"
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
             android:layout_gravity="center_horizontal"
             android:onClick="buttonClick"
             android:src="@drawable/ic_add_circle_outline_white_24dp"
-            app1:backgroundTint="@color/colorPrimaryDark"/>
+            app1:backgroundTint="@color/colorPrimary"/>
         <TextView
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_gravity="center_horizontal"
             android:onClick="buttonClick"
             android:src="@drawable/ic_list_black_24dp"
-            app2:backgroundTint="@color/colorPrimaryDark"/>
+            app2:backgroundTint="@color/colorPrimary"/>
         <TextView
             android:layout_marginLeft="5pt"
             android:layout_width="wrap_content"

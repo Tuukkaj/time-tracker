@@ -215,7 +215,7 @@ public class Authorization extends AppCompatActivity implements EasyPermissions.
             });
 
         } else {
-            btnStart.setBackgroundTintList(getColorStateList(R.color.colorPrimaryDark));
+            btnStart.setBackgroundTintList(getColorStateList(R.color.colorPrimary));
 
             btnStart.setOnClickListener(view -> {
                 Optional<String> token = Token.getToken();
