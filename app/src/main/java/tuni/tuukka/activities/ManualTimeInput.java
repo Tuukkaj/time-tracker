@@ -72,7 +72,7 @@ public class ManualTimeInput extends AppCompatActivity {
         setContentView(R.layout.activity_manualtimeinput);
 
         day = new Integer(Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
-        month = new Integer(Calendar.getInstance().get(Calendar.MONTH));
+        month = new Integer(Calendar.getInstance().get(Calendar.MONTH)) + 1;
         year = new Integer(Calendar.getInstance().get(Calendar.YEAR));
 
         dateChanged();
